@@ -269,6 +269,9 @@ section { display: grid; gap: 20px; scroll-margin-top: 24px; min-width: 0; }
 .app-icon.c3 { background: var(--md-tertiary); color: var(--md-on-tertiary); border-radius: 18px 18px 18px 4px; }
 .app-icon.c4 { background: var(--md-secondary-container); color: var(--md-on-secondary-container); }
 .app-icon.c5 { background: var(--md-primary-container); color: var(--md-on-primary-container); border-radius: 50% 50% 16px 16px; }
+.app-icon { position: relative; overflow: hidden; }
+.app-icon img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: var(--md-surface-container-lowest); }
+.app-icon.app-icon:has(img) { border-radius: 28%; box-shadow: 0 0 0 1px var(--md-outline-variant); }
 .app-title { display: grid; min-width: 0; }
 .pkg { font: 400 .75rem/1rem var(--md-font-mono); color: var(--md-on-surface-variant); overflow-wrap: anywhere; }
 .app-card ul.points { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
@@ -461,7 +464,7 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
     <div class="work">
 
       <article class="app-card feature">
-        <div class="app-icon" aria-hidden="true">C2</div>
+        <div class="app-icon" aria-hidden="true">C2<img src="/img/apps/ergdata.png" alt="" onerror="this.remove()"></div>
         <div class="app-body">
           <div class="app-title">
             <span class="label-m">Concept2 · via Angry Nerds · 2025–now</span>
@@ -482,7 +485,7 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
 
       <article class="app-card card-elevated">
         <div class="app-head">
-          <div class="app-icon" aria-hidden="true">R</div>
+          <div class="app-icon" aria-hidden="true">R<img src="/img/apps/reserved.png" alt="" onerror="this.remove()"></div>
           <div class="app-title"><h3 class="title-l">Reserved</h3><span class="pkg">com.lppsa.app.reserved</span></div>
         </div>
         <span class="label-m muted">LPP · via Future Mind</span>
@@ -492,7 +495,7 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
 
       <article class="app-card card-elevated">
         <div class="app-head">
-          <div class="app-icon c3" aria-hidden="true">S</div>
+          <div class="app-icon c3" aria-hidden="true">S<img src="/img/apps/sinsay.png" alt="" onerror="this.remove()"></div>
           <div class="app-title"><h3 class="title-l">Sinsay</h3><span class="pkg">com.lppsa.app.sinsay</span></div>
         </div>
         <span class="label-m muted">LPP · via Future Mind</span>
@@ -502,7 +505,7 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
 
       <article class="app-card card-elevated">
         <div class="app-head">
-          <div class="app-icon c2" aria-hidden="true">BS</div>
+          <div class="app-icon c2" aria-hidden="true">BS<img src="/img/apps/bigstar.png" alt="" onerror="this.remove()"></div>
           <div class="app-title"><h3 class="title-l">Big Star</h3><span class="pkg">pl.bigstarltd.app</span></div>
         </div>
         <span class="label-m muted">Big Star · via Future Mind</span>
@@ -512,7 +515,7 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
 
       <article class="app-card card-elevated">
         <div class="app-head">
-          <div class="app-icon c5" aria-hidden="true">MC</div>
+          <div class="app-icon c5" aria-hidden="true">MC<img src="/img/apps/mirrorcheck.png" alt="" onerror="this.remove()"></div>
           <div class="app-title"><h3 class="title-l">MirrorCheck SDK</h3><span class="pkg">Embedded in the Play and Plus apps</span></div>
         </div>
         <span class="label-m muted">via Future Mind</span>
@@ -521,7 +524,7 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
 
       <article class="app-card card-elevated">
         <div class="app-head">
-          <div class="app-icon c4" aria-hidden="true">MB</div>
+          <div class="app-icon c4" aria-hidden="true">MB<img src="/img/apps/mrbuggy.png" alt="" onerror="this.remove()"></div>
           <div class="app-title"><h3 class="title-l">MrBuggy</h3><span class="pkg">pl.testingcup.mrbuggymobilestore</span></div>
         </div>
         <span class="label-m muted">TestingCup · via 21CN</span>
@@ -531,7 +534,7 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
 
       <article class="app-card card-elevated">
         <div class="app-head">
-          <div class="app-icon c3" aria-hidden="true">ST</div>
+          <div class="app-icon c3" aria-hidden="true">ST<img src="/img/apps/software-testing.png" alt="" onerror="this.remove()"></div>
           <div class="app-title"><h3 class="title-l">Software Testing App</h3><span class="pkg">com.testerzy.eduittraining</span></div>
         </div>
         <span class="label-m muted">via 21CN</span>
@@ -542,7 +545,7 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
     </div>
 
     <div class="side">
-      <div class="app-icon" aria-hidden="true">T</div>
+      <div class="app-icon" aria-hidden="true">T<img src="/img/apps/tablescribe.png" alt="" onerror="this.remove()"></div>
       <div>
         <span class="label-m">Side project</span>
         <h3 class="title-l">Tablescribe</h3>
