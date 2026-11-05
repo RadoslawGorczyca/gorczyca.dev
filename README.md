@@ -1,8 +1,8 @@
 # gorczyca.dev
 
-Personal site of Radosław Gorczyca, Senior Android Developer. Static HTML, deployed with Cloudflare Pages.
+Personal site of Radosław Gorczyca, Senior Android Developer. Static HTML, deployed on Cloudflare.
 
-- `/` – CV and portfolio (`index.html`)
-- `/tablescribe/` – Tablescribe waitlist landing and survey
+- `/` – CV and portfolio (`public/index.html`)
+- `/tablescribe/` – Tablescribe waitlist landing and survey (`public/tablescribe/index.html`)
 
-No build step: in Cloudflare Pages set the framework preset to "None", leave the build command empty and use `/` as the output directory.
+Deployed as a Cloudflare Worker with static assets (`wrangler.jsonc` serves `public/`). No build step: the build command is empty and the deploy command is `npx wrangler deploy`. Every push to `main` deploys.
