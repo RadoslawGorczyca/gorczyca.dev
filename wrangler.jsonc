@@ -12,7 +12,7 @@
     {
       "binding": "DB",
       "database_name": "tablescribe-waitlist",
-      "database_id": "PASTE_DATABASE_ID_HERE"
+      "database_id": "bf93984a-29ff-4347-b9cf-cc304d93c6b9"
     }
   ],
   "observability": { "enabled": true }
