@@ -398,7 +398,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
 
           <div class="form-foot">
             <button class="btn" type="submit" id="submit">Join the waitlist</button>
-            <small>We'll email you when the beta opens. No spam, unsubscribe anytime.</small>
+            <small>We'll email you when the beta opens. No spam, unsubscribe anytime. We only use your answers to plan Tablescribe and contact you about the beta. To have them deleted, email gorczyca.it@gmail.com.</small>
           </div>
           <p class="err" id="err" hidden></p>
         </form>
@@ -419,8 +419,8 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
 
 <script>
 (function () {
-  // Set this to a Formspree-compatible endpoint (e.g. https://formspree.io/f/xxxx) when the page is deployed.
-  var FORM_ENDPOINT = "";
+  // Signups are stored by the gorczyca.dev Worker (src/worker.js) in Cloudflare D1.
+  var FORM_ENDPOINT = "/api/waitlist";
 
   var form = document.getElementById("wl");
   var err = document.getElementById("err");

@@ -1,8 +1,19 @@
 {
   "name": "gorczyca-dev",
+  "main": "src/worker.js",
   "compatibility_date": "2026-06-01",
   "assets": {
     "directory": "./public",
-    "not_found_handling": "404-page"
-  }
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "tablescribe-waitlist",
+      "database_id": "PASTE_DATABASE_ID_HERE"
+    }
+  ],
+  "observability": { "enabled": true }
 }
