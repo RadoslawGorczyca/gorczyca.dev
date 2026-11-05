@@ -4,480 +4,787 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Radosław Gorczyca</title>
-<meta name="description" content="Radosław Gorczyca — Senior Android Developer from Poland. Kotlin, Jetpack Compose and apps that talk to hardware. ErgData, Reserved, Sinsay, Big Star.">
-<meta property="og:title" content="Radosław Gorczyca — Senior Android Developer">
+<meta name="description" content="Radosław Gorczyca, Senior Android Developer from Poland. Kotlin, Jetpack Compose and apps that talk to hardware. ErgData, Reserved, Sinsay, Big Star.">
+<meta property="og:title" content="Radosław Gorczyca, Senior Android Developer">
 <meta property="og:description" content="Kotlin, Jetpack Compose and apps that talk to hardware. Building Android apps since 2018.">
 <meta property="og:url" content="https://gorczyca.dev/">
 <meta property="og:type" content="profile">
+<meta name="theme-color" content="#F8FBF1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#11140F" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://gorczyca.dev/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232340B8'/%3E%3Ctext x='32' y='44' font-family='Arial,sans-serif' font-weight='700' font-size='30' text-anchor='middle' fill='white'%3ERG%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='20' fill='%233B6939'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-weight='700' font-size='26' text-anchor='middle' fill='white'%3ERG%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=apps,arrow_outward,code,content_copy,dark_mode,history,light_mode,location_on,mail,music_note,person,pets,sailing,school,star,translate,work,workspace_premium&display=block">
 <style>
-/* Layout: left identity rail (sticky on desktop) + right column of CV sections; stacks to one column on phones. */
+/* Layout: Material 3 adaptive layout. Expanded (>=840px): navigation rail on the left, content pane.
+   Compact: top app bar, content, bottom navigation bar. Tokens follow md.sys.* naming from a green seed. */
 :root {
-  --bg: #F2F4F6;
-  --surface: #FFFFFF;
-  --ink: #141A24;
-  --muted: #5A6475;
-  --line: #D9DEE6;
-  --accent: #2340B8;
-  --accent-soft: #E3E8FA;
-  --ok: #1F7A4D;
-  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
-  --body: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --md-primary: #3B6939; --md-on-primary: #FFFFFF;
+  --md-primary-container: #BCF0B4; --md-on-primary-container: #002204;
+  --md-secondary: #52634F; --md-on-secondary: #FFFFFF;
+  --md-secondary-container: #D5E8CF; --md-on-secondary-container: #111F0F;
+  --md-tertiary: #38656A; --md-on-tertiary: #FFFFFF;
+  --md-tertiary-container: #BCEBF0; --md-on-tertiary-container: #002023;
+  --md-surface: #F8FBF1; --md-on-surface: #191D17; --md-on-surface-variant: #424940;
+  --md-surface-container-lowest: #FFFFFF; --md-surface-container-low: #F2F5EB;
+  --md-surface-container: #ECEFE6; --md-surface-container-high: #E7E9E0; --md-surface-container-highest: #E1E4DA;
+  --md-outline: #72796F; --md-outline-variant: #C2C8BD;
+  --md-inverse-surface: #2E322B; --md-inverse-on-surface: #EFF2E8; --md-inverse-primary: #A1D39A;
+  --md-shadow: rgba(0, 0, 0, .18);
+
+  --md-font-brand: "Google Sans Flex", "Google Sans", "Roboto Flex", Roboto, system-ui, sans-serif;
+  --md-font-plain: "Roboto Flex", Roboto, "Google Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --md-font-mono: "Roboto Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  --md-shape-xs: 4px; --md-shape-sm: 8px; --md-shape-md: 12px; --md-shape-lg: 16px;
+  --md-shape-xl: 28px; --md-shape-xxl: 48px; --md-shape-full: 999px;
+  --md-ease: cubic-bezier(.2, 0, 0, 1); --md-ease-spring: cubic-bezier(.34, 1.4, .64, 1);
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0F131A; --surface: #171C25; --ink: #E7EAF0; --muted: #98A2B3;
-    --line: #2A3140; --accent: #8EA4FF; --accent-soft: #1E2745; --ok: #5FD39A;
+    --md-primary: #A1D39A; --md-on-primary: #0A390F;
+    --md-primary-container: #235024; --md-on-primary-container: #BCF0B4;
+    --md-secondary: #B9CCB4; --md-on-secondary: #253423;
+    --md-secondary-container: #3A4B38; --md-on-secondary-container: #D5E8CF;
+    --md-tertiary: #A0CFD4; --md-on-tertiary: #00363B;
+    --md-tertiary-container: #1F4D52; --md-on-tertiary-container: #BCEBF0;
+    --md-surface: #11140F; --md-on-surface: #E1E4DA; --md-on-surface-variant: #C2C8BD;
+    --md-surface-container-lowest: #0C0F0A; --md-surface-container-low: #191D17;
+    --md-surface-container: #1D211B; --md-surface-container-high: #282B25; --md-surface-container-highest: #323630;
+    --md-outline: #8C9388; --md-outline-variant: #424940;
+    --md-inverse-surface: #E1E4DA; --md-inverse-on-surface: #2E322B; --md-inverse-primary: #3B6939;
+    --md-shadow: rgba(0, 0, 0, .5);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0F131A; --surface: #171C25; --ink: #E7EAF0; --muted: #98A2B3;
-  --line: #2A3140; --accent: #8EA4FF; --accent-soft: #1E2745; --ok: #5FD39A;
+  --md-primary: #A1D39A; --md-on-primary: #0A390F;
+  --md-primary-container: #235024; --md-on-primary-container: #BCF0B4;
+  --md-secondary: #B9CCB4; --md-on-secondary: #253423;
+  --md-secondary-container: #3A4B38; --md-on-secondary-container: #D5E8CF;
+  --md-tertiary: #A0CFD4; --md-on-tertiary: #00363B;
+  --md-tertiary-container: #1F4D52; --md-on-tertiary-container: #BCEBF0;
+  --md-surface: #11140F; --md-on-surface: #E1E4DA; --md-on-surface-variant: #C2C8BD;
+  --md-surface-container-lowest: #0C0F0A; --md-surface-container-low: #191D17;
+  --md-surface-container: #1D211B; --md-surface-container-high: #282B25; --md-surface-container-highest: #323630;
+  --md-outline: #8C9388; --md-outline-variant: #424940;
+  --md-inverse-surface: #E1E4DA; --md-inverse-on-surface: #2E322B; --md-inverse-primary: #3B6939;
+  --md-shadow: rgba(0, 0, 0, .5);
   color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font: 400 1rem/1.6 var(--body);
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-block: env(safe-area-inset-top, 0px) env(safe-area-inset-bottom, 0px);
+  background: var(--md-surface);
+  color: var(--md-on-surface);
+  font: 400 1rem/1.5rem var(--md-font-plain);
+  letter-spacing: .03125rem;
+  -webkit-font-smoothing: antialiased;
 }
-a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-a:hover { text-decoration-thickness: 2px; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
-h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-family: var(--md-font-brand); text-wrap: balance; }
+a { color: var(--md-primary); }
+:focus-visible { outline: 3px solid var(--md-primary); outline-offset: 2px; }
 
-.page {
-  max-width: 1120px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
-  gap: 72px;
-  padding-block: 72px 56px;
-}
+/* Type scale */
+.display-l { font: 500 clamp(2.75rem, 7vw, 4.5rem)/1.02 var(--md-font-brand); letter-spacing: -.02em; }
+.display-s { font: 500 2.25rem/2.75rem var(--md-font-brand); letter-spacing: 0; }
+.headline-l { font: 400 2rem/2.5rem var(--md-font-brand); }
+.headline-s { font: 400 1.5rem/2rem var(--md-font-brand); }
+.title-l { font: 500 1.375rem/1.75rem var(--md-font-brand); }
+.title-m { font: 500 1rem/1.5rem var(--md-font-brand); letter-spacing: .009375rem; }
+.body-l { font: 400 1rem/1.5rem var(--md-font-plain); letter-spacing: .03125rem; }
+.body-m { font: 400 .875rem/1.25rem var(--md-font-plain); letter-spacing: .015625rem; }
+.body-s { font: 400 .75rem/1rem var(--md-font-plain); letter-spacing: .025rem; }
+.label-l { font: 500 .875rem/1.25rem var(--md-font-brand); letter-spacing: .00625rem; }
+.label-m { font: 500 .75rem/1rem var(--md-font-brand); letter-spacing: .03125rem; }
+.muted { color: var(--md-on-surface-variant); }
 
-/* ---------- Identity rail ---------- */
-.rail { position: sticky; top: 48px; align-self: start; display: flex; flex-direction: column; gap: 28px; }
-.status {
-  display: inline-flex; align-items: center; gap: 8px; width: fit-content;
-  font: 500 .8125rem/1 var(--body); color: var(--ok);
-  padding: 7px 12px; border: 1px solid currentColor; border-radius: 999px;
+.icon {
+  font-family: "Material Symbols Rounded";
+  font-weight: normal; font-style: normal; font-size: 24px; line-height: 1;
+  display: inline-block; white-space: nowrap; direction: ltr;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  -webkit-font-feature-settings: "liga"; font-feature-settings: "liga";
+  flex: none; overflow: hidden; width: 1em; user-select: none;
 }
-.status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
-.name {
-  font-weight: 800; font-size: clamp(2.6rem, 5vw, 3.5rem); line-height: .98; letter-spacing: -.02em;
-}
-.name span { display: block; }
-.role { font: 600 1.125rem/1.35 var(--body); margin: 0; }
-.pitch { margin: 0; color: var(--muted); max-width: 34ch; }
-.meta { display: grid; gap: 6px; font-size: .9375rem; color: var(--muted); margin: 0; padding: 0; list-style: none; }
-.contact { display: grid; gap: 10px; }
-.contact-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.email {
-  font: 500 .9375rem/1 var(--mono); color: var(--ink); text-decoration: none;
-  padding: 11px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
-  overflow-wrap: anywhere;
-}
-.email:hover { border-color: var(--accent); }
+.icon.filled { font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24; }
+.icon.s18 { font-size: 18px; }
+
+/* State layer + ripple */
+.state { position: relative; overflow: hidden; isolation: isolate; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.state::before { content: ""; position: absolute; inset: 0; background: currentColor; opacity: 0; transition: opacity .2s var(--md-ease); z-index: -1; pointer-events: none; }
+.state:hover::before { opacity: .08; }
+.state:focus-visible::before, .state:active::before { opacity: .12; }
+.ripple-wave { position: absolute; border-radius: 50%; background: currentColor; opacity: .16; transform: scale(0); pointer-events: none; z-index: -1; animation: ripple .55s var(--md-ease) forwards; }
+@keyframes ripple { to { transform: scale(1); opacity: 0; } }
+
+/* ---------- Buttons ---------- */
 .btn {
-  font: 500 .875rem/1 var(--body); color: var(--accent); background: transparent; cursor: pointer;
-  border: 1px solid var(--line); border-radius: 8px; padding: 11px 14px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 40px; padding: 0 24px; border-radius: var(--md-shape-full);
+  border: 0; text-decoration: none; white-space: nowrap;
+  font: 500 .875rem/1.25rem var(--md-font-brand); letter-spacing: .00625rem;
+  transition: border-radius .25s var(--md-ease), box-shadow .2s var(--md-ease);
 }
-.btn:hover { border-color: var(--accent); }
-.links { display: flex; gap: 18px; flex-wrap: wrap; font-weight: 500; }
-.nav { display: grid; gap: 4px; border-top: 1px solid var(--line); padding-top: 20px; }
-.nav a { color: var(--muted); text-decoration: none; font-size: .9375rem; width: fit-content; }
-.nav a:hover { color: var(--accent); }
+.btn:active { border-radius: var(--md-shape-md); }
+.btn.has-icon { padding-left: 16px; }
+.btn-filled { background: var(--md-primary); color: var(--md-on-primary); }
+.btn-filled:hover { box-shadow: 0 1px 3px var(--md-shadow); }
+.btn-tonal { background: var(--md-secondary-container); color: var(--md-on-secondary-container); }
+.btn-outlined { background: transparent; color: var(--md-primary); box-shadow: inset 0 0 0 1px var(--md-outline); }
+.btn-text { background: transparent; color: var(--md-primary); padding: 0 12px; }
+.btn-text.has-icon { padding-left: 12px; padding-right: 16px; }
+.btn-lg { height: 56px; padding: 0 28px; font-size: 1rem; }
+.btn-lg.has-icon { padding-left: 24px; }
 
-/* ---------- Main column ---------- */
-main { display: grid; gap: 72px; min-width: 0; }
-section { display: grid; gap: 24px; min-width: 0; scroll-margin-top: 32px; }
-.eyebrow {
-  font: 500 .75rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
-  display: flex; align-items: center; gap: 12px;
+.icon-btn {
+  width: 40px; height: 40px; border-radius: var(--md-shape-full); border: 0;
+  display: inline-grid; place-items: center; background: transparent; color: var(--md-on-surface-variant);
 }
-.eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--line); }
-.lede { font-size: 1.1875rem; line-height: 1.55; margin: 0; max-width: 62ch; }
-.lede strong { font-weight: 600; }
-.prose { margin: 0; max-width: 65ch; color: var(--muted); }
 
-/* Highlights */
-.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
-.fact { background: var(--surface); padding: 20px; display: grid; gap: 4px; align-content: start; }
-.fact b { font: 700 1.75rem/1.1 var(--display); font-variant-numeric: tabular-nums; }
-.fact span { font-size: .875rem; color: var(--muted); }
+/* ---------- Chips ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.chip {
+  display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 16px;
+  border-radius: var(--md-shape-sm); box-shadow: inset 0 0 0 1px var(--md-outline-variant);
+  font: 500 .875rem/1.25rem var(--md-font-brand); color: var(--md-on-surface-variant); background: transparent;
+}
+.chip .icon { font-size: 18px; color: var(--md-primary); margin-left: -8px; }
+.chip.tonal { box-shadow: none; background: var(--md-surface-container-high); color: var(--md-on-surface); }
+.chip.status { box-shadow: none; background: var(--md-primary); color: var(--md-on-primary); }
+.chip.status .icon { color: inherit; }
 
-/* Selected work */
+/* ---------- Navigation rail (expanded) ---------- */
+.rail {
+  position: fixed; inset: 0 auto 0 0; z-index: 20;
+  width: calc(96px + env(safe-area-inset-left, 0px));
+  padding: calc(24px + env(safe-area-inset-top, 0px)) 0 calc(24px + env(safe-area-inset-bottom, 0px)) env(safe-area-inset-left, 0px);
+  background: var(--md-surface-container);
+  display: flex; flex-direction: column; align-items: center; gap: 40px;
+}
+.fab {
+  width: 56px; height: 56px; border-radius: var(--md-shape-lg); border: 0;
+  display: grid; place-items: center; text-decoration: none;
+  background: var(--md-primary-container); color: var(--md-on-primary-container);
+  box-shadow: 0 1px 3px var(--md-shadow), 0 4px 8px 3px color-mix(in srgb, var(--md-shadow) 40%, transparent);
+  transition: border-radius .3s var(--md-ease-spring);
+}
+.fab:hover { border-radius: 22px; }
+.rail-items { display: grid; gap: 12px; }
+.dest {
+  display: grid; justify-items: center; gap: 4px; width: 80px;
+  text-decoration: none; color: var(--md-on-surface-variant); font: 500 .75rem/1rem var(--md-font-brand); letter-spacing: .03125rem;
+}
+.dest .pill {
+  width: 56px; height: 32px; border-radius: var(--md-shape-full);
+  display: grid; place-items: center; position: relative; overflow: hidden;
+  transition: background-color .25s var(--md-ease);
+}
+.dest .pill::before { content: ""; position: absolute; inset: 0; background: currentColor; opacity: 0; transition: opacity .2s; }
+.dest:hover .pill::before { opacity: .08; }
+.dest[aria-current="true"] { color: var(--md-on-surface); }
+.dest[aria-current="true"] .pill { background: var(--md-secondary-container); color: var(--md-on-secondary-container); }
+.dest[aria-current="true"] .icon { font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24; }
+.rail .icon-btn { margin-top: auto; }
+
+/* ---------- Top app bar + bottom nav bar (compact) ---------- */
+.topbar, .navbar { display: none; }
+
+/* ---------- Content ---------- */
+.content {
+  margin-left: calc(96px + env(safe-area-inset-left, 0px));
+  padding-left: 24px;
+  padding-right: max(24px, env(safe-area-inset-right, 0px));
+  padding-block: calc(24px + env(safe-area-inset-top, 0px)) calc(48px + env(safe-area-inset-bottom, 0px));
+}
+.pane { max-width: 1040px; margin: 0 auto; display: grid; gap: 56px; }
+section { display: grid; gap: 20px; scroll-margin-top: 24px; min-width: 0; }
+.section-head { display: flex; align-items: center; gap: 12px; }
+.section-head .icon { color: var(--md-primary); }
+
+/* Hero */
+.hero {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: center;
+  padding: clamp(28px, 5vw, 56px); border-radius: var(--md-shape-xxl);
+  background: var(--md-primary-container); color: var(--md-on-primary-container);
+}
+.hero-text { display: grid; gap: 20px; min-width: 0; }
+.hero .headline-s { color: var(--md-on-primary-container); opacity: .85; max-width: 32ch; }
+.hero .chips .chip:not(.status) { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--md-on-primary-container) 30%, transparent); color: var(--md-on-primary-container); }
+.hero .chips .chip:not(.status) .icon { color: var(--md-on-primary-container); }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero .btn-outlined { color: var(--md-on-primary-container); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--md-on-primary-container) 45%, transparent); }
+.hero .btn-filled { background: var(--md-primary); color: var(--md-on-primary); }
+.avatar { width: clamp(140px, 18vw, 220px); aspect-ratio: 1; max-width: 100%; }
+.avatar svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.avatar .shape { fill: var(--md-primary); transform-origin: 50% 50%; }
+.avatar text { fill: var(--md-on-primary); font: 500 30px var(--md-font-brand); letter-spacing: -.5px; }
+@media (prefers-reduced-motion: no-preference) {
+  .avatar .shape { animation: spin 40s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+}
+
+/* About */
+.about { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 16px; }
+.card { border-radius: var(--md-shape-xl); padding: 24px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.card-filled { background: var(--md-surface-container-highest); }
+.card-low { background: var(--md-surface-container-low); }
+.card-outlined { background: var(--md-surface); box-shadow: inset 0 0 0 1px var(--md-outline-variant); }
+.card-elevated { background: var(--md-surface-container-low); box-shadow: 0 1px 2px var(--md-shadow), 0 1px 3px 1px color-mix(in srgb, var(--md-shadow) 50%, transparent); }
+.about .body-l { max-width: 62ch; }
+.stats { display: grid; gap: 12px; }
+.stat { display: flex; align-items: baseline; gap: 16px; padding: 20px 24px; border-radius: var(--md-shape-xl); background: var(--md-surface-container); }
+.stat:nth-child(2) { border-radius: var(--md-shape-lg) var(--md-shape-xxl) var(--md-shape-lg) var(--md-shape-xxl); background: var(--md-secondary-container); color: var(--md-on-secondary-container); }
+.stat:nth-child(3) { background: var(--md-tertiary-container); color: var(--md-on-tertiary-container); }
+.stat b { font: 500 2.25rem/2.75rem var(--md-font-brand); font-variant-numeric: tabular-nums; flex: none; }
+.stat:first-child b { color: var(--md-primary); }
+
+/* Work */
 .work { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.app {
-  background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
-  padding: 22px; display: grid; gap: 10px; align-content: start; min-width: 0;
+.app-card { display: grid; gap: 12px; align-content: start; padding: 24px; border-radius: var(--md-shape-xl); min-width: 0; }
+.app-card.feature {
+  grid-column: 1 / -1; grid-template-columns: auto minmax(0, 1fr); column-gap: 24px;
+  background: var(--md-tertiary-container); color: var(--md-on-tertiary-container);
+  border-radius: var(--md-shape-xxl);
 }
-.app.feature { grid-column: 1 / -1; border-color: var(--accent); }
-.app-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
-.app h3 { font-size: 1.375rem; font-weight: 700; }
-.app .who { font-size: .8125rem; color: var(--muted); }
-.pkg { font: 400 .8125rem/1.3 var(--mono); color: var(--accent); overflow-wrap: anywhere; }
-.app p { margin: 0; color: var(--muted); font-size: .9375rem; }
-.app ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: .9375rem; display: grid; gap: 4px; }
-.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 0; padding: 0; list-style: none; }
-.tags li { font: 500 .75rem/1 var(--body); padding: 6px 9px; border-radius: 6px; background: var(--accent-soft); color: var(--ink); }
-.app .more { font-size: .875rem; font-weight: 500; margin-top: 2px; width: fit-content; }
+.app-card.feature .app-body { display: grid; gap: 12px; min-width: 0; }
+.app-card.feature .muted, .app-card.feature .pkg { color: var(--md-on-tertiary-container); opacity: .8; }
+.app-card.feature .chip { background: color-mix(in srgb, var(--md-on-tertiary-container) 10%, transparent); box-shadow: none; color: var(--md-on-tertiary-container); }
+.app-card.feature .btn-text { color: var(--md-on-tertiary-container); }
+.app-head { display: flex; gap: 16px; align-items: center; min-width: 0; }
+.app-icon {
+  width: 56px; height: 56px; flex: none; display: grid; place-items: center;
+  border-radius: 30%; font: 600 1.25rem/1 var(--md-font-brand);
+  background: var(--md-primary); color: var(--md-on-primary);
+}
+.feature .app-icon { width: 96px; height: 96px; font-size: 2rem; border-radius: 32%; background: var(--md-tertiary); color: var(--md-on-tertiary); }
+.app-icon.c2 { background: var(--md-secondary); color: var(--md-on-secondary); border-radius: 50%; }
+.app-icon.c3 { background: var(--md-tertiary); color: var(--md-on-tertiary); border-radius: 18px 18px 18px 4px; }
+.app-icon.c4 { background: var(--md-secondary-container); color: var(--md-on-secondary-container); }
+.app-icon.c5 { background: var(--md-primary-container); color: var(--md-on-primary-container); border-radius: 50% 50% 16px 16px; }
+.app-title { display: grid; min-width: 0; }
+.pkg { font: 400 .75rem/1rem var(--md-font-mono); color: var(--md-on-surface-variant); overflow-wrap: anywhere; }
+.app-card ul.points { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.app-card .btn-text { justify-self: start; margin-left: -12px; }
 
-/* Experience timeline */
-.timeline { list-style: none; margin: 0; padding: 0; display: grid; }
-.job { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 24px; padding-block: 24px; border-top: 1px solid var(--line); }
-.job:first-child { border-top: 0; padding-top: 0; }
-.when { font: 400 .8125rem/1.5 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 4px; }
-.job h3 { font-size: 1.25rem; font-weight: 700; }
-.job .title { margin: 2px 0 10px; font-weight: 500; color: var(--muted); font-size: .9375rem; }
-.job ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
-.job li::marker { color: var(--accent); }
+.side {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 20px; align-items: center;
+  padding: 24px; border-radius: var(--md-shape-xl);
+  background: var(--md-secondary-container); color: var(--md-on-secondary-container);
+}
+.side .muted { color: var(--md-on-secondary-container); opacity: .8; }
+.side .app-icon { background: var(--md-secondary); color: var(--md-on-secondary); border-radius: 50%; }
+
+/* Experience list */
+.list { list-style: none; margin: 0; padding: 8px 0; border-radius: var(--md-shape-xl); background: var(--md-surface-container-low); }
+.li { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 16px; padding: 16px 24px 16px 16px; }
+.li + .li { border-top: 1px solid var(--md-outline-variant); }
+.li-lead { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--md-primary-container); color: var(--md-on-primary-container); }
+.li:first-child .li-lead { background: var(--md-primary); color: var(--md-on-primary); }
+.li-body { display: grid; gap: 4px; min-width: 0; }
+.li-body ul { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 4px; color: var(--md-on-surface-variant); }
+.li-trail { font: 500 .75rem/1rem var(--md-font-brand); letter-spacing: .03125rem; color: var(--md-on-surface-variant); white-space: nowrap; padding-top: 4px; font-variant-numeric: tabular-nums; }
+.badge-now { display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: var(--md-shape-full); background: var(--md-primary); color: var(--md-on-primary); margin-left: 8px; vertical-align: 2px; }
 
 /* Skills */
-.skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; margin: 0; }
-.skills div { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 16px; padding-block: 12px; border-top: 1px solid var(--line); }
-.skills dt { font: 500 .75rem/1.6 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding-top: 1px; }
-.skills dd { margin: 0; font-size: .9375rem; }
+.skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.skill-group { display: grid; gap: 12px; padding: 20px 24px 24px; border-radius: var(--md-shape-xl); background: var(--md-surface-container); }
 
-/* Side project */
-.side {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: center;
-  padding: 24px; border-radius: 12px; background: var(--accent-soft);
-}
-.side h3 { font-size: 1.375rem; font-weight: 700; }
-.side p { margin: 6px 0 0; color: var(--muted); }
-.side a.cta {
-  font: 600 .9375rem/1 var(--body); text-decoration: none; color: var(--bg); background: var(--accent);
-  padding: 13px 18px; border-radius: 8px; white-space: nowrap;
-}
-.side a.cta:hover { filter: brightness(1.1); }
-
-/* Education + languages */
-.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
-.two h3 { font-size: 1.0625rem; font-weight: 700; }
-.two p, .two ul { margin: 6px 0 0; color: var(--muted); font-size: .9375rem; }
-.two ul { padding-left: 18px; display: grid; gap: 4px; }
+/* Education */
+.edu { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.edu .card .icon { color: var(--md-primary); }
 
 /* Off the keyboard */
 .offline { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.offline div { border-top: 2px solid var(--ink); padding-top: 12px; }
-.offline h3 { font-size: 1.0625rem; font-weight: 700; }
-.offline p { margin: 6px 0 0; color: var(--muted); font-size: .9375rem; }
+.hobby { display: grid; gap: 12px; padding: 24px; background: var(--md-surface-container-low); border-radius: var(--md-shape-xl); }
+.hobby .blob { width: 56px; height: 56px; display: grid; place-items: center; background: var(--md-secondary-container); color: var(--md-on-secondary-container); }
+.hobby:nth-child(1) .blob { border-radius: 50% 50% 50% 12px; }
+.hobby:nth-child(2) .blob { border-radius: 20px; background: var(--md-tertiary-container); color: var(--md-on-tertiary-container); }
+.hobby:nth-child(3) .blob { border-radius: 50%; background: var(--md-primary-container); color: var(--md-on-primary-container); }
 
-footer {
-  grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 24px;
-  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: .875rem; color: var(--muted);
-}
+footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-top: 8px; color: var(--md-on-surface-variant); }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 920px) {
-  .page { grid-template-columns: minmax(0, 1fr); gap: 56px; padding-block: 40px 40px; }
-  .rail { position: static; }
-  .nav { display: none; }
-  .pitch { max-width: 60ch; }
+/* Extended FAB + snackbar */
+.efab {
+  position: fixed; z-index: 30;
+  right: calc(24px + env(safe-area-inset-right, 0px)); bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  display: inline-flex; align-items: center; gap: 12px; height: 56px; padding: 0 20px 0 16px;
+  border-radius: var(--md-shape-lg); border: 0; text-decoration: none;
+  background: var(--md-tertiary-container); color: var(--md-on-tertiary-container);
+  font: 500 .875rem/1.25rem var(--md-font-brand);
+  box-shadow: 0 1px 3px var(--md-shadow), 0 4px 8px 3px color-mix(in srgb, var(--md-shadow) 40%, transparent);
+  transition: border-radius .3s var(--md-ease-spring);
 }
-@media (max-width: 640px) {
-  main { gap: 56px; }
-  .facts { grid-template-columns: minmax(0, 1fr); }
-  .work, .skills, .two, .offline { grid-template-columns: minmax(0, 1fr); }
-  .job { grid-template-columns: minmax(0, 1fr); gap: 6px; }
-  .skills div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
-  .side { grid-template-columns: minmax(0, 1fr); }
-  .side a.cta { width: fit-content; }
+.efab:hover { border-radius: 22px; }
+.snackbar {
+  position: fixed; z-index: 40; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  transform: translate(-50%, 16px); opacity: 0; pointer-events: none;
+  min-height: 48px; display: flex; align-items: center; padding: 0 16px; max-width: calc(100vw - 32px);
+  border-radius: var(--md-shape-xs); background: var(--md-inverse-surface); color: var(--md-inverse-on-surface);
+  box-shadow: 0 3px 8px var(--md-shadow);
+  transition: transform .3s var(--md-ease), opacity .2s var(--md-ease);
 }
-@media (prefers-reduced-motion: no-preference) {
-  .app, .btn, .email { transition: border-color .15s ease; }
+.snackbar.show { transform: translate(-50%, 0); opacity: 1; }
+
+/* ---------- Medium + compact windows ---------- */
+@media (max-width: 1100px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .avatar { order: -1; width: 128px; }
+  .about { grid-template-columns: minmax(0, 1fr); }
+  .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .stat { flex-direction: column; gap: 4px; }
+  .edu { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 839px) {
+  .rail, .efab { display: none; }
+  .topbar {
+    display: flex; align-items: center; gap: 8px; position: sticky; top: 0; z-index: 20;
+    height: calc(64px + env(safe-area-inset-top, 0px));
+    padding: env(safe-area-inset-top, 0px) max(8px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px));
+    background: var(--md-surface); transition: background-color .2s var(--md-ease);
+  }
+  .topbar.scrolled { background: var(--md-surface-container); }
+  .topbar .title-l { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .navbar {
+    display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+    position: fixed; inset: auto 0 0 0; z-index: 20;
+    padding: 12px max(0px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(0px, env(safe-area-inset-left, 0px));
+    background: var(--md-surface-container);
+  }
+  .navbar .dest { width: auto; }
+  .navbar .dest .pill { width: 56px; height: 32px; }
+  .content {
+    margin-left: 0;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 8px calc(120px + env(safe-area-inset-bottom, 0px));
+  }
+  section { scroll-margin-top: 80px; }
+  .pane { gap: 48px; }
+  .hero { border-radius: var(--md-shape-xl); gap: 24px; }
+  .work, .skills, .offline { grid-template-columns: minmax(0, 1fr); }
+  .app-card.feature { grid-template-columns: minmax(0, 1fr); row-gap: 16px; border-radius: var(--md-shape-xl); }
+  .feature .app-icon { width: 72px; height: 72px; font-size: 1.5rem; }
+  .side { grid-template-columns: auto minmax(0, 1fr); }
+  .side .btn { grid-column: 1 / -1; justify-self: start; }
+}
+@media (max-width: 599px) {
+  .stats, .edu { grid-template-columns: minmax(0, 1fr); }
+  .stat { flex-direction: row; gap: 16px; }
+  .li { grid-template-columns: 40px minmax(0, 1fr); }
+  .li-trail { grid-column: 2; grid-row: 1; padding-top: 0; }
+  .li-body { grid-column: 2; }
+  .li-lead { grid-row: 1 / span 2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 @media print {
-  .nav, .btn, .status { display: none; }
-  .rail { position: static; }
+  .rail, .topbar, .navbar, .efab, .snackbar, #theme-toggle, #theme-toggle-m { display: none !important; }
+  .content { margin: 0; padding: 0; }
 }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <aside class="rail">
-    <span class="status">Open to Senior Android roles</span>
-    <h1 class="name"><span>Radosław</span><span>Gorczyca</span></h1>
-    <div>
-      <p class="role">Senior Android Developer</p>
-      <p class="pitch">Kotlin and Jetpack Compose. Apps for millions of shoppers, and apps that talk to hardware over Bluetooth.</p>
+<nav class="rail" aria-label="Sections">
+  <a class="fab state ripple" href="mailto:gorczyca.it@gmail.com" aria-label="Email Radosław"><span class="icon">mail</span></a>
+  <div class="rail-items">
+    <a class="dest" href="#about" aria-current="true"><span class="pill"><span class="icon">person</span></span>About</a>
+    <a class="dest" href="#work"><span class="pill"><span class="icon">apps</span></span>Work</a>
+    <a class="dest" href="#experience"><span class="pill"><span class="icon">history</span></span>Experience</a>
+    <a class="dest" href="#skills"><span class="pill"><span class="icon">code</span></span>Skills</a>
+    <a class="dest" href="#education"><span class="pill"><span class="icon">school</span></span>Education</a>
+  </div>
+  <button class="icon-btn state ripple" id="theme-toggle" type="button" aria-label="Switch theme"><span class="icon">dark_mode</span></button>
+</nav>
+
+<header class="topbar" id="topbar">
+  <span class="title-l">Radosław Gorczyca</span>
+  <button class="icon-btn state ripple" id="theme-toggle-m" type="button" aria-label="Switch theme"><span class="icon">dark_mode</span></button>
+  <a class="icon-btn state ripple" href="mailto:gorczyca.it@gmail.com" aria-label="Email Radosław"><span class="icon">mail</span></a>
+</header>
+
+<div class="content">
+<main class="pane">
+
+  <section class="hero" id="about" aria-labelledby="name">
+    <div class="hero-text">
+      <ul class="chips">
+        <li class="chip status"><span class="icon filled">work</span>Open to Senior Android roles</li>
+      </ul>
+      <h1 class="display-l" id="name">Radosław<br>Gorczyca</h1>
+      <p class="headline-s">Senior Android Developer. Kotlin and Jetpack Compose, apps for millions of shoppers, and apps that talk to hardware over Bluetooth.</p>
+      <ul class="chips">
+        <li class="chip"><span class="icon">location_on</span>Katowice area, Poland · remote</li>
+        <li class="chip"><span class="icon">translate</span>Polish · English</li>
+      </ul>
+      <div class="actions">
+        <a class="btn btn-filled btn-lg has-icon state ripple" href="mailto:gorczyca.it@gmail.com"><span class="icon">mail</span>gorczyca.it@gmail.com</a>
+        <button class="btn btn-tonal btn-lg has-icon state ripple" id="copy-email" type="button"><span class="icon">content_copy</span>Copy email</button>
+      </div>
+      <div class="actions">
+        <a class="btn btn-outlined has-icon state ripple" href="https://www.linkedin.com/in/radoslawgorczyca" target="_blank" rel="me noopener"><span class="icon s18">arrow_outward</span>LinkedIn</a>
+        <a class="btn btn-outlined has-icon state ripple" href="https://github.com/RadoslawGorczyca" target="_blank" rel="me noopener"><span class="icon s18">arrow_outward</span>GitHub</a>
+      </div>
     </div>
-    <ul class="meta">
-      <li>Katowice area, Poland · remote</li>
-      <li>Polish (native) · English (professional)</li>
-    </ul>
-    <div class="contact">
-      <div class="contact-row">
-        <a class="email" id="email" href="mailto:gorczyca.it@gmail.com">gorczyca.it@gmail.com</a>
-        <button class="btn" id="copy-email" type="button">Copy</button>
+    <div class="avatar" aria-hidden="true">
+      <svg viewBox="0 0 100 100"><path class="shape" d="M50.0 1.0 L52.5 1.6 L54.9 3.3 L57.0 5.8 L58.8 8.5 L60.5 10.9 L62.1 12.7 L64.0 13.5 L66.3 13.5 L68.9 12.8 L72.0 11.9 L75.2 11.2 L78.2 11.1 L80.8 12.0 L82.6 13.8 L83.6 16.4 L83.8 19.5 L83.6 22.8 L83.2 25.9 L83.2 28.5 L83.8 30.5 L85.2 32.0 L87.5 33.3 L90.3 34.5 L93.3 35.9 L95.9 37.7 L97.7 39.9 L98.3 42.3 L97.8 45.0 L96.2 47.6 L94.0 50.0 L91.7 52.2 L89.7 54.2 L88.6 56.1 L88.4 58.2 L89.1 60.5 L90.4 63.1 L91.8 66.0 L92.9 69.1 L93.2 72.0 L92.4 74.5 L90.6 76.4 L88.0 77.6 L84.8 78.2 L81.6 78.4 L78.6 78.6 L76.3 79.2 L74.6 80.4 L73.5 82.3 L72.7 85.0 L72.0 88.1 L71.0 91.2 L69.5 93.9 L67.5 95.7 L65.1 96.4 L62.3 95.9 L59.5 94.5 L56.8 92.7 L54.3 90.8 L52.1 89.5 L50.0 89.0 L47.9 89.5 L45.7 90.8 L43.2 92.7 L40.5 94.5 L37.7 95.9 L34.9 96.4 L32.5 95.7 L30.5 93.9 L29.0 91.2 L28.0 88.1 L27.3 85.0 L26.5 82.3 L25.4 80.4 L23.7 79.2 L21.4 78.6 L18.4 78.4 L15.2 78.2 L12.0 77.6 L9.4 76.4 L7.6 74.5 L6.8 72.0 L7.1 69.1 L8.2 66.0 L9.6 63.1 L10.9 60.5 L11.6 58.2 L11.4 56.1 L10.3 54.2 L8.3 52.2 L6.0 50.0 L3.8 47.6 L2.2 45.0 L1.7 42.3 L2.3 39.9 L4.1 37.7 L6.7 35.9 L9.7 34.5 L12.5 33.3 L14.8 32.0 L16.2 30.5 L16.8 28.5 L16.8 25.9 L16.4 22.8 L16.2 19.5 L16.4 16.4 L17.4 13.8 L19.2 12.0 L21.8 11.1 L24.8 11.2 L28.0 11.9 L31.1 12.8 L33.7 13.5 L36.0 13.5 L37.9 12.7 L39.5 10.9 L41.2 8.5 L43.0 5.8 L45.1 3.3 L47.5 1.6 L50.0 1.0Z"/><text x="50" y="61" text-anchor="middle">RG</text></svg>
+    </div>
+  </section>
+
+  <section aria-labelledby="about-h">
+    <div class="section-head"><span class="icon">person</span><h2 class="headline-l" id="about-h">About</h2></div>
+    <div class="about">
+      <div class="card card-low">
+        <p class="body-l">I build Android apps in Kotlin and have been doing it commercially since 2018. I've worked on e-commerce apps used by millions (Reserved, Sinsay, Big Star) and now on ErgData, Concept2's companion app that connects to rowing machines and bikes over Bluetooth Low Energy.</p>
+        <p class="body-l muted">I care about performance, crash-free rates and code a team can keep changing for years. I'm comfortable being the person the client talks to: on several projects I represented the Android team, ran technical decisions and mentored junior developers. Lately I'm spending a lot of time with Kotlin Multiplatform and AI-assisted development workflows.</p>
       </div>
-      <div class="links">
-        <a href="https://www.linkedin.com/in/radoslawgorczyca" rel="me noopener" target="_blank">LinkedIn</a>
-        <a href="https://github.com/RadoslawGorczyca" rel="me noopener" target="_blank">GitHub</a>
+      <div class="stats">
+        <div class="stat"><b>2018</b><span class="body-m">building Android apps commercially</span></div>
+        <div class="stat"><b>8+</b><span class="body-m">apps shipped to Google Play</span></div>
+        <div class="stat"><b>Millions</b><span class="body-m">of users on the e-commerce apps I worked on</span></div>
       </div>
     </div>
-    <nav class="nav" aria-label="Sections">
-      <a href="#about">About</a>
-      <a href="#work">Selected work</a>
-      <a href="#experience">Experience</a>
-      <a href="#skills">Skills</a>
-      <a href="#education">Education</a>
-    </nav>
-  </aside>
+  </section>
 
-  <main>
+  <section id="work" aria-labelledby="work-h">
+    <div class="section-head"><span class="icon">apps</span><h2 class="headline-l" id="work-h">Selected work</h2></div>
+    <div class="work">
 
-    <section id="about" aria-labelledby="about-h">
-      <h2 class="eyebrow" id="about-h">About</h2>
-      <p class="lede">I build Android apps in <strong>Kotlin</strong> and have been doing it commercially since 2018. I've worked on e-commerce apps used by millions (<strong>Reserved</strong>, <strong>Sinsay</strong>, <strong>Big Star</strong>) and now on <strong>ErgData</strong>, Concept2's companion app that connects to rowing machines and bikes over Bluetooth Low Energy.</p>
-      <p class="prose">I care about performance, crash-free rates and code a team can keep changing for years. I'm comfortable being the person the client talks to: on several projects I represented the Android team, ran technical decisions and mentored junior developers. Lately I'm spending a lot of time with Kotlin Multiplatform and AI-assisted development workflows.</p>
-      <div class="facts">
-        <div class="fact"><b>2018</b><span>building Android apps commercially</span></div>
-        <div class="fact"><b>8+</b><span>apps shipped to Google Play</span></div>
-        <div class="fact"><b>Millions</b><span>of users on the e-commerce apps I worked on</span></div>
-      </div>
-    </section>
-
-    <section id="work" aria-labelledby="work-h">
-      <h2 class="eyebrow" id="work-h">Selected work</h2>
-      <div class="work">
-
-        <article class="app feature">
-          <div class="app-head">
-            <h3>ErgData</h3>
-            <span class="who">Concept2 · via Angry Nerds · 2025–now</span>
+      <article class="app-card feature">
+        <div class="app-icon" aria-hidden="true">C2</div>
+        <div class="app-body">
+          <div class="app-title">
+            <span class="label-m">Concept2 · via Angry Nerds · 2025–now</span>
+            <h3 class="headline-l">ErgData</h3>
+            <span class="pkg">com.concept2.ergdata</span>
           </div>
-          <span class="pkg">com.concept2.ergdata</span>
-          <p>The official companion app for Concept2 RowErg, SkiErg and BikeErg. It pairs with the PM5 performance monitor and records every workout.</p>
-          <ul>
+          <p class="body-l">The official companion app for Concept2 RowErg, SkiErg and BikeErg. It pairs with the PM5 performance monitor and records every workout.</p>
+          <ul class="points body-m">
             <li>Bluetooth LE communication with PM5 monitors, including connection recovery mid-workout</li>
             <li>Multiplayer race mode: a LibGDX game view embedded in a Jetpack Compose screen</li>
             <li>Health Connect integration; migration from LiveData to StateFlow</li>
             <li>ViewModel test coverage with MockK and Turbine; GitHub Actions automation for the PR workflow</li>
           </ul>
-          <ul class="tags"><li>BLE</li><li>Compose</li><li>LibGDX</li><li>Health Connect</li><li>Hilt</li><li>Coroutines</li></ul>
-          <a class="more" href="https://play.google.com/store/apps/details?id=com.concept2.ergdata" target="_blank" rel="noopener">Google Play</a>
-        </article>
-
-        <article class="app">
-          <div class="app-head">
-            <h3>Reserved</h3>
-            <span class="who">LPP · via Future Mind</span>
-          </div>
-          <span class="pkg">com.lppsa.app.reserved</span>
-          <p>E-commerce app for the Polish fashion brand. Feature work, maintenance and support for a multi-million user base.</p>
-          <a class="more" href="https://play.google.com/store/apps/details?id=com.lppsa.app.reserved" target="_blank" rel="noopener">Google Play</a>
-        </article>
-
-        <article class="app">
-          <div class="app-head">
-            <h3>Sinsay</h3>
-            <span class="who">LPP · via Future Mind</span>
-          </div>
-          <span class="pkg">com.lppsa.app.sinsay</span>
-          <p>E-commerce app for LPP's Sinsay brand. Feature development, maintenance and support.</p>
-          <a class="more" href="https://play.google.com/store/apps/details?id=com.lppsa.app.sinsay" target="_blank" rel="noopener">Google Play</a>
-        </article>
-
-        <article class="app">
-          <div class="app-head">
-            <h3>Big Star</h3>
-            <span class="who">Big Star · via Future Mind</span>
-          </div>
-          <span class="pkg">pl.bigstarltd.app</span>
-          <p>Shopping app for the denim brand. I acted as the de facto Android lead, owning technical decisions and client communication.</p>
-          <a class="more" href="https://play.google.com/store/apps/details?id=pl.bigstarltd.app" target="_blank" rel="noopener">Google Play</a>
-        </article>
-
-        <article class="app">
-          <div class="app-head">
-            <h3>MirrorCheck SDK</h3>
-            <span class="who">via Future Mind</span>
-          </div>
-          <span class="pkg">Embedded in the Play and Plus apps</span>
-          <p>An Android library that checks the condition of a phone's display, used to verify screens for phone insurance.</p>
-        </article>
-
-        <article class="app">
-          <div class="app-head">
-            <h3>MrBuggy</h3>
-            <span class="who">TestingCup · via 21CN</span>
-          </div>
-          <span class="pkg">pl.testingcup.mrbuggymobilestore</span>
-          <p>A deliberately buggy app full of tasks for manual testers, built for the TestingCup 2020 championship, plus a public demo version.</p>
-          <a class="more" href="https://play.google.com/store/apps/details?id=pl.testingcup.mrbuggymobilestore" target="_blank" rel="noopener">Google Play</a>
-        </article>
-
-      </div>
-
-      <div class="side">
-        <div>
-          <span class="eyebrow" style="display:block">Side project</span>
-          <h3>Tablescribe</h3>
-          <p>A platform for tabletop RPG groups that I'm building right now. Join the waitlist and help shape it.</p>
+          <ul class="chips"><li class="chip">BLE</li><li class="chip">Compose</li><li class="chip">LibGDX</li><li class="chip">Health Connect</li><li class="chip">Hilt</li><li class="chip">Coroutines</li></ul>
+          <a class="btn btn-text has-icon state ripple" href="https://play.google.com/store/apps/details?id=com.concept2.ergdata" target="_blank" rel="noopener"><span class="icon s18">arrow_outward</span>Google Play</a>
         </div>
-        <a class="cta" href="/tablescribe/">See Tablescribe</a>
-      </div>
-    </section>
+      </article>
 
-    <section id="experience" aria-labelledby="exp-h">
-      <h2 class="eyebrow" id="exp-h">Experience</h2>
-      <ol class="timeline" reversed>
-        <li class="job">
-          <div class="when">May 2025 – now</div>
-          <div>
-            <h3>Angry Nerds</h3>
-            <p class="title">Android Developer</p>
-            <ul>
-              <li>Working with international clients on requirements and solutions</li>
-              <li>Building apps that connect directly to hardware (Concept2 ErgData, BLE)</li>
-              <li>Focus on performance optimization and a high crash-free rate</li>
-            </ul>
-          </div>
-        </li>
-        <li class="job">
-          <div class="when">Feb 2021 – May 2025</div>
-          <div>
-            <h3>Future Mind</h3>
-            <p class="title">Android Developer</p>
-            <ul>
-              <li>Development, maintenance and support of multi-million user apps (Reserved, Sinsay, Big Star)</li>
-              <li>Acted as the de facto Android lead on Big Star</li>
-              <li>Built the MirrorCheck screen-inspection SDK used inside the Play and Plus apps</li>
-              <li>Represented the Android team to clients as the main point of contact and made key technical decisions</li>
-              <li>Took part in product design, analysis and planning in Scrum teams</li>
-            </ul>
-          </div>
-        </li>
-        <li class="job">
-          <div class="when">Jan 2020 – Feb 2021</div>
-          <div>
-            <h3>21CN</h3>
-            <p class="title">Android Developer</p>
-            <ul>
-              <li>Built Zapłać Mi (debt tracking among friends), MrBuggy and the Software Testing App</li>
-              <li>Delivered features with MVVM and mentored a junior developer</li>
-            </ul>
-          </div>
-        </li>
-        <li class="job">
-          <div class="when">Feb 2018 – Jan 2020</div>
-          <div>
-            <h3>Ebicom</h3>
-            <p class="title">Junior Android Developer</p>
-            <ul>
-              <li>Projects for European clients, including CRM-AutoPartner, an app for field sales reps</li>
-              <li>Worked closely with UX designers in a fast-moving startup environment</li>
-            </ul>
-          </div>
-        </li>
-        <li class="job">
-          <div class="when">Jul 2016</div>
-          <div>
-            <h3>CINiBA, Katowice</h3>
-            <p class="title">Web Applications Developer</p>
-            <ul>
-              <li>Worked on a system for managing the academic library network</li>
-            </ul>
-          </div>
-        </li>
-      </ol>
-    </section>
-
-    <section id="skills" aria-labelledby="skills-h">
-      <h2 class="eyebrow" id="skills-h">Skills</h2>
-      <dl class="skills">
-        <div><dt>Languages</dt><dd>Kotlin, Java</dd></div>
-        <div><dt>UI</dt><dd>Jetpack Compose, Android Views, Navigation</dd></div>
-        <div><dt>Architecture</dt><dd>MVVM, Clean Architecture, modularization</dd></div>
-        <div><dt>Async</dt><dd>Coroutines, Flow, StateFlow, LiveData</dd></div>
-        <div><dt>DI</dt><dd>Hilt, Dagger, Koin</dd></div>
-        <div><dt>Data</dt><dd>Retrofit, OkHttp, Room, WorkManager</dd></div>
-        <div><dt>Platform</dt><dd>Bluetooth LE, Health Connect, LibGDX</dd></div>
-        <div><dt>Testing</dt><dd>JUnit, MockK, Turbine</dd></div>
-        <div><dt>Firebase</dt><dd>Auth, Firestore, Crashlytics, Analytics</dd></div>
-        <div><dt>Delivery</dt><dd>Gradle, Git, GitHub Actions, Bitrise, Play Console</dd></div>
-        <div><dt>Exploring</dt><dd>Kotlin Multiplatform, on-device AI</dd></div>
-        <div><dt>Ways of work</dt><dd>Scrum, client communication, mentoring</dd></div>
-      </dl>
-    </section>
-
-    <section id="education" aria-labelledby="edu-h">
-      <h2 class="eyebrow" id="edu-h">Education</h2>
-      <div class="two">
-        <div>
-          <h3>University of Silesia in Katowice</h3>
-          <p>Engineer's degree (BEng) in Computer Science, 2014–2019. Thesis project: an <a href="https://github.com/RadoslawGorczyca/AnimalShelterInSosnowiecAndroidApp" target="_blank" rel="noopener">Android app for the animal shelter in Sosnowiec</a>.</p>
+      <article class="app-card card-elevated">
+        <div class="app-head">
+          <div class="app-icon" aria-hidden="true">R</div>
+          <div class="app-title"><h3 class="title-l">Reserved</h3><span class="pkg">com.lppsa.app.reserved</span></div>
         </div>
-        <div>
-          <h3>Certificates</h3>
-          <ul>
-            <li>AI in Business Development</li>
-            <li>Design Patterns in C#</li>
+        <span class="label-m muted">LPP · via Future Mind</span>
+        <p class="body-m muted">E-commerce app for the Polish fashion brand. Feature work, maintenance and support for a multi-million user base.</p>
+        <a class="btn btn-text has-icon state ripple" href="https://play.google.com/store/apps/details?id=com.lppsa.app.reserved" target="_blank" rel="noopener"><span class="icon s18">arrow_outward</span>Google Play</a>
+      </article>
+
+      <article class="app-card card-elevated">
+        <div class="app-head">
+          <div class="app-icon c3" aria-hidden="true">S</div>
+          <div class="app-title"><h3 class="title-l">Sinsay</h3><span class="pkg">com.lppsa.app.sinsay</span></div>
+        </div>
+        <span class="label-m muted">LPP · via Future Mind</span>
+        <p class="body-m muted">E-commerce app for LPP's Sinsay brand. Feature development, maintenance and support.</p>
+        <a class="btn btn-text has-icon state ripple" href="https://play.google.com/store/apps/details?id=com.lppsa.app.sinsay" target="_blank" rel="noopener"><span class="icon s18">arrow_outward</span>Google Play</a>
+      </article>
+
+      <article class="app-card card-elevated">
+        <div class="app-head">
+          <div class="app-icon c2" aria-hidden="true">BS</div>
+          <div class="app-title"><h3 class="title-l">Big Star</h3><span class="pkg">pl.bigstarltd.app</span></div>
+        </div>
+        <span class="label-m muted">Big Star · via Future Mind</span>
+        <p class="body-m muted">Shopping app for the denim brand. I acted as the de facto Android lead, owning technical decisions and client communication.</p>
+        <a class="btn btn-text has-icon state ripple" href="https://play.google.com/store/apps/details?id=pl.bigstarltd.app" target="_blank" rel="noopener"><span class="icon s18">arrow_outward</span>Google Play</a>
+      </article>
+
+      <article class="app-card card-elevated">
+        <div class="app-head">
+          <div class="app-icon c5" aria-hidden="true">MC</div>
+          <div class="app-title"><h3 class="title-l">MirrorCheck SDK</h3><span class="pkg">Embedded in the Play and Plus apps</span></div>
+        </div>
+        <span class="label-m muted">via Future Mind</span>
+        <p class="body-m muted">An Android library that checks the condition of a phone's display, used to verify screens for phone insurance.</p>
+      </article>
+
+      <article class="app-card card-elevated">
+        <div class="app-head">
+          <div class="app-icon c4" aria-hidden="true">MB</div>
+          <div class="app-title"><h3 class="title-l">MrBuggy</h3><span class="pkg">pl.testingcup.mrbuggymobilestore</span></div>
+        </div>
+        <span class="label-m muted">TestingCup · via 21CN</span>
+        <p class="body-m muted">A deliberately buggy app full of tasks for manual testers, built for the TestingCup 2020 championship, plus a public demo version.</p>
+        <a class="btn btn-text has-icon state ripple" href="https://play.google.com/store/apps/details?id=pl.testingcup.mrbuggymobilestore" target="_blank" rel="noopener"><span class="icon s18">arrow_outward</span>Google Play</a>
+      </article>
+
+      <article class="app-card card-outlined">
+        <div class="app-head">
+          <div class="app-icon c3" aria-hidden="true">ST</div>
+          <div class="app-title"><h3 class="title-l">Software Testing App</h3><span class="pkg">com.testerzy.eduittraining</span></div>
+        </div>
+        <span class="label-m muted">via 21CN</span>
+        <p class="body-m muted">A training app for manual testers, built alongside MrBuggy.</p>
+        <a class="btn btn-text has-icon state ripple" href="https://play.google.com/store/apps/details?id=com.testerzy.eduittraining" target="_blank" rel="noopener"><span class="icon s18">arrow_outward</span>Google Play</a>
+      </article>
+
+    </div>
+
+    <div class="side">
+      <div class="app-icon" aria-hidden="true">T</div>
+      <div>
+        <span class="label-m">Side project</span>
+        <h3 class="title-l">Tablescribe</h3>
+        <p class="body-m muted">A platform for tabletop RPG groups that I'm building right now. Join the waitlist and help shape it.</p>
+      </div>
+      <a class="btn btn-filled has-icon state ripple" href="/tablescribe/"><span class="icon s18">arrow_outward</span>See Tablescribe</a>
+    </div>
+  </section>
+
+  <section id="experience" aria-labelledby="exp-h">
+    <div class="section-head"><span class="icon">history</span><h2 class="headline-l" id="exp-h">Experience</h2></div>
+    <ol class="list">
+      <li class="li">
+        <span class="li-lead"><span class="icon s18">work</span></span>
+        <div class="li-body">
+          <h3 class="title-m">Angry Nerds<span class="badge-now label-m">Now</span></h3>
+          <p class="body-m muted">Android Developer</p>
+          <ul class="body-m">
+            <li>Working with international clients on requirements and solutions</li>
+            <li>Building apps that connect directly to hardware (Concept2 ErgData, BLE)</li>
+            <li>Focus on performance optimization and a high crash-free rate</li>
           </ul>
         </div>
+        <span class="li-trail">May 2025 – now</span>
+      </li>
+      <li class="li">
+        <span class="li-lead"><span class="icon s18">work</span></span>
+        <div class="li-body">
+          <h3 class="title-m">Future Mind</h3>
+          <p class="body-m muted">Android Developer</p>
+          <ul class="body-m">
+            <li>Development, maintenance and support of multi-million user apps (Reserved, Sinsay, Big Star)</li>
+            <li>Acted as the de facto Android lead on Big Star</li>
+            <li>Built the MirrorCheck screen-inspection SDK used inside the Play and Plus apps</li>
+            <li>Represented the Android team to clients as the main point of contact and made key technical decisions</li>
+            <li>Took part in product design, analysis and planning in Scrum teams</li>
+          </ul>
+        </div>
+        <span class="li-trail">Feb 2021 – May 2025</span>
+      </li>
+      <li class="li">
+        <span class="li-lead"><span class="icon s18">work</span></span>
+        <div class="li-body">
+          <h3 class="title-m">21CN</h3>
+          <p class="body-m muted">Android Developer</p>
+          <ul class="body-m">
+            <li>Built Zapłać Mi (debt tracking among friends), MrBuggy and the Software Testing App</li>
+            <li>Delivered features with MVVM and mentored a junior developer</li>
+          </ul>
+        </div>
+        <span class="li-trail">Jan 2020 – Feb 2021</span>
+      </li>
+      <li class="li">
+        <span class="li-lead"><span class="icon s18">work</span></span>
+        <div class="li-body">
+          <h3 class="title-m">Ebicom</h3>
+          <p class="body-m muted">Junior Android Developer</p>
+          <ul class="body-m">
+            <li>Projects for European clients, including CRM-AutoPartner, an app for field sales reps</li>
+            <li>Worked closely with UX designers in a fast-moving startup environment</li>
+          </ul>
+        </div>
+        <span class="li-trail">Feb 2018 – Jan 2020</span>
+      </li>
+      <li class="li">
+        <span class="li-lead"><span class="icon s18">code</span></span>
+        <div class="li-body">
+          <h3 class="title-m">CINiBA, Katowice</h3>
+          <p class="body-m muted">Web Applications Developer</p>
+          <ul class="body-m">
+            <li>Worked on a system for managing the academic library network</li>
+          </ul>
+        </div>
+        <span class="li-trail">Jul 2016</span>
+      </li>
+    </ol>
+  </section>
+
+  <section id="skills" aria-labelledby="skills-h">
+    <div class="section-head"><span class="icon">code</span><h2 class="headline-l" id="skills-h">Skills</h2></div>
+    <div class="skills">
+      <div class="skill-group">
+        <h3 class="title-m">Android &amp; UI</h3>
+        <ul class="chips"><li class="chip tonal">Kotlin</li><li class="chip tonal">Java</li><li class="chip tonal">Jetpack Compose</li><li class="chip tonal">Android Views</li><li class="chip tonal">Navigation</li></ul>
       </div>
-    </section>
-
-    <section id="offline" aria-labelledby="off-h">
-      <h2 class="eyebrow" id="off-h">Off the keyboard</h2>
-      <div class="offline">
-        <div>
-          <h3>Sailing</h3>
-          <p>Most of my holidays happen on a boat. Greece, Croatia, Norway so far.</p>
-        </div>
-        <div>
-          <h3>Music</h3>
-          <p>I sing in a vocal ensemble, play guitar and own headphones that cost too much.</p>
-        </div>
-        <div>
-          <h3>Teddy</h3>
-          <p>My dog and full-time rubber duck. He has solved more bugs than he gets credit for.</p>
-        </div>
+      <div class="skill-group">
+        <h3 class="title-m">Architecture &amp; async</h3>
+        <ul class="chips"><li class="chip tonal">MVVM</li><li class="chip tonal">Clean Architecture</li><li class="chip tonal">Modularization</li><li class="chip tonal">Coroutines</li><li class="chip tonal">Flow / StateFlow</li><li class="chip tonal">LiveData</li></ul>
       </div>
-    </section>
+      <div class="skill-group">
+        <h3 class="title-m">DI, data &amp; network</h3>
+        <ul class="chips"><li class="chip tonal">Hilt</li><li class="chip tonal">Dagger</li><li class="chip tonal">Koin</li><li class="chip tonal">Retrofit</li><li class="chip tonal">OkHttp</li><li class="chip tonal">Room</li><li class="chip tonal">WorkManager</li></ul>
+      </div>
+      <div class="skill-group">
+        <h3 class="title-m">Platform &amp; hardware</h3>
+        <ul class="chips"><li class="chip tonal">Bluetooth LE</li><li class="chip tonal">Health Connect</li><li class="chip tonal">LibGDX</li><li class="chip tonal">Firebase</li><li class="chip tonal">Crashlytics</li></ul>
+      </div>
+      <div class="skill-group">
+        <h3 class="title-m">Testing &amp; delivery</h3>
+        <ul class="chips"><li class="chip tonal">JUnit</li><li class="chip tonal">MockK</li><li class="chip tonal">Turbine</li><li class="chip tonal">Gradle</li><li class="chip tonal">GitHub Actions</li><li class="chip tonal">Bitrise</li><li class="chip tonal">Play Console</li></ul>
+      </div>
+      <div class="skill-group">
+        <h3 class="title-m">Exploring &amp; ways of work</h3>
+        <ul class="chips"><li class="chip tonal">Kotlin Multiplatform</li><li class="chip tonal">On-device AI</li><li class="chip tonal">Scrum</li><li class="chip tonal">Client communication</li><li class="chip tonal">Mentoring</li></ul>
+      </div>
+    </div>
+  </section>
 
-  </main>
+  <section id="education" aria-labelledby="edu-h">
+    <div class="section-head"><span class="icon">school</span><h2 class="headline-l" id="edu-h">Education</h2></div>
+    <div class="edu">
+      <div class="card card-filled">
+        <span class="icon">school</span>
+        <h3 class="title-m">University of Silesia in Katowice</h3>
+        <p class="body-m muted">Engineer's degree (BEng) in Computer Science, 2014–2019. Thesis project: an <a href="https://github.com/RadoslawGorczyca/AnimalShelterInSosnowiecAndroidApp" target="_blank" rel="noopener">Android app for the animal shelter in Sosnowiec</a>.</p>
+      </div>
+      <div class="card card-filled">
+        <span class="icon">workspace_premium</span>
+        <h3 class="title-m">Certificates</h3>
+        <p class="body-m muted">AI in Business Development<br>Design Patterns in C#</p>
+      </div>
+      <div class="card card-filled">
+        <span class="icon">translate</span>
+        <h3 class="title-m">Languages</h3>
+        <p class="body-m muted">Polish, native<br>English, professional working proficiency</p>
+      </div>
+    </div>
+  </section>
 
-  <footer>
+  <section aria-labelledby="off-h">
+    <div class="section-head"><span class="icon">star</span><h2 class="headline-l" id="off-h">Off the keyboard</h2></div>
+    <div class="offline">
+      <div class="hobby">
+        <span class="blob"><span class="icon filled">sailing</span></span>
+        <h3 class="title-m">Sailing</h3>
+        <p class="body-m muted">Most of my holidays happen on a boat. Greece, Croatia, Norway so far.</p>
+      </div>
+      <div class="hobby">
+        <span class="blob"><span class="icon filled">music_note</span></span>
+        <h3 class="title-m">Music</h3>
+        <p class="body-m muted">I sing in a vocal ensemble, play guitar and own headphones that cost too much.</p>
+      </div>
+      <div class="hobby">
+        <span class="blob"><span class="icon filled">pets</span></span>
+        <h3 class="title-m">Teddy</h3>
+        <p class="body-m muted">My dog and full-time rubber duck. He has solved more bugs than he gets credit for.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="body-m">
     <span>© <span id="year">2026</span> Radosław Gorczyca</span>
     <span>gorczyca.dev</span>
   </footer>
+
+</main>
 </div>
 
+<nav class="navbar" aria-label="Sections">
+  <a class="dest" href="#about" aria-current="true"><span class="pill"><span class="icon">person</span></span>About</a>
+  <a class="dest" href="#work"><span class="pill"><span class="icon">apps</span></span>Work</a>
+  <a class="dest" href="#experience"><span class="pill"><span class="icon">history</span></span>Experience</a>
+  <a class="dest" href="#skills"><span class="pill"><span class="icon">code</span></span>Skills</a>
+  <a class="dest" href="#education"><span class="pill"><span class="icon">school</span></span>Education</a>
+</nav>
+
+<a class="efab state ripple" href="mailto:gorczyca.it@gmail.com"><span class="icon">mail</span>Email me</a>
+<div class="snackbar body-m" id="snackbar" role="status" aria-live="polite"></div>
+
 <script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-  (function () {
-    var btn = document.getElementById('copy-email');
-    var address = 'gorczyca.it@gmail.com';
-    btn.addEventListener('click', function () {
-      var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1800); };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(address).then(done, function () { selectEmail(); });
-      } else { selectEmail(); }
+(function () {
+  document.getElementById("year").textContent = new Date().getFullYear();
+  var root = document.documentElement;
+
+  // Theme: system by default, explicit choice remembered per browser.
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  function stored() { try { return localStorage.getItem("theme"); } catch (e) { return null; } }
+  function isDark() { var t = root.getAttribute("data-theme"); return t ? t === "dark" : mq.matches; }
+  function syncIcons() {
+    var name = isDark() ? "light_mode" : "dark_mode";
+    document.querySelectorAll("#theme-toggle .icon, #theme-toggle-m .icon").forEach(function (i) { i.textContent = name; });
+  }
+  var s = stored(); if (s === "dark" || s === "light") root.setAttribute("data-theme", s);
+  syncIcons();
+  if (mq.addEventListener) mq.addEventListener("change", syncIcons);
+  ["theme-toggle", "theme-toggle-m"].forEach(function (id) {
+    document.getElementById(id).addEventListener("click", function () {
+      var next = isDark() ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch (e) {}
+      syncIcons();
     });
-    function selectEmail() {
-      var range = document.createRange();
-      range.selectNodeContents(document.getElementById('email'));
-      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
-      btn.textContent = 'Press Ctrl+C';
-    }
-  })();
+  });
+
+  // Ripple
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.addEventListener("pointerdown", function (e) {
+    var el = e.target.closest && e.target.closest(".ripple");
+    if (!el || reduce) return;
+    var r = el.getBoundingClientRect(), d = Math.max(r.width, r.height) * 2;
+    var w = document.createElement("span");
+    w.className = "ripple-wave";
+    w.style.width = w.style.height = d + "px";
+    w.style.left = (e.clientX - r.left - d / 2) + "px";
+    w.style.top = (e.clientY - r.top - d / 2) + "px";
+    el.appendChild(w);
+    setTimeout(function () { w.remove(); }, 600);
+  });
+
+  // Snackbar + copy email
+  var bar = document.getElementById("snackbar"), timer;
+  function snack(msg) {
+    bar.textContent = msg; bar.classList.add("show");
+    clearTimeout(timer); timer = setTimeout(function () { bar.classList.remove("show"); }, 3000);
+  }
+  document.getElementById("copy-email").addEventListener("click", function () {
+    var address = "gorczyca.it@gmail.com";
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(address).then(function () { snack("Email address copied"); }, function () { snack(address); });
+    } else { snack(address); }
+  });
+
+  // Top app bar elevation on scroll
+  var topbar = document.getElementById("topbar");
+  function onScroll() { topbar.classList.toggle("scrolled", window.scrollY > 4); }
+  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  // Active destination follows the section in view
+  var ids = ["about", "work", "experience", "skills", "education"];
+  var dests = document.querySelectorAll(".dest");
+  function setActive(id) {
+    dests.forEach(function (d) { d.setAttribute("aria-current", d.getAttribute("href") === "#" + id ? "true" : "false"); });
+  }
+  if ("IntersectionObserver" in window) {
+    var visible = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { visible[en.target.id] = en.isIntersecting; });
+      for (var i = 0; i < ids.length; i++) { if (visible[ids[i]]) { setActive(ids[i]); break; } }
+    }, { rootMargin: "-30% 0px -60% 0px" });
+    ids.forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  }
+})();
 </script>
 </body>
 </html>
