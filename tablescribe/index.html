@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tablescribe</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Tablescribe turns messy session notes into a linked campaign wiki your whole table can use. Join the waitlist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,500;0,700;1,500&family=Alegreya+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a session note on the left gets "filed" into linked entity cards on the right; the rest of the page reads like a GM's prep binder, tabbed sections down one column. */
+:root {
+  --bg: #12161c;
+  --surface: #1a2029;
+  --surface-2: #212833;
+  --ink: #e8e4d8;
+  --muted: #9aa3ae;
+  --line: #2b333e;
+  --npc: #e3a13b;
+  --place: #5bb5a6;
+  --item: #d9776a;
+  --thread: #a99bdc;
+  --accent: #e3a13b;
+  --on-accent: #1a1406;
+  --font-display: "Alegreya", "Iowan Old Style", Georgia, serif;
+  --font-body: "Alegreya Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #eef1f4; --surface: #ffffff; --surface-2: #f6f7f9; --ink: #1b2129; --muted: #56606d; --line: #d5dae0;
+    --npc: #9a5d08; --place: #1d7467; --item: #ab4537; --thread: #5e4bb0; --accent: #9a5d08; --on-accent: #ffffff;
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #eef1f4; --surface: #ffffff; --surface-2: #f6f7f9; --ink: #1b2129; --muted: #56606d; --line: #d5dae0;
+  --npc: #9a5d08; --place: #1d7467; --item: #ab4537; --thread: #5e4bb0; --accent: #9a5d08; --on-accent: #ffffff;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 68rem; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.3rem, 5.2vw, 3.6rem); letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); }
+h3 { font-size: 1.3rem; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.eyebrow { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+/* Header */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
+.mark { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; text-decoration: none; }
+.mark svg { width: 28px; height: 28px; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font: 600 1rem/1 var(--font-body); padding: 14px 20px; border-radius: 10px;
+  background: var(--accent); color: var(--on-accent); border: 0; text-decoration: none; cursor: pointer;
+}
+.btn:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); padding: 10px 16px; }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: 1fr 1.08fr; gap: 48px; align-items: center; padding-block: 40px 72px; }
+.hero > * { min-width: 0; }
+.hero .lede { font-size: 1.2rem; color: var(--muted); max-width: 34rem; margin-top: 20px; }
+.hero .lede strong { color: var(--ink); font-weight: 500; }
+.hero .cta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-top: 30px; }
+.hero .cta small { color: var(--muted); font-size: 0.92rem; }
+
+.demo { display: grid; grid-template-columns: 1.15fr 1fr; gap: 14px; }
+.demo > * { min-width: 0; }
+.note {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 18px 20px;
+  font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.75;
+}
+.note .head { display: flex; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 0.74rem; letter-spacing: 0.05em; text-transform: uppercase; border-bottom: 1px dashed var(--line); padding-bottom: 10px; margin-bottom: 10px; }
+.note p + p { margin-top: 8px; }
+.e { padding: 1px 3px; border-radius: 4px; color: inherit; background: transparent; box-shadow: inset 0 -2px 0 currentColor; }
+.e.npc { color: var(--npc); } .e.place { color: var(--place); } .e.item { color: var(--item); } .e.thread { color: var(--thread); }
+.e span { color: var(--ink); }
+.filed { display: flex; flex-direction: column; gap: 10px; }
+.card {
+  background: var(--surface-2); border: 1px solid var(--line); border-left: 3px solid var(--c); border-radius: 10px;
+  padding: 10px 12px; font-size: 0.92rem; line-height: 1.4;
+}
+.card .k { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c); }
+.card b { display: block; font-family: var(--font-display); font-size: 1.05rem; margin: 2px 0 3px; }
+.card .links { color: var(--muted); font-size: 0.82rem; }
+.card.npc { --c: var(--npc); } .card.place { --c: var(--place); } .card.item { --c: var(--item); } .card.thread { --c: var(--thread); }
+@media (prefers-reduced-motion: no-preference) {
+  .card { animation: file-in 600ms ease-out both; }
+  .card:nth-child(2) { animation-delay: 140ms; } .card:nth-child(3) { animation-delay: 280ms; } .card:nth-child(4) { animation-delay: 420ms; }
+  @keyframes file-in { from { transform: translateX(-10px); opacity: 0.35; } to { transform: none; opacity: 1; } }
+}
+
+/* Sections */
+section.block { border-top: 1px solid var(--line); padding-block: 64px; display: grid; grid-template-columns: 15rem 1fr; gap: 40px; }
+section.block > * { min-width: 0; }
+section.block .side h2 { margin-top: 8px; }
+.features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 40px; }
+.feature h3 { display: flex; align-items: baseline; gap: 10px; }
+.feature h3 i { font-style: normal; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
+.feature p { color: var(--muted); margin-top: 8px; max-width: 32rem; }
+
+.vis { width: 100%; border-collapse: collapse; font-size: 0.98rem; }
+.vis-wrap { overflow-x: auto; }
+.vis th, .vis td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.vis th { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.vis td:first-child { font-family: var(--font-display); font-size: 1.05rem; }
+.yes { color: var(--place); font-weight: 700; } .no { color: var(--muted); }
+.vis-note { color: var(--muted); margin-top: 14px; font-size: 0.95rem; }
+
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; counter-reset: s; }
+.steps li { counter-increment: s; border-top: 2px solid var(--line); padding-top: 14px; }
+.steps li::before { content: "Step " counter(s); font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
+.steps b { display: block; font-family: var(--font-display); font-size: 1.2rem; margin: 6px 0; }
+.steps p { color: var(--muted); }
+
+.plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.plan { border: 1px solid var(--line); border-radius: 14px; padding: 22px; background: var(--surface); }
+.plan.pro { border-color: var(--accent); }
+.plan .price { font-family: var(--font-display); font-size: 2rem; margin: 8px 0 4px; }
+.plan .price small { font-family: var(--font-body); font-size: 0.95rem; color: var(--muted); }
+.plan ul { margin: 14px 0 0; padding-left: 1.1rem; color: var(--muted); }
+.plan li + li { margin-top: 4px; }
+
+/* Form */
+form { display: grid; gap: 22px; max-width: 40rem; }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
+legend, label.lbl { font-weight: 700; margin-bottom: 4px; padding: 0; }
+.hint { color: var(--muted); font-size: 0.92rem; font-weight: 400; }
+input[type="email"], textarea, select {
+  width: 100%; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line);
+  border-radius: 10px; padding: 12px 14px;
+}
+textarea { min-height: 6rem; resize: vertical; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips label { position: relative; }
+.chips input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.chips span {
+  display: inline-block; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--surface); cursor: pointer; font-size: 0.97rem;
+}
+.chips input:checked + span { border-color: var(--accent); background: var(--accent); color: var(--on-accent); }
+.chips input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.form-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+.form-foot small { color: var(--muted); }
+.err { color: var(--item); font-weight: 500; }
+.thanks { border: 1px solid var(--place); border-radius: 14px; padding: 22px; background: var(--surface); max-width: 40rem; }
+.thanks h3 { color: var(--place); }
+.thanks p { margin-top: 8px; color: var(--muted); }
+
+/* Scribe */
+.scribe { display: grid; gap: 28px; }
+.rota { display: flex; flex-wrap: wrap; gap: 8px; }
+.rota li { list-style: none; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; background: var(--surface); min-width: 6.5rem; }
+.rota { margin: 0; padding: 0; }
+.rota .s { display: block; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.rota .n { font-family: var(--font-display); font-size: 1.05rem; }
+.rota li.now { border-color: var(--thread); box-shadow: inset 0 0 0 1px var(--thread); }
+.rota li.now .s { color: var(--thread); }
+.rota li.next { border-style: dashed; }
+.rota-cap { color: var(--muted); font-size: 0.92rem; margin-top: 8px; }
+.quill { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.quill li { border-left: 2px solid var(--thread); padding-left: 14px; }
+.quill b { display: block; font-family: var(--font-display); font-size: 1.1rem; margin-bottom: 4px; }
+.quill p { color: var(--muted); font-size: 0.97rem; }
+.quill code { font-family: var(--font-mono); font-size: 0.85em; color: var(--npc); }
+@media (max-width: 900px) { .quill { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .quill { grid-template-columns: 1fr; } }
+
+footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var(--muted); font-size: 0.92rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; gap: 36px; padding-block: 20px 56px; }
+  section.block { grid-template-columns: 1fr; gap: 24px; padding-block: 52px; }
+}
+@media (max-width: 640px) {
+  .demo { grid-template-columns: 1fr; }
+  .features, .plans, .steps { grid-template-columns: 1fr; }
+  .top .btn.ghost { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="mark" href="#top" aria-label="Tablescribe home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 28 9v14l-12 7-12-7V9z" fill="none" stroke="var(--accent)" stroke-width="2"/><path d="M16 2v28M4 9l12 7 12-7" fill="none" stroke="var(--accent)" stroke-width="1.4" opacity=".7"/></svg>
+      Tablescribe
+    </a>
+    <a class="btn ghost" href="#waitlist">Join the waitlist</a>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">For game masters and their tables</p>
+        <h1 style="margin-top:12px">Your session notes, turned into a campaign wiki.</h1>
+        <p class="lede">Dump everything from the session into one note, like you already do. <strong>Tablescribe pulls out every NPC, place, item and open mystery, links them together</strong>, and gives your players their own view of the campaign.</p>
+        <div class="cta">
+          <a class="btn" href="#waitlist">Get early access</a>
+          <small>Free for players. Early testers get Pro free during the beta.</small>
+        </div>
+      </div>
+
+      <div class="demo" aria-label="Example: a session note filed into linked entries">
+        <div class="note">
+          <div class="head"><span>Session 14</span><span>raw notes</span></div>
+          <p>Crossed to <mark class="e place"><span>Saltmere Docks</span></mark> at dusk. Ferrywoman <mark class="e npc"><span>Vessa</span></mark> wouldn't take coin, only "a true name".</p>
+          <p>Bram traded the <mark class="e item"><span>tarnished compass</span></mark> for passage. Needle points at the lighthouse, not north??</p>
+          <p>Vessa saw men in grey cloaks buy every lamp in town. <mark class="e thread"><span>Who hired the Grey Hands?</span></mark></p>
+        </div>
+        <div class="filed">
+          <div class="card npc"><div class="k">NPC</div><b>Vessa, the ferrywoman</b><div class="links">Saltmere Docks · wants a true name · saw the Grey Hands</div></div>
+          <div class="card place"><div class="k">Location</div><b>Saltmere Docks</b><div class="links">First visited session 14 · Vessa</div></div>
+          <div class="card item"><div class="k">Item</div><b>Tarnished compass</b><div class="links">Traded away by Bram · points at the lighthouse</div></div>
+          <div class="card thread"><div class="k">Open thread</div><b>Who hired the Grey Hands?</b><div class="links">Clues: lamps bought up · lighthouse</div></div>
+        </div>
+      </div>
+    </div>
+
+    <section class="block" aria-labelledby="what">
+      <div class="side"><p class="eyebrow">What it does</p><h2 id="what">Prep less. Remember everything.</h2></div>
+      <div class="features">
+        <div class="feature"><h3>Automatic filing</h3><p>Write one messy note per session. Tablescribe creates or updates a page for every NPC, location and item it finds, with links back to the sessions where they appeared.</p></div>
+        <div class="feature"><h3>A shared campaign vault</h3><p>Invite your players. Everyone sees the public campaign record, and each player keeps private notes and backstory only you and they can read.</p></div>
+        <div class="feature"><h3>Investigation board <i>AI</i></h3><p>Ask "What is the cult actually planning?" and get a theory built only from your campaign notes, with the clues it used. Players can run their own theories in private.</p></div>
+        <div class="feature"><h3>See what your players suspect <i>AI</i></h3><p>Read your players' theories in one place, so you can lean into the plotlines they are most excited about.</p></div>
+        <div class="feature"><h3>Rules lookups in context</h3><p>Ask how a situation from tonight's session works under the rules, answered from rulebooks you upload or from the free SRD.</p></div>
+        <div class="feature"><h3>Notes in, notes out</h3><p>Write in Tablescribe or upload the note files you already have. Your players can upload theirs, and everything lands in one campaign.</p></div>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="scribe">
+      <div class="side"><p class="eyebrow">The party scribe</p><h2 id="scribe">One player writes. The whole table remembers.</h2></div>
+      <div class="scribe">
+        <p style="max-width:40rem">Many tables hand the notebook to one player, for a session, an arc or the whole campaign. Tablescribe gives that player a proper job: a quick way to jot during play, an AI draft to tidy up afterwards, and a clean recap the rest of the table can build on.</p>
+        <div>
+          <ol class="rota" aria-label="Example scribe rotation">
+            <li><span class="s">Session 12</span><span class="n">Mira</span></li>
+            <li><span class="s">Session 13</span><span class="n">Mira</span></li>
+            <li class="now"><span class="s">Session 14 · now</span><span class="n">Bram</span></li>
+            <li><span class="s">Session 15</span><span class="n">Bram</span></li>
+            <li class="next"><span class="s">Session 16 · next</span><span class="n">Ilse</span></li>
+          </ol>
+          <p class="rota-cap">Pick one scribe for the campaign, or rotate every few sessions. Everyone gets a reminder before their turn.</p>
+        </div>
+        <ol class="quill">
+          <li><b>Jot during play</b><p>Fast capture with timestamps. Type <code>@Vessa</code> or <code>#Saltmere</code> and it links to existing entries.</p></li>
+          <li><b>Draft in minutes</b><p>After the session the AI turns the jots into a readable recap and proposes new or updated entries.</p></li>
+          <li><b>Publish to the table</b><p>The scribe reviews and publishes. The GM can turn on a quick check before anything goes out.</p></li>
+          <li><b>Margin notes</b><p>Other players suggest corrections and additions. The scribe accepts them, and the log keeps credit for every session written.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="who">
+      <div class="side"><p class="eyebrow">Who sees what</p><h2 id="who">Secrets stay secret.</h2></div>
+      <div>
+        <div class="vis-wrap">
+          <table class="vis">
+            <thead><tr><th scope="col">Content</th><th scope="col">Game master</th><th scope="col">That player</th><th scope="col">Other players</th></tr></thead>
+            <tbody>
+              <tr><td>Public campaign record</td><td class="yes">Sees</td><td class="yes">Sees</td><td class="yes">Sees</td></tr>
+              <tr><td>A player's private notes and backstory</td><td class="yes">Sees</td><td class="yes">Sees</td><td class="no">Hidden</td></tr>
+              <tr><td>A player's private theories</td><td class="yes">Sees</td><td class="yes">Sees</td><td class="no">Hidden</td></tr>
+              <tr><td>GM-only prep and secrets</td><td class="yes">Sees</td><td class="no">Hidden</td><td class="no">Hidden</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="vis-note">The AI follows the same rules: a player's theory is built only from what that player is allowed to see.</p>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="how">
+      <div class="side"><p class="eyebrow">How it works</p><h2 id="how">Three minutes after the session.</h2></div>
+      <ol class="steps">
+        <li><b>Dump the session</b><p>You or this week's scribe paste or type notes the way you always do. No templates, no tagging.</p></li>
+        <li><b>Review what was filed</b><p>Check the new and updated entries, fix anything the scribe got wrong, and approve.</p></li>
+        <li><b>Your table catches up</b><p>Players read the recap, update their private notes, and start theorising before next week.</p></li>
+      </ol>
+    </section>
+
+    <section class="block" aria-labelledby="plans">
+      <div class="side"><p class="eyebrow">Planned pricing</p><h2 id="plans">The GM pays. The table plays free.</h2></div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Free</h3>
+          <div class="price">$0</div>
+          <ul><li>One campaign</li><li>Unlimited players</li><li>Notes, entries and links</li><li>Scribe role and rotation</li><li>A few AI filings each month to try it</li></ul>
+        </div>
+        <div class="plan pro">
+          <h3>GM Pro</h3>
+          <div class="price">To be decided <small>· help us set it below</small></div>
+          <ul><li>Unlimited campaigns</li><li>Automatic filing after every session</li><li>AI recaps from your scribe's jots</li><li>Investigation board for you and your players</li><li>Rules lookups from your own rulebooks</li><li>Covers your whole table</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="waitlist" aria-labelledby="join">
+      <div class="side"><p class="eyebrow">Early access</p><h2 id="join">Join the waitlist</h2><p class="hint" style="margin-top:10px">Seven quick questions. Your answers decide what we build first.</p></div>
+      <div>
+        <form id="wl" novalidate>
+          <div>
+            <label class="lbl" for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+          </div>
+
+          <fieldset>
+            <legend>At the table, you are mostly…</legend>
+            <div class="chips">
+              <label><input type="radio" id="role-gm" name="role" value="gm" required><span>The game master</span></label>
+              <label><input type="radio" id="role-player" name="role" value="player"><span>A player</span></label>
+              <label><input type="radio" id="role-both" name="role" value="both"><span>Both</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>What do you play? <span class="hint">Pick any</span></legend>
+            <div class="chips">
+              <label><input type="checkbox" id="sys-5e" name="systems" value="dnd5e"><span>D&amp;D 5e / 2024</span></label>
+              <label><input type="checkbox" id="sys-pf" name="systems" value="pathfinder"><span>Pathfinder</span></label>
+              <label><input type="checkbox" id="sys-coc" name="systems" value="coc"><span>Call of Cthulhu</span></label>
+              <label><input type="checkbox" id="sys-osr" name="systems" value="osr"><span>OSR</span></label>
+              <label><input type="checkbox" id="sys-other" name="systems" value="other"><span>Something else</span></label>
+            </div>
+          </fieldset>
+
+          <div>
+            <label class="lbl" for="scribe-q">Who keeps the notes at your table?</label>
+            <select id="scribe-q" name="scribe">
+              <option value="">Choose one</option>
+              <option value="one-scribe">One player is the scribe for the whole campaign</option>
+              <option value="rotating">The scribe role rotates between players</option>
+              <option value="gm">The GM writes everything</option>
+              <option value="everyone">Everyone keeps their own notes</option>
+              <option value="nobody">Nobody, really</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="lbl" for="notes">Where do your campaign notes live today?</label>
+            <select id="notes" name="notes_tool">
+              <option value="">Choose one</option>
+              <option value="paper">Paper notebook</option>
+              <option value="docs">Google Docs or Word</option>
+              <option value="obsidian">Obsidian</option>
+              <option value="notion">Notion</option>
+              <option value="worldanvil">World Anvil, LegendKeeper or similar</option>
+              <option value="discord">Discord messages</option>
+              <option value="none">Nowhere, we just remember</option>
+            </select>
+          </div>
+
+          <fieldset>
+            <legend>Which would help you most?</legend>
+            <div class="chips">
+              <label><input type="radio" id="f-file" name="top_feature" value="filing"><span>Automatic filing</span></label>
+              <label><input type="radio" id="f-vault" name="top_feature" value="vault"><span>Shared vault</span></label>
+              <label><input type="radio" id="f-inv" name="top_feature" value="investigation"><span>Investigation board</span></label>
+              <label><input type="radio" id="f-scribe" name="top_feature" value="scribe"><span>Scribe tools</span></label>
+              <label><input type="radio" id="f-rules" name="top_feature" value="rules"><span>Rules lookups</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>What would you pay per month for GM Pro, covering your whole table?</legend>
+            <div class="chips">
+              <label><input type="radio" id="p-0" name="price" value="0"><span>Only if free</span></label>
+              <label><input type="radio" id="p-4" name="price" value="4"><span>$4</span></label>
+              <label><input type="radio" id="p-8" name="price" value="8"><span>$8</span></label>
+              <label><input type="radio" id="p-12" name="price" value="12"><span>$12</span></label>
+              <label><input type="radio" id="p-15" name="price" value="15+"><span>$15 or more</span></label>
+            </div>
+          </fieldset>
+
+          <div>
+            <label class="lbl" for="pain">What is the most annoying part of keeping a campaign straight? <span class="hint">Optional</span></label>
+            <textarea id="pain" name="pain" placeholder="Forgetting which NPC said what three sessions ago…"></textarea>
+          </div>
+
+          <div class="form-foot">
+            <button class="btn" type="submit" id="submit">Join the waitlist</button>
+            <small>We'll email you when the beta opens. No spam, unsubscribe anytime.</small>
+          </div>
+          <p class="err" id="err" hidden></p>
+        </form>
+
+        <div class="thanks" id="thanks" hidden>
+          <h3>You're on the list.</h3>
+          <p id="thanks-msg">We'll email you when the beta opens. Thanks for telling us how your table plays.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Tablescribe · made by tabletop players</span>
+    <span>Not affiliated with Wizards of the Coast or Paizo.</span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  // Set this to a Formspree-compatible endpoint (e.g. https://formspree.io/f/xxxx) when the page is deployed.
+  var FORM_ENDPOINT = "";
+
+  var form = document.getElementById("wl");
+  var err = document.getElementById("err");
+  var thanks = document.getElementById("thanks");
+  var thanksMsg = document.getElementById("thanks-msg");
+  var submit = document.getElementById("submit");
+
+  function showError(msg) { err.textContent = msg; err.hidden = false; }
+
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    err.hidden = true;
+    var email = form.email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError("Enter an email address so we can invite you to the beta."); form.email.focus(); return; }
+    if (!form.querySelector('input[name="role"]:checked')) { showError("Tell us whether you run the game or play in it."); return; }
+
+    var data = {
+      email: email,
+      role: form.querySelector('input[name="role"]:checked').value,
+      systems: Array.prototype.map.call(form.querySelectorAll('input[name="systems"]:checked'), function (i) { return i.value; }).join(","),
+      scribe: form.scribe.value,
+      notes_tool: form.notes_tool.value,
+      top_feature: (form.querySelector('input[name="top_feature"]:checked') || {}).value || "",
+      price: (form.querySelector('input[name="price"]:checked') || {}).value || "",
+      pain: form.pain.value.trim(),
+      source: (location.hash || "").replace("#", "") || "direct"
+    };
+
+    function done(preview) {
+      form.hidden = true;
+      if (preview) thanksMsg.textContent = "This is a preview, so nothing was sent. On the live page your answers go to the waitlist.";
+      thanks.hidden = false;
+    }
+
+    if (!FORM_ENDPOINT) { done(true); return; }
+
+    submit.disabled = true;
+    submit.textContent = "Joining…";
+    fetch(FORM_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(data)
+    }).then(function (r) {
+      if (!r.ok) throw new Error("bad status");
+      done(false);
+    }).catch(function () {
+      submit.disabled = false;
+      submit.textContent = "Join the waitlist";
+      showError("We couldn't save your answers. Check your connection and try again.");
+    });
+  });
+})();
+</script>
+</body>
+</html>
