@@ -2,7 +2,7 @@
 // Tablescribe waitlist signups in D1 (POST /api/waitlist).
 
 const ALLOWED_ORIGINS = ["https://gorczyca.dev", "https://www.gorczyca.dev"];
-const LIMITS = { email: 254, role: 20, systems: 200, scribe: 100, notes_tool: 100, top_feature: 50, price: 10, pain: 2000, source: 50 };
+const LIMITS = { email: 254, role: 20, systems: 200, scribe: 100, notes_tool: 100, top_feature: 50, price: 10, pain: 2000, source: 50, lang: 5 };
 
 const SCHEMA = `CREATE TABLE IF NOT EXISTS signups (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -13,6 +13,8 @@ const SCHEMA = `CREATE TABLE IF NOT EXISTS signups (
   created_at TEXT NOT NULL DEFAULT (datetime('now')),
   updated_at TEXT NOT NULL DEFAULT (datetime('now'))
 )`;
+
+let langColumnReady = false;
 
 function json(body, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -52,18 +54,23 @@ async function handleWaitlist(request, env) {
   if (!["gm", "player", "both"].includes(data.role)) return json({ error: "Invalid role" }, 400);
 
   await env.DB.prepare(SCHEMA).run();
+  if (!langColumnReady) {
+    try { await env.DB.prepare("ALTER TABLE signups ADD COLUMN lang TEXT").run(); } catch (e) { /* column already exists */ }
+    langColumnReady = true;
+  }
   await env.DB.prepare(
-    `INSERT INTO signups (email, role, systems, scribe, notes_tool, top_feature, price, pain, source, country)
-     VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10)
+    `INSERT INTO signups (email, role, systems, scribe, notes_tool, top_feature, price, pain, source, country, lang)
+     VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8, ?9, ?10, ?11)
      ON CONFLICT(email) DO UPDATE SET
        role = excluded.role, systems = excluded.systems, scribe = excluded.scribe,
        notes_tool = excluded.notes_tool, top_feature = excluded.top_feature, price = excluded.price,
-       pain = excluded.pain, source = excluded.source, country = excluded.country,
+       pain = excluded.pain, source = excluded.source, country = excluded.country, lang = excluded.lang,
        updated_at = datetime('now')`
   ).bind(
     data.email, data.role, data.systems, data.scribe, data.notes_tool,
     data.top_feature, data.price, data.pain, data.source || "direct",
-    (request.cf && request.cf.country) || ""
+    (request.cf && request.cf.country) || "",
+    data.lang || "en"
   ).run();
 
   return json({ ok: true });
