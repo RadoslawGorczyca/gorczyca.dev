@@ -606,15 +606,19 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
     document.getElementById("pain").placeholder = T("Nobody remembers which NPC said what three sessions ago…", "Nikt nie pamięta, który NPC co powiedział trzy sesje temu…");
     document.getElementById("lang-en").setAttribute("aria-pressed", String(lang === "en"));
     document.getElementById("lang-pl").setAttribute("aria-pressed", String(lang === "pl"));
-    try { localStorage.setItem("ts-lang", lang); } catch (e) {}
-    if (anim) animateVisible();
+    if (anim) {
+      try { localStorage.setItem("lang", lang); } catch (e) {}
+      try { var u = new URL(location.href); if (lang === "pl") u.searchParams.set("lang", "pl"); else u.searchParams.delete("lang"); history.replaceState(null, "", u); } catch (e) {}
+      animateVisible();
+    }
   }
   Array.prototype.forEach.call(document.querySelectorAll(".lang button"), function (b) {
     b.addEventListener("click", function () { setLang(b.getAttribute("data-lang"), true); });
   });
-  var saved = null;
-  try { saved = localStorage.getItem("ts-lang"); } catch (e) {}
-  var initial = location.hash === "#pl" ? "pl" : (saved || ((navigator.language || "").toLowerCase().indexOf("pl") === 0 ? "pl" : "en"));
+  var saved = null, qs = null;
+  try { saved = localStorage.getItem("lang"); } catch (e) {}
+  try { qs = new URLSearchParams(location.search).get("lang"); } catch (e) {}
+  var initial = qs || saved || "en";
   if (initial === "pl") setLang("pl");
 
   function pick(name) { var el = form.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ""; }
