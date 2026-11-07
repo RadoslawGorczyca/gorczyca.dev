@@ -26,9 +26,7 @@ input[type="text"] { width: 100%; font: inherit; color: var(--card-ink); backgro
   --card-line: #dcdcd3;
   --string: #c7372d;
   --marker: #f3d36b;
-  --npc: #9a5d08;
-  --place: #1d7467;
-  --item: #a84034;
+  --string-soft: #e8574b;
   --font-display: "Young Serif", "Iowan Old Style", Georgia, serif;
   --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
   --font-hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
@@ -72,7 +70,7 @@ a { color: inherit; }
 .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
 .mark { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 1.35rem; text-decoration: none; }
 .mark svg { width: 38px; height: 26px; flex: none; }
-.mark .bond { color: #e8574b; }
+.mark .bond { color: var(--string-soft); }
 
 .top-right { display: flex; align-items: center; gap: 14px; }
 .lang { display: inline-flex; border-radius: 8px; box-shadow: inset 0 0 0 1px var(--felt-line); overflow: hidden; }
@@ -97,7 +95,7 @@ a { color: inherit; }
   position: absolute; background: var(--card); color: var(--card-ink); border-radius: 4px;
   box-shadow: 0 1px 0 rgba(0,0,0,.25), 0 10px 24px rgba(0,0,0,.35);
   padding: 12px 14px 14px; font-size: 0.86rem; line-height: 1.5;
-  background-image: repeating-linear-gradient(transparent 0 23px, #e3e7ea 23px 24px);
+  background-image: repeating-linear-gradient(transparent 0 23px, #e6e6dd 23px 24px);
   background-position: 0 34px;
 }
 .ic .label { color: var(--card-muted); font-size: 0.66rem; display: flex; justify-content: space-between; gap: 8px; border-bottom: 2px solid #e8b4ae; padding-bottom: 6px; margin-bottom: 6px; }
@@ -143,7 +141,7 @@ a { color: inherit; }
 table.vis { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
 .vis th, .vis td { text-align: left; padding: 10px 10px; border-bottom: 1px solid var(--card-line); vertical-align: top; }
 .vis thead th { font-family: var(--font-mono); font-weight: 500; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--card-muted); }
-.yes { color: var(--place); font-weight: 700; }
+.yes { color: var(--felt); font-weight: 700; }
 .no { color: var(--card-muted); }
 
 .scribe-card { position: relative; }
@@ -214,7 +212,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
 .plan-ex .row:last-child { border-bottom: 0; }
 .plan-ex .row > * { min-width: 0; }
 .plan-ex .k { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--card-muted); padding-top: 3px; }
-.plan-ex .row.sug .k { color: var(--place); }
+.plan-ex .row.sug .k { color: var(--string); }
 .ai-note { max-width: 44rem; }
 .ai-note p { color: var(--chalk-dim); margin-top: 12px; }
 .ai-note ul { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
