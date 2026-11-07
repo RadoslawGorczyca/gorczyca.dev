@@ -502,7 +502,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
                 <div class="picked" id="sys-picked"></div>
               </div>
               <input type="text" class="other-text" id="sys-other-text" placeholder="Which system?" maxlength="120" hidden>
-              <p class="hint" id="sys-other-hint" hidden>Several? Separate them with commas or semicolons.</p>
+              <p class="hint" id="sys-other-hint" hidden>Type a system, then a comma, semicolon or Enter to add it.</p>
             </fieldset>
             <div>
               <label class="lbl" for="scribe-q">Who takes notes at your table?</label>
@@ -585,7 +585,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
   var PL = {
     "What do you play most often? <span class=\"hint\">Up to 3</span>": "W co najczęściej gracie? <span class=\"hint\">Maksymalnie 3</span>",
     "No match. Pick \"Other\" and type it in.": "Brak wyników. Wybierz „Inne” i wpisz system.",
-    "Several? Separate them with commas or semicolons.": "Kilka? Oddziel je przecinkiem albo średnikiem.",
+    "Type a system, then a comma, semicolon or Enter to add it.": "Wpisz system i dodaj go przecinkiem, średnikiem albo Enterem.",
     "What interests you most? <span class=\"hint\">Pick any</span>": "Co Cię najbardziej interesuje? <span class=\"hint\">Możesz wybrać kilka</span>",
     "For tabletop RPG groups": "Dla drużyn grających w stołowe gry RPG",
     "Spoiler-free for GMs": "Bez spoilerów dla MG",
@@ -831,6 +831,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
     return value === "other" && t ? "other: " + t : value;
   }
   function syncOther() {
+    if (!otherBox.checked && customSys.length) { customSys = []; otherText.value = ""; }
     document.getElementById("sys-other-text").hidden = !document.getElementById("sys-other").checked;
     document.getElementById("scribe-other-text").hidden = form.scribe.value !== "other";
     document.getElementById("notes-other-text").hidden = form.notes_tool.value !== "other";
@@ -855,20 +856,51 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
     });
     document.getElementById("sys-empty").hidden = shown > 0;
   }
+  var customSys = [];
+  var otherBox = document.getElementById("sys-other"), otherText = document.getElementById("sys-other-text");
+  function sysUsed() { return sysInputs.filter(function (i) { return i.checked && i !== otherBox; }).length + customSys.length; }
+  function sysCount() { return sysUsed() + (otherBox.checked && !customSys.length ? 1 : 0); }
+  function addCustom(name) {
+    name = name.trim().slice(0, 60);
+    if (!name || sysUsed() >= MAX_SYS) return;
+    var lower = name.toLowerCase();
+    if (customSys.some(function (c) { return c.toLowerCase() === lower; })) return;
+    if (sysInputs.some(function (i) { return i !== otherBox && i.nextElementSibling.textContent.toLowerCase() === lower; })) {
+      sysInputs.forEach(function (i) { if (i !== otherBox && i.nextElementSibling.textContent.toLowerCase() === lower) i.checked = true; });
+      if (!customSys.length) { otherBox.checked = false; otherText.hidden = true; document.getElementById("sys-other-hint").hidden = true; }
+      return;
+    }
+    customSys.push(name);
+  }
+  function takeCustom(final) {
+    var parts = otherText.value.split(/[,;]/), rest = parts.pop();
+    parts.forEach(addCustom);
+    if (final) { addCustom(rest); rest = ""; }
+    otherText.value = rest.replace(/^\s+/, "");
+    renderPicked();
+  }
+  otherText.addEventListener("input", function () { if (/^\s/.test(otherText.value)) otherText.value = otherText.value.replace(/^\s+/, ""); if (/[,;]/.test(otherText.value)) takeCustom(false); });
+  otherText.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); takeCustom(true); } });
+  otherText.addEventListener("blur", function () { if (otherText.value.trim()) takeCustom(true); });
   function renderPicked() {
     if (!sysInputs) return;
-    var picked = sysInputs.filter(function (i) { return i.checked; });
     var box = document.getElementById("sys-picked"); box.innerHTML = "";
-    picked.forEach(function (i) {
-      var b = document.createElement("button"); b.type = "button";
-      b.textContent = i.nextElementSibling.textContent;
-      b.setAttribute("aria-label", T("Remove ", "Usuń ") + b.textContent);
-      b.addEventListener("click", function () { i.checked = false; syncOther(); });
+    function pill(text, onRemove) {
+      var b = document.createElement("button"); b.type = "button"; b.textContent = text;
+      b.setAttribute("aria-label", T("Remove ", "Usuń ") + text);
+      b.addEventListener("click", function () { onRemove(); syncOther(); });
       box.appendChild(b);
+    }
+    sysInputs.forEach(function (i) {
+      if (!i.checked || (i === otherBox && customSys.length)) return;
+      pill(i.nextElementSibling.textContent, function () { i.checked = false; });
     });
-    var full = picked.length >= MAX_SYS;
+    customSys.forEach(function (c) { pill(c, function () { customSys = customSys.filter(function (x) { return x !== c; }); }); });
+    var n = sysCount(), full = n >= MAX_SYS;
     sysInputs.forEach(function (i) { i.disabled = full && !i.checked; i.parentNode.classList.toggle("off", i.disabled); });
-    document.getElementById("sys-btn-text").textContent = picked.length ? T(picked.length + " of 3 chosen", "Wybrano " + picked.length + " z 3") : T("Choose systems", "Wybierz systemy");
+    otherText.disabled = full;
+    otherText.placeholder = full ? T("You've picked 3", "Wybrano już 3") : T("Which system?", "Jaki system?");
+    document.getElementById("sys-btn-text").textContent = n ? T(n + " of 3 chosen", "Wybrano " + n + " z 3") : T("Choose systems", "Wybierz systemy");
   }
   sysBtn.addEventListener("click", function () { openSys(sysPop.hidden); });
   sysFilter.addEventListener("input", function () { filterSys(this.value); });
@@ -890,7 +922,13 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
     var data = {
       email: email,
       role: pick("role"),
-      systems: Array.prototype.map.call(form.querySelectorAll('input[name="systems"]:checked'), function (i) { return i.value === "other" ? withOther("other", "sys-other-text") : i.value; }).join(","),
+      systems: (function () {
+        takeCustom(true);
+        var out = sysInputs.filter(function (i) { return i.checked && i !== otherBox; }).map(function (i) { return i.value; });
+        customSys.forEach(function (c) { out.push("other: " + c); });
+        if (otherBox.checked && !customSys.length) out.push("other");
+        return out.join(",");
+      })(),
       scribe: withOther(form.scribe.value, "scribe-other-text"),
       notes_tool: withOther(form.notes_tool.value, "notes-other-text"),
       top_feature: Array.prototype.map.call(form.querySelectorAll('input[name="top_feature"]:checked'), function (i) { return i.value === "other" ? withOther("other", "feat-other-text") : i.value; }).join(","),
