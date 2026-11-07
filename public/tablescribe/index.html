@@ -5,11 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tablescribe</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Everyone keeps their own campaign notes. Tablescribe files them into one campaign and turns the hunches in them into open threads. Join the free beta.">
+<meta name="description" content="For tabletop RPG groups: everyone keeps their own campaign notes. Tablescribe files them into one campaign and turns the hunches in them into open threads. Join the free beta.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@600&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
+input[type="text"] { width: 100%; font: inherit; color: var(--card-ink); background: #fff; border: 1px solid #c9cbc2; border-radius: 6px; padding: 12px 14px; color-scheme: light; }
 /* Layout: the page is a game table. Dark felt underneath, index cards on top; one investigation board in the hero ties players' notes to an open thread with red string. Single deliberate look in both themes. */
 :root {
   --felt: #1d352e;
@@ -180,9 +181,12 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
 
 @media (max-width: 920px) {
   .hero, .split, .join { grid-template-columns: 1fr; gap: 36px; }
+  .feat3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero { padding-block: 16px 64px; }
 }
 @media (max-width: 640px) {
+  .feat3 { grid-template-columns: 1fr; }
+  .plan-ex .row { grid-template-columns: 1fr; gap: 2px; }
   .board { aspect-ratio: auto; display: grid; gap: 16px; }
   .board svg.strings, .board .note-hand { display: none; }
   .board .ic { position: relative; inset: auto; width: auto; transform: none; }
@@ -191,6 +195,31 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
   .thread { grid-template-columns: auto 1fr; }
   .thread .chasing { grid-column: 2; }
 }
+.digest { display: grid; gap: 12px; margin-top: 12px; }
+.remind { border-left: 3px solid var(--string); padding: 4px 0 4px 14px; }
+.remind .label { color: var(--string); }
+.remind p { margin-top: 2px; }
+.remind p.q { color: var(--card-muted); font-style: italic; }
+.feat3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 34px; }
+.feat3 > div { min-width: 0; }
+.feat3 b { display: block; font-family: var(--font-display); font-weight: 400; font-size: 1.25rem; margin-bottom: 6px; }
+.feat3 p { color: var(--chalk-dim); }
+.feat3 .ex { margin-top: 12px; font-size: 0.92rem; }
+.plan-ex { display: grid; gap: 10px; }
+.plan-ex .row { display: grid; grid-template-columns: 7.5rem 1fr; gap: 12px; padding-block: 8px; border-bottom: 1px solid var(--card-line); }
+.plan-ex .row:last-child { border-bottom: 0; }
+.plan-ex .row > * { min-width: 0; }
+.plan-ex .k { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--card-muted); padding-top: 3px; }
+.plan-ex .row.sug .k { color: var(--place); }
+.ai-note { max-width: 44rem; }
+.ai-note p { color: var(--chalk-dim); margin-top: 12px; }
+.ai-note ul { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.ai-note li { padding-left: 22px; position: relative; }
+.ai-note li::before { content: "✕"; position: absolute; left: 0; color: var(--string); font-weight: 700; }
+.ai-note li.yes::before { content: "✓"; color: var(--marker); }
+.sys-filter { margin-bottom: 4px; }
+.syslist { max-height: 15rem; overflow-y: auto; padding: 2px; }
+.other-text { margin-top: 8px; }
 .tw-off { color: transparent; }
 .tw-cur { box-shadow: 2px 0 0 currentColor; }
 @keyframes ink { from { -webkit-mask-position: 100% 0; mask-position: 100% 0; } to { -webkit-mask-position: 0 0; mask-position: 0 0; } }
@@ -225,7 +254,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
   <main id="top">
     <section class="hero">
       <div>
-        <p class="label">For game masters and their tables</p>
+        <p class="label">For tabletop RPG groups</p>
         <h1>Your players already wrote down the clues.</h1>
         <p class="lede">Everyone keeps their own notes, the way they already do. <b>Tablescribe gathers them into one campaign, files every NPC, place and item, and turns the hunches scattered through them into open threads</b> with the evidence attached.</p>
         <div class="cta">
@@ -272,6 +301,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
             <div><b>No extra writing</b><p>Players write notes as usual. Threads are pulled out of what is already there.</p></div>
             <div><b>Evidence attached</b><p>Each thread lists the clues that point to it and who noticed them.</p></div>
             <div><b>Private stays private</b><p>A hunch from a player's private notes is visible only to that player and you.</p></div>
+            <div><b>Spoiler-free for GMs</b><p>Rather not be swayed by your players' theories? They stay hidden from you until you switch them on.</p></div>
           </div>
         </div>
         <div class="paper" aria-label="Example list of open threads">
@@ -282,6 +312,47 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
             <div class="thread"><span class="dot"></span><div><b>Why won't Vessa take coin?</b><span class="meta">1 clue · session 14</span></div><span class="chasing">1 player</span></div>
             <div class="thread"><span class="dot"></span><div><b>What is under the lighthouse?</b><span class="meta">2 clues · sessions 3, 14</span></div><span class="chasing">nobody yet</span></div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" aria-labelledby="gm-h">
+      <div class="split">
+        <div class="sec-head">
+          <p class="label">For the game master</p>
+          <h2 id="gm-h">Nothing falls through the cracks.</h2>
+          <p>Long campaigns leave loose ends. Open Tablescribe before you prep and it tells you what has gone quiet, built only from what actually happened at the table.</p>
+        </div>
+        <div class="paper" aria-label="Example of a dropped-threads digest">
+          <p class="label">Before you prep · session 16</p>
+          <div class="digest">
+            <div class="remind"><p class="label">Gone quiet · 10 sessions</p><p>In session 6 Old Harrow said he had something important to tell the party. He hasn't appeared since.</p><p class="q">What is he up to?</p></div>
+            <div class="remind"><p class="label">Missed meeting · session 11</p><p>The party agreed to meet Captain Ines at the docks at dusk and never showed up.</p><p class="q">Did something happen to her?</p></div>
+            <div class="remind"><p class="label">Fan favourite · 8 sessions away</p><p>Vessa hasn't appeared since session 8, and the players still mention her warmly in their notes.</p><p class="q">Time for her to visit?</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="feat3">
+        <div><b>Who knew what, when</b><p>Check when the party first heard of something and who was at the table that night.</p><p class="ex hand" style="color:var(--marker);font-size:1.2rem">Grey Hands: first heard in session 11, Bram and El present</p></div>
+        <div><b>Off-screen moves</b><p>Keep track of where your NPCs are and how long travel takes, so nobody turns up where they couldn't be.</p><p class="ex hand" style="color:var(--marker);font-size:1.2rem">Captain Ines: Saltmere to Ostfeld, 12 days by road</p></div>
+        <div><b>Names on demand</b><p>The innkeeper from session 3, the captain's brother, that town with the bell. Found in seconds.</p><p class="ex hand" style="color:var(--marker);font-size:1.2rem">"innkeeper, session 3" → Marta Kell</p></div>
+      </div>
+    </section>
+
+    <section class="sec" aria-labelledby="plan-h">
+      <div class="split">
+        <div class="paper" aria-label="Example of getting a plan back on track">
+          <p class="label">Your plan · sessions 15–17</p>
+          <div class="plan-ex">
+            <div class="row"><span class="k">You planned</span><p>Session 15: the party follows the compass to the lighthouse and finds the Grey Hands' meeting.</p></div>
+            <div class="row"><span class="k">What happened</span><p>They ignored the compass and spent the night at Vessa's ferry, chasing a true name.</p></div>
+            <div class="row sug"><span class="k">Ways back</span><p>Vessa saw lamps carried to the lighthouse. Or the Grey Hands come to the ferry looking for the compass. Your meeting still happens in session 16.</p></div>
+          </div>
+        </div>
+        <div class="sec-head">
+          <p class="label">For GMs who prep</p>
+          <h2 id="plan-h">The table went sideways. Your plan doesn't have to.</h2>
+          <p>Write down what you planned for the next few sessions. When the players take another road, Tablescribe suggests a few ways to bring your prepared scenes back without railroading them. You pick one, change it, or ignore it.</p>
         </div>
       </div>
     </section>
@@ -312,9 +383,9 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
     <section class="sec" aria-labelledby="scribe-h">
       <div class="split">
         <div class="sec-head">
-          <p class="label">The stand-in scribe</p>
-          <h2 id="scribe-h">Missed a session? Someone took notes for you.</h2>
-          <p>When a player can't make it, another one takes the notebook for the night. Their notes become a recap the missing player can read before next week.</p>
+          <p class="label">For players</p>
+          <h2 id="scribe-h">Forgot what happened last week?</h2>
+          <p>Read a two-minute recap before every session, with the threads your character cares about. Missed a night? Whoever took notes covers for you, and their notes become your recap.</p>
         </div>
         <div class="paper scribe-card">
           <span class="hand">scribe tonight: Ilse</span>
@@ -322,6 +393,20 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
           <p style="margin-top:8px">The party crossed to Saltmere Docks. Vessa still refuses coin and asks for a true name. Bram traded away the tarnished compass, which points at the lighthouse.</p>
           <p class="muted">New: Vessa (NPC), Saltmere Docks (location). Updated: Who hired the Grey Hands? (+1 clue)</p>
         </div>
+      </div>
+    </section>
+
+    <section class="sec" aria-labelledby="ai-h">
+      <div class="ai-note">
+        <p class="label" style="color:var(--marker)">Where AI comes in</p>
+        <h2 id="ai-h" style="margin-top:10px">It keeps the records. You tell the story.</h2>
+        <p>Tablescribe uses AI to read your table's notes, connect them and point out what you may have forgotten. The creative part stays with you.</p>
+        <ul>
+          <li class="yes">Files, links and remembers what your table wrote</li>
+          <li class="yes">Reminds you of loose ends and suggests ways back to your plan</li>
+          <li>Never runs your session or makes calls at the table</li>
+          <li>Never writes your world, your NPCs or your plot for you</li>
+        </ul>
       </div>
     </section>
 
@@ -333,7 +418,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
       <ol class="steps">
         <li><b>Write as usual</b><p>Each player types or uploads their notes after the session. No templates, no tags.</p></li>
         <li><b>Tablescribe connects it</b><p>Entries are filed, notes are merged, and open threads get their new clues.</p></li>
-        <li><b>You steer the story</b><p>Check what your table is chasing and plan next session around it. Rules questions get answers from rulebooks you upload or the free SRD.</p></li>
+        <li><b>Everyone catches up</b><p>Players read their recap. You see what has gone quiet and plan the next session your way.</p></li>
       </ol>
     </section>
 
@@ -360,13 +445,38 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
             </fieldset>
             <fieldset>
               <legend>What do you play? <span class="hint">Pick any</span></legend>
-              <div class="chips">
-                <label><input type="checkbox" id="sys-5e" name="systems" value="dnd5e"><span>D&amp;D 5e / 2024</span></label>
-                <label><input type="checkbox" id="sys-pf" name="systems" value="pathfinder"><span>Pathfinder</span></label>
-                <label><input type="checkbox" id="sys-coc" name="systems" value="coc"><span>Call of Cthulhu</span></label>
-                <label><input type="checkbox" id="sys-osr" name="systems" value="osr"><span>OSR</span></label>
-                <label><input type="checkbox" id="sys-other" name="systems" value="other"><span>Something else</span></label>
+              <input type="text" class="sys-filter" id="sys-filter" placeholder="Search systems" autocomplete="off" aria-label="Search systems">
+              <div class="chips syslist" id="syslist">
+                <label data-sys><input type="checkbox" id="sys-alien-rpg" name="systems" value="alien-rpg"><span>Alien RPG</span></label>
+                <label data-sys><input type="checkbox" id="sys-blades-in-the-dark" name="systems" value="blades-in-the-dark"><span>Blades in the Dark</span></label>
+                <label data-sys><input type="checkbox" id="sys-call-of-cthulhu" name="systems" value="call-of-cthulhu"><span>Call of Cthulhu</span></label>
+                <label data-sys><input type="checkbox" id="sys-cosmere-rpg" name="systems" value="cosmere-rpg"><span>Cosmere RPG</span></label>
+                <label data-sys><input type="checkbox" id="sys-cyberpunk-red" name="systems" value="cyberpunk-red"><span>Cyberpunk RED</span></label>
+                <label data-sys><input type="checkbox" id="sys-daggerheart" name="systems" value="daggerheart"><span>Daggerheart</span></label>
+                <label data-sys><input type="checkbox" id="sys-delta-green" name="systems" value="delta-green"><span>Delta Green</span></label>
+                <label data-sys><input type="checkbox" id="sys-draw-steel" name="systems" value="draw-steel"><span>Draw Steel</span></label>
+                <label data-sys><input type="checkbox" id="sys-dungeon-crawl-classics" name="systems" value="dungeon-crawl-classics"><span>Dungeon Crawl Classics</span></label>
+                <label data-sys><input type="checkbox" id="sys-dungeons-and-dragons-5e-2024" name="systems" value="dungeons-and-dragons-5e-2024"><span>Dungeons &amp; Dragons (5e / 2024)</span></label>
+                <label data-sys><input type="checkbox" id="sys-fate" name="systems" value="fate"><span>Fate</span></label>
+                <label data-sys><input type="checkbox" id="sys-kult-divinity-lost" name="systems" value="kult-divinity-lost"><span>Kult: Divinity Lost</span></label>
+                <label data-sys><input type="checkbox" id="sys-legend-of-the-five-rings" name="systems" value="legend-of-the-five-rings"><span>Legend of the Five Rings</span></label>
+                <label data-sys><input type="checkbox" id="sys-monastyr" name="systems" value="monastyr"><span>Monastyr</span></label>
+                <label data-sys><input type="checkbox" id="sys-m-rk-borg" name="systems" value="m-rk-borg"><span>Mörk Borg</span></label>
+                <label data-sys><input type="checkbox" id="sys-mothership" name="systems" value="mothership"><span>Mothership</span></label>
+                <label data-sys><input type="checkbox" id="sys-neuroshima" name="systems" value="neuroshima"><span>Neuroshima</span></label>
+                <label data-sys><input type="checkbox" id="sys-pathfinder-1e-2e" name="systems" value="pathfinder-1e-2e"><span>Pathfinder (1e / 2e)</span></label>
+                <label data-sys><input type="checkbox" id="sys-savage-worlds" name="systems" value="savage-worlds"><span>Savage Worlds</span></label>
+                <label data-sys><input type="checkbox" id="sys-shadowrun" name="systems" value="shadowrun"><span>Shadowrun</span></label>
+                <label data-sys><input type="checkbox" id="sys-star-wars-rpg" name="systems" value="star-wars-rpg"><span>Star Wars RPG</span></label>
+                <label data-sys><input type="checkbox" id="sys-starfinder" name="systems" value="starfinder"><span>Starfinder</span></label>
+                <label data-sys><input type="checkbox" id="sys-the-witcher-trpg" name="systems" value="the-witcher-trpg"><span>The Witcher TRPG</span></label>
+                <label data-sys><input type="checkbox" id="sys-vampire-the-masquerade" name="systems" value="vampire-the-masquerade"><span>Vampire: The Masquerade</span></label>
+                <label data-sys><input type="checkbox" id="sys-warhammer-40-000-roleplay" name="systems" value="warhammer-40-000-roleplay"><span>Warhammer 40,000 Roleplay</span></label>
+                <label data-sys><input type="checkbox" id="sys-warhammer-fantasy-roleplay" name="systems" value="warhammer-fantasy-roleplay"><span>Warhammer Fantasy Roleplay</span></label>
+                <label data-sys><input type="checkbox" id="sys-wolsung" name="systems" value="wolsung"><span>Wolsung</span></label>
+                <label><input type="checkbox" id="sys-other" name="systems" value="other"><span>Other</span></label>
               </div>
+              <input type="text" class="other-text" id="sys-other-text" placeholder="Which system?" maxlength="120" hidden>
             </fieldset>
             <div>
               <label class="lbl" for="scribe-q">Who takes notes at your table?</label>
@@ -377,7 +487,9 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
                 <option value="rotating">Whoever is around, it changes</option>
                 <option value="gm">Only the GM</option>
                 <option value="nobody">Nobody, really</option>
+                <option value="other">Other</option>
               </select>
+              <input type="text" class="other-text" id="scribe-other-text" placeholder="Tell us how" maxlength="100" hidden>
             </div>
             <div>
               <label class="lbl" for="notes">Where do those notes live?</label>
@@ -390,17 +502,25 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
                 <option value="worldanvil">World Anvil, LegendKeeper or similar</option>
                 <option value="discord">Discord messages</option>
                 <option value="phone">Phone notes app</option>
+                <option value="other">Other</option>
               </select>
+              <input type="text" class="other-text" id="notes-other-text" placeholder="Where?" maxlength="100" hidden>
             </div>
             <fieldset>
               <legend>Which would you use first?</legend>
               <div class="chips">
                 <label><input type="radio" id="f-threads" name="top_feature" value="threads"><span>Open threads</span></label>
+                <label><input type="radio" id="f-recap" name="top_feature" value="recap"><span>Recap before the session</span></label>
                 <label><input type="radio" id="f-merge" name="top_feature" value="merge"><span>Shared campaign notes</span></label>
                 <label><input type="radio" id="f-file" name="top_feature" value="filing"><span>Automatic NPC and place pages</span></label>
-                <label><input type="radio" id="f-scribe" name="top_feature" value="scribe"><span>Recaps for missed sessions</span></label>
+                <label><input type="radio" id="f-dropped" name="top_feature" value="dropped"><span>Reminders about dropped threads</span></label>
+                <label><input type="radio" id="f-knew" name="top_feature" value="knew"><span>Who knew what, when</span></label>
+                <label><input type="radio" id="f-offscreen" name="top_feature" value="offscreen"><span>Tracking off-screen moves</span></label>
+                <label><input type="radio" id="f-plan" name="top_feature" value="plan"><span>Getting my plan back on track</span></label>
                 <label><input type="radio" id="f-rules" name="top_feature" value="rules"><span>Rules answers</span></label>
+                <label><input type="radio" id="f-other" name="top_feature" value="other"><span>Other</span></label>
               </div>
+              <input type="text" class="other-text" id="feat-other-text" placeholder="What would you use first?" maxlength="100" hidden>
             </fieldset>
             <div>
               <label class="lbl" for="pain">What is the most annoying part of keeping a campaign straight? <span class="hint">Optional</span></label>
@@ -437,6 +557,58 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
   var thanksMsg = document.getElementById("thanks-msg");
   var submit = document.getElementById("submit");
   var PL = {
+    "For tabletop RPG groups": "Dla drużyn grających w stołowe gry RPG",
+    "Spoiler-free for GMs": "Bez spoilerów dla MG",
+    "Rather not be swayed by your players' theories? They stay hidden from you until you switch them on.": "Nie chcesz sugerować się teoriami graczy? Są przed Tobą ukryte, dopóki ich nie włączysz.",
+    "For the game master": "Dla Mistrza Gry",
+    "Nothing falls through the cracks.": "Żaden wątek się nie urwie.",
+    "Long campaigns leave loose ends. Open Tablescribe before you prep and it tells you what has gone quiet, built only from what actually happened at the table.": "Długie kampanie zostawiają niedokończone sprawy. Zajrzyj do Tablescribe przed przygotowaniem sesji, a pokaże Ci, co ucichło, wyłącznie na podstawie tego, co naprawdę wydarzyło się przy stole.",
+    "Before you prep · session 16": "Przed przygotowaniem · sesja 16",
+    "Gone quiet · 10 sessions": "Cisza od 10 sesji",
+    "In session 6 Old Harrow said he had something important to tell the party. He hasn't appeared since.": "Na sesji 6 stary Harrow mówił, że ma dla drużyny ważne wieści. Od tamtej pory się nie pojawił.",
+    "What is he up to?": "Co się z nim dzieje?",
+    "Missed meeting · session 11": "Nieodbyte spotkanie · sesja 11",
+    "The party agreed to meet Captain Ines at the docks at dusk and never showed up.": "Drużyna umówiła się z kapitan Ines w dokach o zmierzchu i nie dotarła na miejsce.",
+    "Did something happen to her?": "Czy coś jej się stało?",
+    "Fan favourite · 8 sessions away": "Ulubienica drużyny · 8 sesji nieobecna",
+    "Vessa hasn't appeared since session 8, and the players still mention her warmly in their notes.": "Vessa nie pojawiła się od sesji 8, a gracze wciąż ciepło wspominają ją w notatkach.",
+    "Time for her to visit?": "Może czas, żeby odwiedziła drużynę?",
+    "Who knew what, when": "Kto co wiedział i kiedy",
+    "Check when the party first heard of something and who was at the table that night.": "Sprawdź, kiedy drużyna pierwszy raz o czymś usłyszała i kto był wtedy przy stole.",
+    "Grey Hands: first heard in session 11, Bram and El present": "Szare Dłonie: pierwszy raz na sesji 11, byli Bram i El",
+    "Off-screen moves": "Ruchy za kulisami",
+    "Keep track of where your NPCs are and how long travel takes, so nobody turns up where they couldn't be.": "Śledź, gdzie są Twoi NPC i ile trwa podróż, żeby nikt nie pojawił się tam, gdzie nie mógłby dotrzeć.",
+    "Captain Ines: Saltmere to Ostfeld, 12 days by road": "Kapitan Ines: z Saltmere do Ostfeld 12 dni drogi",
+    "Names on demand": "Imiona od ręki",
+    "The innkeeper from session 3, the captain's brother, that town with the bell. Found in seconds.": "Karczmarz z sesji 3, brat kapitana, to miasteczko z dzwonem. Znalezione w kilka sekund.",
+    "\"innkeeper, session 3\" → Marta Kell": "„karczmarz, sesja 3” → Marta Kell",
+    "Your plan · sessions 15–17": "Twój plan · sesje 15–17",
+    "You planned": "Plan",
+    "Session 15: the party follows the compass to the lighthouse and finds the Grey Hands' meeting.": "Sesja 15: drużyna idzie za kompasem do latarni i trafia na spotkanie Szarych Dłoni.",
+    "What happened": "Co się stało",
+    "They ignored the compass and spent the night at Vessa's ferry, chasing a true name.": "Zignorowali kompas i spędzili noc na promie Vessy, szukając prawdziwego imienia.",
+    "Ways back": "Drogi powrotu",
+    "Vessa saw lamps carried to the lighthouse. Or the Grey Hands come to the ferry looking for the compass. Your meeting still happens in session 16.": "Vessa widziała lampy noszone do latarni. Albo Szare Dłonie przychodzą na prom szukać kompasu. Twoje spotkanie i tak odbędzie się na sesji 16.",
+    "For GMs who prep": "Dla MG, którzy się przygotowują",
+    "The table went sideways. Your plan doesn't have to.": "Drużyna poszła w bok. Twój plan nie musi.",
+    "Write down what you planned for the next few sessions. When the players take another road, Tablescribe suggests a few ways to bring your prepared scenes back without railroading them. You pick one, change it, or ignore it.": "Zapisz, co planujesz na kilka kolejnych sesji. Gdy gracze pójdą inną drogą, Tablescribe zaproponuje kilka sposobów, by wrócić do przygotowanych scen bez prowadzenia ich po torach. Wybierasz jeden, zmieniasz go albo ignorujesz.",
+    "For players": "Dla graczy",
+    "Forgot what happened last week?": "Nie pamiętasz, co było tydzień temu?",
+    "Read a two-minute recap before every session, with the threads your character cares about. Missed a night? Whoever took notes covers for you, and their notes become your recap.": "Przed każdą sesją przeczytaj dwuminutowe podsumowanie z wątkami ważnymi dla Twojej postaci. Ominął Cię wieczór? Ten, kto notował, zrobił to za Ciebie, a jego notatki stają się Twoim podsumowaniem.",
+    "Where AI comes in": "Gdzie jest AI",
+    "It keeps the records. You tell the story.": "Ono pilnuje zapisków. Historię opowiadasz Ty.",
+    "Tablescribe uses AI to read your table's notes, connect them and point out what you may have forgotten. The creative part stays with you.": "Tablescribe używa AI, żeby czytać notatki drużyny, łączyć je i przypominać o tym, co mogło umknąć. Twórcza część zostaje przy Tobie.",
+    "Files, links and remembers what your table wrote": "Porządkuje, łączy i pamięta to, co zapisała drużyna",
+    "Reminds you of loose ends and suggests ways back to your plan": "Przypomina o urwanych wątkach i podpowiada drogi powrotu do planu",
+    "Never runs your session or makes calls at the table": "Nigdy nie prowadzi sesji ani nie podejmuje decyzji przy stole",
+    "Never writes your world, your NPCs or your plot for you": "Nigdy nie wymyśla za Ciebie świata, NPC ani fabuły",
+    "Everyone catches up": "Wszyscy są na bieżąco",
+    "Players read their recap. You see what has gone quiet and plan the next session your way.": "Gracze czytają podsumowanie. Ty widzisz, co ucichło, i planujesz kolejną sesję po swojemu.",
+    "Other": "Inne",
+    "Recap before the session": "Podsumowanie przed sesją",
+    "Reminders about dropped threads": "Przypomnienia o urwanych wątkach",
+    "Tracking off-screen moves": "Śledzenie ruchów za kulisami",
+    "Getting my plan back on track": "Powrót do mojego planu",
     "Join the beta": "Dołącz do bety",
     "For game masters and their tables": "Dla Mistrzów Gry i ich drużyn",
     "Your players already wrote down the clues.": "Twoi gracze już zapisali wszystkie tropy.",
@@ -603,6 +775,8 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
     }
     lang = next;
     document.documentElement.lang = lang;
+    [["sys-filter", "Search systems", "Szukaj systemu"], ["sys-other-text", "Which system?", "Jaki system?"], ["scribe-other-text", "Tell us how", "Napisz, jak to u Was wygląda"], ["notes-other-text", "Where?", "Gdzie?"], ["feat-other-text", "What would you use first?", "Z czego skorzystasz najpierw?"]].forEach(function (x) { document.getElementById(x[0]).placeholder = T(x[1], x[2]); });
+    document.getElementById("sys-filter").setAttribute("aria-label", T("Search systems", "Szukaj systemu"));
     document.getElementById("pain").placeholder = T("Nobody remembers which NPC said what three sessions ago…", "Nikt nie pamięta, który NPC co powiedział trzy sesje temu…");
     document.getElementById("lang-en").setAttribute("aria-pressed", String(lang === "en"));
     document.getElementById("lang-pl").setAttribute("aria-pressed", String(lang === "pl"));
@@ -621,6 +795,23 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
   var initial = qs || saved || "en";
   if (initial === "pl") setLang("pl");
 
+  function withOther(value, inputId) {
+    var t = document.getElementById(inputId).value.trim();
+    return value === "other" && t ? "other: " + t : value;
+  }
+  function syncOther() {
+    document.getElementById("sys-other-text").hidden = !document.getElementById("sys-other").checked;
+    document.getElementById("scribe-other-text").hidden = form.scribe.value !== "other";
+    document.getElementById("notes-other-text").hidden = form.notes_tool.value !== "other";
+    document.getElementById("feat-other-text").hidden = pick("top_feature") !== "other";
+  }
+  form.addEventListener("change", syncOther);
+  document.getElementById("sys-filter").addEventListener("input", function () {
+    var q = this.value.trim().toLowerCase();
+    Array.prototype.forEach.call(document.querySelectorAll("#syslist label[data-sys]"), function (l) {
+      l.hidden = q !== "" && l.textContent.toLowerCase().indexOf(q) === -1 && !l.querySelector("input").checked;
+    });
+  });
   function pick(name) { var el = form.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ""; }
   function showError(msg) { err.textContent = msg; err.hidden = false; }
 
@@ -633,10 +824,10 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
     var data = {
       email: email,
       role: pick("role"),
-      systems: Array.prototype.map.call(form.querySelectorAll('input[name="systems"]:checked'), function (i) { return i.value; }).join(","),
-      scribe: form.scribe.value,
-      notes_tool: form.notes_tool.value,
-      top_feature: pick("top_feature"),
+      systems: Array.prototype.map.call(form.querySelectorAll('input[name="systems"]:checked'), function (i) { return i.value === "other" ? withOther("other", "sys-other-text") : i.value; }).join(","),
+      scribe: withOther(form.scribe.value, "scribe-other-text"),
+      notes_tool: withOther(form.notes_tool.value, "notes-other-text"),
+      top_feature: withOther(pick("top_feature"), "feat-other-text"),
       pain: form.pain.value.trim(),
       source: (location.hash || "").replace("#", "") || "direct",
       lang: lang
