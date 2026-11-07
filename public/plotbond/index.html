@@ -3,9 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Tablescribe</title>
+<title>Plotbond</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="For tabletop RPG groups: everyone keeps their own campaign notes. Tablescribe files them into one campaign and turns the hunches in them into open threads. Join the free beta.">
+<link rel="icon" type="image/svg+xml" href="/plotbond/favicon.svg">
+<link rel="apple-touch-icon" href="/plotbond/apple-touch-icon.png">
+<meta name="description" content="For tabletop RPG groups: everyone keeps their own campaign notes. Plotbond files them into one campaign and turns the hunches in them into open threads. Join the free beta.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@600&family=IBM+Plex+Mono:wght@500&display=swap">
@@ -69,7 +71,8 @@ a { color: inherit; }
 /* Header */
 .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
 .mark { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 1.35rem; text-decoration: none; }
-.mark svg { width: 26px; height: 26px; }
+.mark svg { width: 38px; height: 26px; flex: none; }
+.mark .bond { color: #e8574b; }
 
 .top-right { display: flex; align-items: center; gap: 14px; }
 .lang { display: inline-flex; border-radius: 8px; box-shadow: inset 0 0 0 1px var(--felt-line); overflow: hidden; }
@@ -255,9 +258,9 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
 
 <div class="wrap">
   <header class="top">
-    <a class="mark" href="#top" aria-label="Tablescribe home">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="7" width="22" height="17" rx="2" fill="var(--card)" transform="rotate(-6 16 16)"/><path d="M9 13h12M9 17h9" stroke="var(--card-muted)" stroke-width="1.6" transform="rotate(-6 16 16)"/><circle cx="23" cy="9" r="3" fill="var(--string)"/></svg>
-      Tablescribe
+    <a class="mark" href="#top" aria-label="Plotbond home">
+      <svg viewBox="56 20 88 60" width="38" height="26" aria-hidden="true"><g transform="translate(0,0) scale(1)" fill="none" stroke-linecap="round"><defs><clipPath id="hm1ct"><circle cx="100" cy="33.03" r="11"/></clipPath><clipPath id="hm1cb"><circle cx="100" cy="66.97" r="11"/></clipPath><mask id="hm1ma" maskUnits="userSpaceOnUse" x="-10" y="-10" width="220" height="120"><rect x="-10" y="-10" width="220" height="120" fill="white"/><circle cx="114" cy="50" r="22" fill="none" stroke="black" stroke-width="16" clip-path="url(#hm1ct)"/></mask><mask id="hm1mb" maskUnits="userSpaceOnUse" x="-10" y="-10" width="220" height="120"><rect x="-10" y="-10" width="220" height="120" fill="white"/><circle cx="86" cy="50" r="22" fill="none" stroke="black" stroke-width="16" clip-path="url(#hm1cb)"/></mask></defs><g mask="url(#hm1ma)"><circle cx="86" cy="50" r="22" stroke="#eef0ea" stroke-width="10"/></g><g mask="url(#hm1mb)"><circle cx="114" cy="50" r="22" stroke="#e8574b" stroke-width="10"/></g></g></svg>
+      <span>Plot<span class="bond">bond</span></span>
     </a>
     <div class="top-right">
       <div class="lang" role="group" aria-label="Language">
@@ -273,7 +276,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
       <div>
         <p class="label">For tabletop RPG groups</p>
         <h1>Your players already wrote down the clues.</h1>
-        <p class="lede">Everyone keeps their own notes, the way they already do. <b>Tablescribe gathers them into one campaign, files every NPC, place and item, and turns the hunches scattered through them into open threads</b> with the evidence attached.</p>
+        <p class="lede">Everyone keeps their own notes, the way they already do. <b>Plotbond gathers them into one campaign, files every NPC, place and item, and turns the hunches scattered through them into open threads</b> with the evidence attached.</p>
         <div class="cta">
           <a class="btn" href="#join">Join the free beta</a>
           <small>Free while we build it.</small>
@@ -338,7 +341,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
         <div class="sec-head">
           <p class="label">For the game master</p>
           <h2 id="gm-h">Nothing falls through the cracks.</h2>
-          <p>Long campaigns leave loose ends. Open Tablescribe before you prep and it tells you what has gone quiet, built only from what actually happened at the table.</p>
+          <p>Long campaigns leave loose ends. Open Plotbond before you prep and it tells you what has gone quiet, built only from what actually happened at the table.</p>
         </div>
         <div class="paper" aria-label="Example of a dropped-threads digest">
           <p class="label">Before you prep · session 16</p>
@@ -369,7 +372,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
         <div class="sec-head">
           <p class="label">For GMs who prep</p>
           <h2 id="plan-h">The table went sideways. Your plan doesn't have to.</h2>
-          <p>Write down what you planned for the next few sessions. When the players take another road, Tablescribe suggests a few ways to bring your prepared scenes back without railroading them. You pick one, change it, or ignore it.</p>
+          <p>Write down what you planned for the next few sessions. When the players take another road, Plotbond suggests a few ways to bring your prepared scenes back without railroading them. You pick one, change it, or ignore it.</p>
         </div>
       </div>
     </section>
@@ -392,7 +395,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
         <div class="sec-head">
           <p class="label">Everyone's notes, one campaign</p>
           <h2 id="notes-h">Five notebooks. One story.</h2>
-          <p>Each player writes or uploads their own notes. Tablescribe merges them into one campaign record and keeps a page for every NPC, location and item, with links back to the session where it showed up.</p>
+          <p>Each player writes or uploads their own notes. Plotbond merges them into one campaign record and keeps a page for every NPC, location and item, with links back to the session where it showed up.</p>
         </div>
       </div>
     </section>
@@ -417,7 +420,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
       <div class="ai-note">
         <p class="label" style="color:var(--marker)">Where AI comes in</p>
         <h2 id="ai-h" style="margin-top:10px">It keeps the records. You tell the story.</h2>
-        <p>Tablescribe uses AI to read your table's notes, connect them and point out what you may have forgotten. The creative part stays with you.</p>
+        <p>Plotbond uses AI to read your table's notes, connect them and point out what you may have forgotten. The creative part stays with you.</p>
         <ul>
           <li class="yes">Files, links and remembers what your table wrote</li>
           <li class="yes">Reminds you of loose ends and suggests ways back to your plan</li>
@@ -434,7 +437,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
       </div>
       <ol class="steps">
         <li><b>Write as usual</b><p>Each player types or uploads their notes after the session. No templates, no tags.</p></li>
-        <li><b>Tablescribe connects it</b><p>Entries are filed, notes are merged, and open threads get their new clues.</p></li>
+        <li><b>Plotbond connects it</b><p>Entries are filed, notes are merged, and open threads get their new clues.</p></li>
         <li><b>Everyone catches up</b><p>Players read their recap. You see what has gone quiet and plan the next session your way.</p></li>
       </ol>
     </section>
@@ -555,7 +558,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
             </div>
             <div class="form-foot">
               <button class="btn" type="submit" id="submit">Join the beta</button>
-              <small>One email when the beta opens. We only use your answers to plan Tablescribe and contact you about the beta. To have them deleted, email gorczyca.it@gmail.com.</small>
+              <small>One email when the beta opens. We only use your answers to plan Plotbond and contact you about the beta. To have them deleted, email gorczyca.it@gmail.com.</small>
             </div>
             <p class="err" id="err" hidden></p>
           </form>
@@ -569,7 +572,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
   </main>
 
   <footer>
-    <span>Tablescribe · made by players, for their GMs · <a href="/">gorczyca.dev</a></span>
+    <span>Plotbond · made by players, for their GMs · <a href="/">gorczyca.dev</a></span>
     <span>Not affiliated with Wizards of the Coast, Paizo or Chaosium.</span>
   </footer>
 </div>
@@ -593,7 +596,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
     "Rather not be swayed by your players' theories? They stay hidden from you until you switch them on.": "Nie chcesz sugerować się teoriami graczy? Są przed Tobą ukryte, dopóki ich nie włączysz.",
     "For the game master": "Dla Mistrza Gry",
     "Nothing falls through the cracks.": "Żaden wątek się nie urwie.",
-    "Long campaigns leave loose ends. Open Tablescribe before you prep and it tells you what has gone quiet, built only from what actually happened at the table.": "Długie kampanie zostawiają niedokończone sprawy. Zajrzyj do Tablescribe przed przygotowaniem sesji, a pokaże Ci, co ucichło, wyłącznie na podstawie tego, co naprawdę wydarzyło się przy stole.",
+    "Long campaigns leave loose ends. Open Plotbond before you prep and it tells you what has gone quiet, built only from what actually happened at the table.": "Długie kampanie zostawiają niedokończone sprawy. Zajrzyj do Plotbond przed przygotowaniem sesji, a pokaże Ci, co ucichło, wyłącznie na podstawie tego, co naprawdę wydarzyło się przy stole.",
     "Before you prep · session 16": "Przed przygotowaniem · sesja 16",
     "Gone quiet · 10 sessions": "Cisza od 10 sesji",
     "In session 6 Old Harrow said he had something important to tell the party. He hasn't appeared since.": "Na sesji 6 stary Harrow mówił, że ma dla drużyny ważne wieści. Od tamtej pory się nie pojawił.",
@@ -622,13 +625,13 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
     "Vessa saw lamps carried to the lighthouse. Or the Grey Hands come to the ferry looking for the compass. Your meeting still happens in session 16.": "Vessa widziała lampy noszone do latarni. Albo Szare Dłonie przychodzą na prom szukać kompasu. Twoje spotkanie i tak odbędzie się na sesji 16.",
     "For GMs who prep": "Dla MG, którzy się przygotowują",
     "The table went sideways. Your plan doesn't have to.": "Drużyna poszła w bok. Twój plan nie musi.",
-    "Write down what you planned for the next few sessions. When the players take another road, Tablescribe suggests a few ways to bring your prepared scenes back without railroading them. You pick one, change it, or ignore it.": "Zapisz, co planujesz na kilka kolejnych sesji. Gdy gracze pójdą inną drogą, Tablescribe zaproponuje kilka sposobów, by wrócić do przygotowanych scen bez prowadzenia ich po torach. Wybierasz jeden, zmieniasz go albo ignorujesz.",
+    "Write down what you planned for the next few sessions. When the players take another road, Plotbond suggests a few ways to bring your prepared scenes back without railroading them. You pick one, change it, or ignore it.": "Zapisz, co planujesz na kilka kolejnych sesji. Gdy gracze pójdą inną drogą, Plotbond zaproponuje kilka sposobów, by wrócić do przygotowanych scen bez prowadzenia ich po torach. Wybierasz jeden, zmieniasz go albo ignorujesz.",
     "For players": "Dla graczy",
     "Forgot what happened last week?": "Nie pamiętasz, co było tydzień temu?",
     "Read a two-minute recap before every session, with the threads your character cares about. Missed a night? Whoever took notes covers for you, and their notes become your recap.": "Przed każdą sesją przeczytaj dwuminutowe podsumowanie z wątkami ważnymi dla Twojej postaci. Ominął Cię wieczór? Ten, kto notował, zrobił to za Ciebie, a jego notatki stają się Twoim podsumowaniem.",
     "Where AI comes in": "Gdzie jest AI",
     "It keeps the records. You tell the story.": "Ono pilnuje zapisków. Historię opowiadasz Ty.",
-    "Tablescribe uses AI to read your table's notes, connect them and point out what you may have forgotten. The creative part stays with you.": "Tablescribe używa AI, żeby czytać notatki drużyny, łączyć je i przypominać o tym, co mogło umknąć. Twórcza część zostaje przy Tobie.",
+    "Plotbond uses AI to read your table's notes, connect them and point out what you may have forgotten. The creative part stays with you.": "Plotbond używa AI, żeby czytać notatki drużyny, łączyć je i przypominać o tym, co mogło umknąć. Twórcza część zostaje przy Tobie.",
     "Files, links and remembers what your table wrote": "Porządkuje, łączy i pamięta to, co zapisała drużyna",
     "Reminds you of loose ends and suggests ways back to your plan": "Przypomina o urwanych wątkach i podpowiada drogi powrotu do planu",
     "Never runs your session or makes calls at the table": "Nigdy nie prowadzi sesji ani nie podejmuje decyzji przy stole",
@@ -643,7 +646,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
     "Join the beta": "Dołącz do bety",
     "For game masters and their tables": "Dla Mistrzów Gry i ich drużyn",
     "Your players already wrote down the clues.": "Twoi gracze już zapisali wszystkie tropy.",
-    "Everyone keeps their own notes, the way they already do. <b>Tablescribe gathers them into one campaign, files every NPC, place and item, and turns the hunches scattered through them into open threads</b> with the evidence attached.": "Każdy prowadzi własne notatki, tak jak dotąd. <b>Tablescribe zbiera je w jedną kampanię, zakłada stronę każdemu NPC, miejscu i przedmiotowi, a rozsiane w nich przeczucia zamienia w otwarte wątki</b> z dołączonymi dowodami.",
+    "Everyone keeps their own notes, the way they already do. <b>Plotbond gathers them into one campaign, files every NPC, place and item, and turns the hunches scattered through them into open threads</b> with the evidence attached.": "Każdy prowadzi własne notatki, tak jak dotąd. <b>Plotbond zbiera je w jedną kampanię, zakłada stronę każdemu NPC, miejscu i przedmiotowi, a rozsiane w nich przeczucia zamienia w otwarte wątki</b> z dołączonymi dowodami.",
     "Join the free beta": "Dołącz do darmowej bety",
     "Free while we build it.": "Za darmo, póki go budujemy.",
     "El's notes": "Notatki Ela", "Session 9": "Sesja 9", "Bram's notes": "Notatki Brama", "Session 7": "Sesja 7",
@@ -677,7 +680,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
     "GM prep and secrets": "Przygotowania i sekrety MG",
     "Everyone's notes, one campaign": "Notatki wszystkich, jedna kampania",
     "Five notebooks. One story.": "Pięć notesów. Jedna historia.",
-    "Each player writes or uploads their own notes. Tablescribe merges them into one campaign record and keeps a page for every NPC, location and item, with links back to the session where it showed up.": "Każdy gracz pisze albo wgrywa własne notatki. Tablescribe łączy je w jeden zapis kampanii i prowadzi stronę każdego NPC, miejsca i przedmiotu, z linkiem do sesji, w której się pojawił.",
+    "Each player writes or uploads their own notes. Plotbond merges them into one campaign record and keeps a page for every NPC, location and item, with links back to the session where it showed up.": "Każdy gracz pisze albo wgrywa własne notatki. Plotbond łączy je w jeden zapis kampanii i prowadzi stronę każdego NPC, miejsca i przedmiotu, z linkiem do sesji, w której się pojawił.",
     "The stand-in scribe": "Skryba na zastępstwo",
     "Missed a session? Someone took notes for you.": "Ominęła Cię sesja? Ktoś zanotował ją za Ciebie.",
     "When a player can't make it, another one takes the notebook for the night. Their notes become a recap the missing player can read before next week.": "Gdy ktoś nie może przyjść, inny gracz bierze notes na ten wieczór. Z jego notatek powstaje podsumowanie, które nieobecny przeczyta przed kolejną sesją.",
@@ -689,7 +692,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
     "Nothing new to learn at the table.": "Przy stole nie musisz uczyć się niczego nowego.",
     "Write as usual": "Piszcie jak zwykle",
     "Each player types or uploads their notes after the session. No templates, no tags.": "Po sesji każdy gracz wpisuje albo wgrywa notatki. Bez szablonów i tagów.",
-    "Tablescribe connects it": "Tablescribe to łączy",
+    "Plotbond connects it": "Plotbond to łączy",
     "Entries are filed, notes are merged, and open threads get their new clues.": "Wpisy trafiają na swoje miejsca, notatki się łączą, a otwarte wątki dostają nowe tropy.",
     "You steer the story": "Ty prowadzisz historię",
     "Check what your table is chasing and plan next session around it. Rules questions get answers from rulebooks you upload or the free SRD.": "Sprawdzasz, co tropi drużyna, i planujesz pod to kolejną sesję. Pytania o zasady dostają odpowiedzi z podręczników, które wgrasz, albo z darmowego SRD.",
@@ -713,10 +716,10 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
     "Shared campaign notes": "Wspólne notatki kampanii", "Automatic NPC and place pages": "Automatyczne strony NPC i miejsc",
     "Recaps for missed sessions": "Podsumowania opuszczonych sesji", "Rules answers": "Odpowiedzi o zasady",
     "What is the most annoying part of keeping a campaign straight? <span class=\"hint\">Optional</span>": "Co najbardziej przeszkadza Ci w ogarnianiu kampanii? <span class=\"hint\">Opcjonalnie</span>",
-    "One email when the beta opens. We only use your answers to plan Tablescribe and contact you about the beta. To have them deleted, email gorczyca.it@gmail.com.": "Jeden e-mail, gdy ruszy beta. Odpowiedzi wykorzystujemy tylko do planowania Tablescribe i kontaktu w sprawie bety. Jeśli chcesz je usunąć, napisz na gorczyca.it@gmail.com.",
+    "One email when the beta opens. We only use your answers to plan Plotbond and contact you about the beta. To have them deleted, email gorczyca.it@gmail.com.": "Jeden e-mail, gdy ruszy beta. Odpowiedzi wykorzystujemy tylko do planowania Plotbond i kontaktu w sprawie bety. Jeśli chcesz je usunąć, napisz na gorczyca.it@gmail.com.",
     "You're on the list.": "Jesteś na liście.",
     "We'll email you when the beta opens. Thanks for telling us how your table plays.": "Napiszemy, gdy ruszy beta. Dzięki za opowieść o tym, jak gra Twoja drużyna.",
-    "Tablescribe · made by players, for their GMs · <a href=\"/\">gorczyca.dev</a>": "Tablescribe · zrobione przez graczy dla ich MG · <a href=\"/\">gorczyca.dev</a>",
+    "Plotbond · made by players, for their GMs · <a href=\"/\">gorczyca.dev</a>": "Plotbond · zrobione przez graczy dla ich MG · <a href=\"/\">gorczyca.dev</a>",
     "Not affiliated with Wizards of the Coast, Paizo or Chaosium.": "Niezwiązane z Wizards of the Coast, Paizo ani Chaosium."
   };
   var RM = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;

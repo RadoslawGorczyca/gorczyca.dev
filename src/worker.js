@@ -1,5 +1,6 @@
 // gorczyca.dev Worker: serves the static site from ./public and stores
-// Tablescribe waitlist signups in D1 (POST /api/waitlist).
+// Plotbond waitlist signups in D1 (POST /api/waitlist).
+// Old /tablescribe/ links redirect to /plotbond/ (query kept; the browser keeps the #hash).
 
 const ALLOWED_ORIGINS = ["https://gorczyca.dev", "https://www.gorczyca.dev"];
 const LIMITS = { email: 254, role: 20, systems: 1000, scribe: 150, notes_tool: 150, top_feature: 400, price: 10, pain: 2000, source: 50, lang: 5 };
@@ -79,6 +80,9 @@ async function handleWaitlist(request, env) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === "/tablescribe" || url.pathname.startsWith("/tablescribe/")) {
+      return Response.redirect(url.origin + "/plotbond/" + url.search, 301);
+    }
     if (url.pathname === "/api/waitlist") {
       try {
         return await handleWaitlist(request, env);
