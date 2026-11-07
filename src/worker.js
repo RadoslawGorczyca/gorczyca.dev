@@ -2,7 +2,7 @@
 // Tablescribe waitlist signups in D1 (POST /api/waitlist).
 
 const ALLOWED_ORIGINS = ["https://gorczyca.dev", "https://www.gorczyca.dev"];
-const LIMITS = { email: 254, role: 20, systems: 1000, scribe: 150, notes_tool: 150, top_feature: 150, price: 10, pain: 2000, source: 50, lang: 5 };
+const LIMITS = { email: 254, role: 20, systems: 1000, scribe: 150, notes_tool: 150, top_feature: 400, price: 10, pain: 2000, source: 50, lang: 5 };
 
 const SCHEMA = `CREATE TABLE IF NOT EXISTS signups (
   id INTEGER PRIMARY KEY AUTOINCREMENT,

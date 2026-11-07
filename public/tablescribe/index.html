@@ -217,8 +217,24 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
 .ai-note li { padding-left: 22px; position: relative; }
 .ai-note li::before { content: "✕"; position: absolute; left: 0; color: var(--string); font-weight: 700; }
 .ai-note li.yes::before { content: "✓"; color: var(--marker); }
-.sys-filter { margin-bottom: 4px; }
-.syslist { max-height: 15rem; overflow-y: auto; padding: 2px; }
+.combo { display: grid; gap: 8px; }
+.combo-field { position: relative; }
+.combo-btn { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; font: inherit; text-align: left; color: var(--card-ink); background: #fff; border: 1px solid #c9cbc2; border-radius: 6px; padding: 12px 14px; cursor: pointer; }
+.combo-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.combo-btn span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.combo-pop { position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 20; background: #fff; border: 1px solid #c9cbc2; border-radius: 8px; box-shadow: 0 12px 28px rgba(0,0,0,.25); padding: 8px; }
+.combo-pop .sys-filter { margin-bottom: 6px; }
+.combo-list { max-height: 16rem; overflow-y: auto; display: grid; }
+.opt { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 6px; cursor: pointer; }
+.opt:hover, .opt:focus-within { background: #eef0ea; }
+.opt input { accent-color: var(--card-ink); width: 16px; height: 16px; margin: 0; }
+.opt.off { opacity: .45; cursor: not-allowed; }
+.opt-other { border-top: 1px solid var(--card-line); margin-top: 4px; padding-top: 10px; }
+.combo-empty { color: var(--card-muted); font-size: 0.9rem; padding: 6px 10px; }
+.picked { display: flex; flex-wrap: wrap; gap: 8px; }
+.picked:empty { display: none; }
+.picked button { font: inherit; font-size: 0.92rem; padding: 6px 10px 6px 12px; border-radius: 999px; border: 0; background: var(--card-ink); color: var(--card); cursor: pointer; }
+.picked button::after { content: " ×"; opacity: .7; }
 .other-text { margin-top: 8px; }
 .tw-off { color: transparent; }
 .tw-cur { box-shadow: 2px 0 0 currentColor; }
@@ -444,39 +460,49 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
               </div>
             </fieldset>
             <fieldset>
-              <legend>What do you play? <span class="hint">Pick any</span></legend>
-              <input type="text" class="sys-filter" id="sys-filter" placeholder="Search systems" autocomplete="off" aria-label="Search systems">
-              <div class="chips syslist" id="syslist">
-                <label data-sys><input type="checkbox" id="sys-alien-rpg" name="systems" value="alien-rpg"><span>Alien RPG</span></label>
-                <label data-sys><input type="checkbox" id="sys-blades-in-the-dark" name="systems" value="blades-in-the-dark"><span>Blades in the Dark</span></label>
-                <label data-sys><input type="checkbox" id="sys-call-of-cthulhu" name="systems" value="call-of-cthulhu"><span>Call of Cthulhu</span></label>
-                <label data-sys><input type="checkbox" id="sys-cosmere-rpg" name="systems" value="cosmere-rpg"><span>Cosmere RPG</span></label>
-                <label data-sys><input type="checkbox" id="sys-cyberpunk-red" name="systems" value="cyberpunk-red"><span>Cyberpunk RED</span></label>
-                <label data-sys><input type="checkbox" id="sys-daggerheart" name="systems" value="daggerheart"><span>Daggerheart</span></label>
-                <label data-sys><input type="checkbox" id="sys-delta-green" name="systems" value="delta-green"><span>Delta Green</span></label>
-                <label data-sys><input type="checkbox" id="sys-draw-steel" name="systems" value="draw-steel"><span>Draw Steel</span></label>
-                <label data-sys><input type="checkbox" id="sys-dungeon-crawl-classics" name="systems" value="dungeon-crawl-classics"><span>Dungeon Crawl Classics</span></label>
-                <label data-sys><input type="checkbox" id="sys-dungeons-and-dragons-5e-2024" name="systems" value="dungeons-and-dragons-5e-2024"><span>Dungeons &amp; Dragons (5e / 2024)</span></label>
-                <label data-sys><input type="checkbox" id="sys-fate" name="systems" value="fate"><span>Fate</span></label>
-                <label data-sys><input type="checkbox" id="sys-kult-divinity-lost" name="systems" value="kult-divinity-lost"><span>Kult: Divinity Lost</span></label>
-                <label data-sys><input type="checkbox" id="sys-legend-of-the-five-rings" name="systems" value="legend-of-the-five-rings"><span>Legend of the Five Rings</span></label>
-                <label data-sys><input type="checkbox" id="sys-monastyr" name="systems" value="monastyr"><span>Monastyr</span></label>
-                <label data-sys><input type="checkbox" id="sys-m-rk-borg" name="systems" value="m-rk-borg"><span>Mörk Borg</span></label>
-                <label data-sys><input type="checkbox" id="sys-mothership" name="systems" value="mothership"><span>Mothership</span></label>
-                <label data-sys><input type="checkbox" id="sys-neuroshima" name="systems" value="neuroshima"><span>Neuroshima</span></label>
-                <label data-sys><input type="checkbox" id="sys-pathfinder-1e-2e" name="systems" value="pathfinder-1e-2e"><span>Pathfinder (1e / 2e)</span></label>
-                <label data-sys><input type="checkbox" id="sys-savage-worlds" name="systems" value="savage-worlds"><span>Savage Worlds</span></label>
-                <label data-sys><input type="checkbox" id="sys-shadowrun" name="systems" value="shadowrun"><span>Shadowrun</span></label>
-                <label data-sys><input type="checkbox" id="sys-star-wars-rpg" name="systems" value="star-wars-rpg"><span>Star Wars RPG</span></label>
-                <label data-sys><input type="checkbox" id="sys-starfinder" name="systems" value="starfinder"><span>Starfinder</span></label>
-                <label data-sys><input type="checkbox" id="sys-the-witcher-trpg" name="systems" value="the-witcher-trpg"><span>The Witcher TRPG</span></label>
-                <label data-sys><input type="checkbox" id="sys-vampire-the-masquerade" name="systems" value="vampire-the-masquerade"><span>Vampire: The Masquerade</span></label>
-                <label data-sys><input type="checkbox" id="sys-warhammer-40-000-roleplay" name="systems" value="warhammer-40-000-roleplay"><span>Warhammer 40,000 Roleplay</span></label>
-                <label data-sys><input type="checkbox" id="sys-warhammer-fantasy-roleplay" name="systems" value="warhammer-fantasy-roleplay"><span>Warhammer Fantasy Roleplay</span></label>
-                <label data-sys><input type="checkbox" id="sys-wolsung" name="systems" value="wolsung"><span>Wolsung</span></label>
-                <label><input type="checkbox" id="sys-other" name="systems" value="other"><span>Other</span></label>
+              <legend>What do you play most often? <span class="hint">Up to 3</span></legend>
+              <div class="combo" id="sys-combo">
+                <div class="combo-field">
+                <button type="button" class="combo-btn" id="sys-btn" aria-haspopup="listbox" aria-expanded="false" aria-controls="sys-pop"><span id="sys-btn-text">Choose systems</span><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+                <div class="combo-pop" id="sys-pop" hidden>
+                  <input type="text" class="sys-filter" id="sys-filter" placeholder="Type the first letters" autocomplete="off" aria-label="Search systems">
+                  <div class="combo-list" id="syslist" role="listbox" aria-multiselectable="true">
+                    <label class="opt" data-sys><input type="checkbox" id="sys-alien-rpg" name="systems" value="alien-rpg"><span>Alien RPG</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-blades-in-the-dark" name="systems" value="blades-in-the-dark"><span>Blades in the Dark</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-call-of-cthulhu" name="systems" value="call-of-cthulhu"><span>Call of Cthulhu</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-cosmere-rpg" name="systems" value="cosmere-rpg"><span>Cosmere RPG</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-cyberpunk-red" name="systems" value="cyberpunk-red"><span>Cyberpunk RED</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-daggerheart" name="systems" value="daggerheart"><span>Daggerheart</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-delta-green" name="systems" value="delta-green"><span>Delta Green</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-draw-steel" name="systems" value="draw-steel"><span>Draw Steel</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-dungeon-crawl-classics" name="systems" value="dungeon-crawl-classics"><span>Dungeon Crawl Classics</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-dungeons-and-dragons-5e-2024" name="systems" value="dungeons-and-dragons-5e-2024"><span>Dungeons &amp; Dragons (5e / 2024)</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-fate" name="systems" value="fate"><span>Fate</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-kult-divinity-lost" name="systems" value="kult-divinity-lost"><span>Kult: Divinity Lost</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-legend-of-the-five-rings" name="systems" value="legend-of-the-five-rings"><span>Legend of the Five Rings</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-monastyr" name="systems" value="monastyr"><span>Monastyr</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-m-rk-borg" name="systems" value="m-rk-borg"><span>Mörk Borg</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-mothership" name="systems" value="mothership"><span>Mothership</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-neuroshima" name="systems" value="neuroshima"><span>Neuroshima</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-pathfinder-1e-2e" name="systems" value="pathfinder-1e-2e"><span>Pathfinder (1e / 2e)</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-savage-worlds" name="systems" value="savage-worlds"><span>Savage Worlds</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-shadowrun" name="systems" value="shadowrun"><span>Shadowrun</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-star-wars-rpg" name="systems" value="star-wars-rpg"><span>Star Wars RPG</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-starfinder" name="systems" value="starfinder"><span>Starfinder</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-the-witcher-trpg" name="systems" value="the-witcher-trpg"><span>The Witcher TRPG</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-vampire-the-masquerade" name="systems" value="vampire-the-masquerade"><span>Vampire: The Masquerade</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-warhammer-40-000-roleplay" name="systems" value="warhammer-40-000-roleplay"><span>Warhammer 40,000 Roleplay</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-warhammer-fantasy-roleplay" name="systems" value="warhammer-fantasy-roleplay"><span>Warhammer Fantasy Roleplay</span></label>
+                    <label class="opt" data-sys><input type="checkbox" id="sys-wolsung" name="systems" value="wolsung"><span>Wolsung</span></label>
+                    <label class="opt opt-other"><input type="checkbox" id="sys-other" name="systems" value="other"><span>Other</span></label>
+                  </div>
+                  <p class="combo-empty" id="sys-empty" hidden>No match. Pick "Other" and type it in.</p>
+                </div>
+                </div>
+                <div class="picked" id="sys-picked"></div>
               </div>
               <input type="text" class="other-text" id="sys-other-text" placeholder="Which system?" maxlength="120" hidden>
+              <p class="hint" id="sys-other-hint" hidden>Several? Separate them with commas or semicolons.</p>
             </fieldset>
             <div>
               <label class="lbl" for="scribe-q">Who takes notes at your table?</label>
@@ -507,20 +533,20 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
               <input type="text" class="other-text" id="notes-other-text" placeholder="Where?" maxlength="100" hidden>
             </div>
             <fieldset>
-              <legend>Which would you use first?</legend>
+              <legend>What interests you most? <span class="hint">Pick any</span></legend>
               <div class="chips">
-                <label><input type="radio" id="f-threads" name="top_feature" value="threads"><span>Open threads</span></label>
-                <label><input type="radio" id="f-recap" name="top_feature" value="recap"><span>Recap before the session</span></label>
-                <label><input type="radio" id="f-merge" name="top_feature" value="merge"><span>Shared campaign notes</span></label>
-                <label><input type="radio" id="f-file" name="top_feature" value="filing"><span>Automatic NPC and place pages</span></label>
-                <label><input type="radio" id="f-dropped" name="top_feature" value="dropped"><span>Reminders about dropped threads</span></label>
-                <label><input type="radio" id="f-knew" name="top_feature" value="knew"><span>Who knew what, when</span></label>
-                <label><input type="radio" id="f-offscreen" name="top_feature" value="offscreen"><span>Tracking off-screen moves</span></label>
-                <label><input type="radio" id="f-plan" name="top_feature" value="plan"><span>Getting my plan back on track</span></label>
-                <label><input type="radio" id="f-rules" name="top_feature" value="rules"><span>Rules answers</span></label>
-                <label><input type="radio" id="f-other" name="top_feature" value="other"><span>Other</span></label>
+                <label><input type="checkbox" id="f-threads" name="top_feature" value="threads"><span>Open threads</span></label>
+                <label><input type="checkbox" id="f-recap" name="top_feature" value="recap"><span>Recap before the session</span></label>
+                <label><input type="checkbox" id="f-merge" name="top_feature" value="merge"><span>Shared campaign notes</span></label>
+                <label><input type="checkbox" id="f-file" name="top_feature" value="filing"><span>Automatic NPC and place pages</span></label>
+                <label><input type="checkbox" id="f-dropped" name="top_feature" value="dropped"><span>Reminders about dropped threads</span></label>
+                <label><input type="checkbox" id="f-knew" name="top_feature" value="knew"><span>Who knew what, when</span></label>
+                <label><input type="checkbox" id="f-offscreen" name="top_feature" value="offscreen"><span>Tracking off-screen moves</span></label>
+                <label><input type="checkbox" id="f-plan" name="top_feature" value="plan"><span>Getting my plan back on track</span></label>
+                <label><input type="checkbox" id="f-rules" name="top_feature" value="rules"><span>Rules answers</span></label>
+                <label><input type="checkbox" id="f-other" name="top_feature" value="other"><span>Other</span></label>
               </div>
-              <input type="text" class="other-text" id="feat-other-text" placeholder="What would you use first?" maxlength="100" hidden>
+              <input type="text" class="other-text" id="feat-other-text" placeholder="What else?" maxlength="100" hidden>
             </fieldset>
             <div>
               <label class="lbl" for="pain">What is the most annoying part of keeping a campaign straight? <span class="hint">Optional</span></label>
@@ -557,6 +583,10 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
   var thanksMsg = document.getElementById("thanks-msg");
   var submit = document.getElementById("submit");
   var PL = {
+    "What do you play most often? <span class=\"hint\">Up to 3</span>": "W co najczęściej gracie? <span class=\"hint\">Maksymalnie 3</span>",
+    "No match. Pick \"Other\" and type it in.": "Brak wyników. Wybierz „Inne” i wpisz system.",
+    "Several? Separate them with commas or semicolons.": "Kilka? Oddziel je przecinkiem albo średnikiem.",
+    "What interests you most? <span class=\"hint\">Pick any</span>": "Co Cię najbardziej interesuje? <span class=\"hint\">Możesz wybrać kilka</span>",
     "For tabletop RPG groups": "Dla drużyn grających w stołowe gry RPG",
     "Spoiler-free for GMs": "Bez spoilerów dla MG",
     "Rather not be swayed by your players' theories? They stay hidden from you until you switch them on.": "Nie chcesz sugerować się teoriami graczy? Są przed Tobą ukryte, dopóki ich nie włączysz.",
@@ -775,11 +805,12 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
     }
     lang = next;
     document.documentElement.lang = lang;
-    [["sys-filter", "Search systems", "Szukaj systemu"], ["sys-other-text", "Which system?", "Jaki system?"], ["scribe-other-text", "Tell us how", "Napisz, jak to u Was wygląda"], ["notes-other-text", "Where?", "Gdzie?"], ["feat-other-text", "What would you use first?", "Z czego skorzystasz najpierw?"]].forEach(function (x) { document.getElementById(x[0]).placeholder = T(x[1], x[2]); });
+    [["sys-filter", "Type the first letters", "Wpisz pierwsze litery"], ["sys-other-text", "Which system?", "Jaki system?"], ["scribe-other-text", "Tell us how", "Napisz, jak to u Was wygląda"], ["notes-other-text", "Where?", "Gdzie?"], ["feat-other-text", "What else?", "Co jeszcze?"]].forEach(function (x) { document.getElementById(x[0]).placeholder = T(x[1], x[2]); });
     document.getElementById("sys-filter").setAttribute("aria-label", T("Search systems", "Szukaj systemu"));
     document.getElementById("pain").placeholder = T("Nobody remembers which NPC said what three sessions ago…", "Nikt nie pamięta, który NPC co powiedział trzy sesje temu…");
     document.getElementById("lang-en").setAttribute("aria-pressed", String(lang === "en"));
     document.getElementById("lang-pl").setAttribute("aria-pressed", String(lang === "pl"));
+    if (typeof renderPicked === "function") renderPicked();
     if (anim) {
       try { localStorage.setItem("lang", lang); } catch (e) {}
       try { var u = new URL(location.href); if (lang === "pl") u.searchParams.set("lang", "pl"); else u.searchParams.delete("lang"); history.replaceState(null, "", u); } catch (e) {}
@@ -803,15 +834,50 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
     document.getElementById("sys-other-text").hidden = !document.getElementById("sys-other").checked;
     document.getElementById("scribe-other-text").hidden = form.scribe.value !== "other";
     document.getElementById("notes-other-text").hidden = form.notes_tool.value !== "other";
-    document.getElementById("feat-other-text").hidden = pick("top_feature") !== "other";
+    document.getElementById("feat-other-text").hidden = !document.getElementById("f-other").checked;
+    document.getElementById("sys-other-hint").hidden = !document.getElementById("sys-other").checked;
+    renderPicked();
   }
   form.addEventListener("change", syncOther);
-  document.getElementById("sys-filter").addEventListener("input", function () {
-    var q = this.value.trim().toLowerCase();
+  var MAX_SYS = 3;
+  var sysBtn = document.getElementById("sys-btn"), sysPop = document.getElementById("sys-pop"), sysFilter = document.getElementById("sys-filter");
+  var sysInputs = Array.prototype.slice.call(document.querySelectorAll('#syslist input[name="systems"]'));
+  function openSys(open) {
+    sysPop.hidden = !open; sysBtn.setAttribute("aria-expanded", String(open));
+    if (open) { sysFilter.value = ""; filterSys(""); setTimeout(function () { sysFilter.focus(); }, 0); }
+  }
+  function filterSys(q) {
+    q = q.trim().toLowerCase(); var shown = 0;
     Array.prototype.forEach.call(document.querySelectorAll("#syslist label[data-sys]"), function (l) {
-      l.hidden = q !== "" && l.textContent.toLowerCase().indexOf(q) === -1 && !l.querySelector("input").checked;
+      var name = l.textContent.toLowerCase();
+      var hit = q === "" || name.indexOf(q) === 0 || name.split(/[\s:/(&-]+/).some(function (w) { return w.indexOf(q) === 0; });
+      l.hidden = !hit; if (hit) shown++;
     });
+    document.getElementById("sys-empty").hidden = shown > 0;
+  }
+  function renderPicked() {
+    if (!sysInputs) return;
+    var picked = sysInputs.filter(function (i) { return i.checked; });
+    var box = document.getElementById("sys-picked"); box.innerHTML = "";
+    picked.forEach(function (i) {
+      var b = document.createElement("button"); b.type = "button";
+      b.textContent = i.nextElementSibling.textContent;
+      b.setAttribute("aria-label", T("Remove ", "Usuń ") + b.textContent);
+      b.addEventListener("click", function () { i.checked = false; syncOther(); });
+      box.appendChild(b);
+    });
+    var full = picked.length >= MAX_SYS;
+    sysInputs.forEach(function (i) { i.disabled = full && !i.checked; i.parentNode.classList.toggle("off", i.disabled); });
+    document.getElementById("sys-btn-text").textContent = picked.length ? T(picked.length + " of 3 chosen", "Wybrano " + picked.length + " z 3") : T("Choose systems", "Wybierz systemy");
+  }
+  sysBtn.addEventListener("click", function () { openSys(sysPop.hidden); });
+  sysFilter.addEventListener("input", function () { filterSys(this.value); });
+  sysFilter.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { e.preventDefault(); var q = sysFilter.value.trim().toLowerCase(), vis = Array.prototype.filter.call(document.querySelectorAll("#syslist label[data-sys]:not([hidden])"), function (l) { return !l.querySelector("input").disabled; }); var best = vis.filter(function (l) { return l.textContent.trim().toLowerCase().indexOf(q) === 0; })[0] || vis[0]; var first = best && best.querySelector("input"); if (first) { first.checked = !first.checked; syncOther(); } }
   });
+  document.addEventListener("click", function (e) { if (!sysPop.hidden && !document.getElementById("sys-combo").contains(e.target)) openSys(false); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !sysPop.hidden) { openSys(false); sysBtn.focus(); } });
+  renderPicked();
   function pick(name) { var el = form.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ""; }
   function showError(msg) { err.textContent = msg; err.hidden = false; }
 
@@ -827,7 +893,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
       systems: Array.prototype.map.call(form.querySelectorAll('input[name="systems"]:checked'), function (i) { return i.value === "other" ? withOther("other", "sys-other-text") : i.value; }).join(","),
       scribe: withOther(form.scribe.value, "scribe-other-text"),
       notes_tool: withOther(form.notes_tool.value, "notes-other-text"),
-      top_feature: withOther(pick("top_feature"), "feat-other-text"),
+      top_feature: Array.prototype.map.call(form.querySelectorAll('input[name="top_feature"]:checked'), function (i) { return i.value === "other" ? withOther("other", "feat-other-text") : i.value; }).join(","),
       pain: form.pain.value.trim(),
       source: (location.hash || "").replace("#", "") || "direct",
       lang: lang
