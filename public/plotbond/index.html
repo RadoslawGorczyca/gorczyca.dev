@@ -1126,7 +1126,7 @@ html { overflow-x: clip; scroll-padding-top: 84px; }
     $("pb-bl").setAttribute("stdDeviation", Math.max(0.01, 14 * g).toFixed(2)); $("pb-ha").setAttribute("slope", (1.1 * g).toFixed(3));
     $("pb-disp").setAttribute("scale", sketch ? 7 : 0);
     $("pb-turb").setAttribute("seed", 1 + Math.floor(t / 120) % 5);   // the sketch "boils" like hand-drawn animation
-    if (sketch || g > 0.002) $("pb-fxG").setAttribute("filter", "url(#fx)"); else $("pb-fxG").removeAttribute("filter");
+    if (sketch || g > 0.002) $("pb-fxG").setAttribute("filter", "url(#pb-fx)"); else $("pb-fxG").removeAttribute("filter");
     $("pb-shadowG").removeAttribute("filter");
     // the final shadow is a CSS filter on the whole <svg>: no SVG filter region is left on the finished logo, so nothing can clip into visible edges
     $("pb-svg").style.filter = sketch ? "none" : "var(--shadow-mark)";
