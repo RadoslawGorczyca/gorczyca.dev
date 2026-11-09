@@ -3,21 +3,83 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Radosław Gorczyca</title>
+<title>Radosław Gorczyca · Senior Android Developer</title>
 <meta name="description" content="Radosław Gorczyca, Senior Android Developer from Poland. Kotlin, Jetpack Compose and apps that talk to hardware. ErgData, Reserved, Sinsay, Big Star.">
+<meta name="author" content="Radosław Gorczyca">
+<meta property="og:site_name" content="gorczyca.dev">
 <meta property="og:title" content="Radosław Gorczyca, Senior Android Developer">
 <meta property="og:description" content="Kotlin, Jetpack Compose and apps that talk to hardware. Building Android apps since 2018.">
 <meta property="og:url" content="https://gorczyca.dev/">
 <meta property="og:type" content="profile">
+<meta property="profile:first_name" content="Radosław">
+<meta property="profile:last_name" content="Gorczyca">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="pl_PL">
+<meta property="og:image" content="https://gorczyca.dev/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Radosław Gorczyca, Senior Android Developer. Kotlin, Jetpack Compose, Bluetooth LE.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Radosław Gorczyca, Senior Android Developer">
+<meta name="twitter:description" content="Kotlin, Jetpack Compose and apps that talk to hardware. Building Android apps since 2018.">
+<meta name="twitter:image" content="https://gorczyca.dev/og-image.png">
 <meta name="theme-color" content="#F8FBF1" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#11140F" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://gorczyca.dev/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='20' fill='%233B6939'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-weight='700' font-size='26' text-anchor='middle' fill='white'%3ERG%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "url": "https://gorczyca.dev/",
+  "mainEntity": {
+    "@type": "Person",
+    "name": "Radosław Gorczyca",
+    "url": "https://gorczyca.dev/",
+    "email": "mailto:gorczyca.it@gmail.com",
+    "jobTitle": "Android Developer",
+    "description": "Android developer building Kotlin and Jetpack Compose apps commercially since 2018: e-commerce apps for millions of users and apps that talk to hardware over Bluetooth LE.",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Angry Nerds"
+    },
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "University of Silesia in Katowice"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "Silesia",
+      "addressCountry": "PL"
+    },
+    "knowsLanguage": [
+      "pl",
+      "en"
+    ],
+    "knowsAbout": [
+      "Android",
+      "Kotlin",
+      "Jetpack Compose",
+      "Bluetooth Low Energy",
+      "Kotlin Multiplatform",
+      "Coroutines",
+      "MVVM",
+      "Clean Architecture"
+    ],
+    "sameAs": [
+      "https://www.linkedin.com/in/radoslawgorczyca",
+      "https://github.com/RadoslawGorczyca"
+    ]
+  }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Roboto+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=apps,arrow_outward,code,content_copy,dark_mode,history,light_mode,location_on,mail,music_note,person,pets,sailing,school,star,translate,work,workspace_premium&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=apps,arrow_outward,code,content_copy,dark_mode,download,history,light_mode,location_on,mail,music_note,person,pets,sailing,school,star,translate,work,workspace_premium&display=block">
 <style>
 /* Layout: Material 3 adaptive layout. Expanded (>=840px): navigation rail on the left, content pane.
    Compact: top app bar, content, bottom navigation bar. Tokens follow md.sys.* naming from a green seed. */
@@ -147,6 +209,7 @@ a { color: var(--md-primary); }
 .icon-btn {
   width: 40px; height: 40px; border-radius: var(--md-shape-full); border: 0;
   display: inline-grid; place-items: center; background: transparent; color: var(--md-on-surface-variant);
+  text-decoration: none;
 }
 
 /* ---------- Chips ---------- */
@@ -406,6 +469,7 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
     <a class="dest" href="#education"><span class="pill"><span class="icon">school</span></span>Education</a>
   </div>
   <div class="rail-tools">
+    <a class="icon-btn state ripple" href="/cv/Radoslaw-Gorczyca-CV.pdf" download aria-label="Download CV (PDF)"><span class="icon">download</span></a>
     <button class="icon-btn lang-btn state ripple" id="lang-toggle" type="button" aria-label="Switch language" lang="pl">PL</button>
     <button class="icon-btn state ripple" id="theme-toggle" type="button" aria-label="Switch theme"><span class="icon">dark_mode</span></button>
   </div>
@@ -434,9 +498,10 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
       </ul>
       <div class="actions">
         <a class="btn btn-filled btn-lg has-icon state ripple" href="mailto:gorczyca.it@gmail.com"><span class="icon">mail</span>gorczyca.it@gmail.com</a>
-        <button class="btn btn-tonal btn-lg has-icon state ripple" id="copy-email" type="button"><span class="icon">content_copy</span>Copy email</button>
+        <a class="btn btn-tonal btn-lg has-icon state ripple" href="/cv/Radoslaw-Gorczyca-CV.pdf" download><span class="icon">download</span>Download CV</a>
       </div>
       <div class="actions">
+        <button class="btn btn-outlined has-icon state ripple" id="copy-email" type="button"><span class="icon s18">content_copy</span>Copy email</button>
         <a class="btn btn-outlined has-icon state ripple" href="https://www.linkedin.com/in/radoslawgorczyca" target="_blank" rel="me noopener"><span class="icon s18">arrow_outward</span>LinkedIn</a>
         <a class="btn btn-outlined has-icon state ripple" href="https://github.com/RadoslawGorczyca" target="_blank" rel="me noopener"><span class="icon s18">arrow_outward</span>GitHub</a>
       </div>
@@ -451,12 +516,12 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
     <div class="about">
       <div class="card card-low">
         <p class="body-l">I build Android apps in Kotlin and have been doing it commercially since 2018. I've worked on e-commerce apps used by millions (Reserved, Sinsay, Big Star) and now on ErgData, Concept2's companion app that connects to their full range of fitness machines over Bluetooth Low Energy.</p>
-        <p class="body-l muted">I care about performance, crash-free rates and code a team can keep changing for years. I'm comfortable being the person the client talks to: on several projects I represented the Android team, ran technical decisions and mentored junior developers. Lately I'm spending a lot of time with Kotlin Multiplatform and AI-assisted development workflows.</p>
+        <p class="body-l muted">I care about performance, crash-free rates and code a team can keep changing for years. I'm comfortable being the person the client talks to: on several projects I represented the Android team, ran technical decisions and mentored junior developers. Lately I've been going deep on Kotlin Multiplatform, including internal KMP talks for my Android team, and I use AI-assisted development every day.</p>
       </div>
       <div class="stats">
         <div class="stat"><b>2018</b><span class="body-m">building Android apps commercially</span></div>
+        <div class="stat"><b>15M+</b><span class="body-m">Google Play installs of Reserved and Sinsay, two apps I worked on</span></div>
         <div class="stat"><b>8+</b><span class="body-m">apps shipped to Google Play</span></div>
-        <div class="stat"><b>Millions</b><span class="body-m">of users on the e-commerce apps I worked on</span></div>
       </div>
     </div>
   </section>
@@ -547,11 +612,11 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
     </div>
 
     <div class="side">
-      <div class="app-icon" aria-hidden="true">T</div>
+      <div class="app-icon" aria-hidden="true">P</div>
       <div>
-        <span class="label-m">Side project</span>
+        <span class="label-m">My own product · solo founder</span>
         <h3 class="title-l">Plotbond</h3>
-        <p class="body-m muted">A platform for tabletop RPG groups that I'm building right now. Join the waitlist and help shape it.</p>
+        <p class="body-m muted">A platform for tabletop RPG groups that I started and run on my own: user research, business model, brand, landing page and a waitlist backend on Cloudflare Workers. Join the waitlist and help shape it.</p>
       </div>
       <a class="btn btn-filled has-icon state ripple" href="/plotbond/"><span class="icon s18">arrow_outward</span>See Plotbond</a>
     </div>
@@ -563,12 +628,13 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
       <li class="li">
         <span class="li-lead"><span class="icon s18">work</span></span>
         <div class="li-body">
-          <h3 class="title-m">Angry Nerds<span class="badge-now label-m">Now</span></h3>
+          <h3 class="title-m">Angry Nerds</h3>
           <p class="body-m muted">Android Developer</p>
           <ul class="body-m">
-            <li>Working with international clients on requirements and solutions</li>
-            <li>Building apps that connect directly to hardware (Concept2 ErgData, BLE)</li>
-            <li>Focus on performance optimization and a high crash-free rate</li>
+            <li>Android developer on Concept2 ErgData, working directly with the client's team on requirements and solutions</li>
+            <li>Tracked down hard production bugs, such as an ANR from LibGDX resources outliving their screen and workouts stuck saving after a BLE drop</li>
+            <li>Keep the crash-free rate high and the code testable: LiveData to StateFlow migration, ViewModel tests with MockK and Turbine</li>
+            <li>Automated the PR workflow in GitHub Actions; use AI-assisted development (GitHub Copilot, Claude Code) day to day</li>
           </ul>
         </div>
         <span class="li-trail">May 2025 – now</span>
@@ -579,11 +645,11 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
           <h3 class="title-m">Future Mind</h3>
           <p class="body-m muted">Android Developer</p>
           <ul class="body-m">
-            <li>Development, maintenance and support of multi-million user apps (Reserved, Sinsay, Big Star)</li>
-            <li>Acted as the de facto Android lead on Big Star</li>
-            <li>Built the MirrorCheck screen-inspection SDK used inside the Play and Plus apps</li>
-            <li>Represented the Android team to clients as the main point of contact and made key technical decisions</li>
-            <li>Took part in product design, analysis and planning in Scrum teams</li>
+            <li>Four years on large e-commerce apps, from new features to maintenance and production support: Reserved and Sinsay for LPP (15M+ Google Play installs combined) and Big Star</li>
+            <li>De facto Android lead on Big Star, owning technical decisions and client communication</li>
+            <li>Main point of contact for the Android team on client projects</li>
+            <li>Built MirrorCheck, an SDK that checks a phone's screen for insurance, embedded in the Play and Plus apps</li>
+            <li>Worked with product and design on analysis and planning in Scrum teams</li>
           </ul>
         </div>
         <span class="li-trail">Feb 2021 – May 2025</span>
@@ -594,8 +660,8 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
           <h3 class="title-m">21CN</h3>
           <p class="body-m muted">Android Developer</p>
           <ul class="body-m">
-            <li>Built Zapłać Mi (debt tracking among friends), MrBuggy and the Software Testing App</li>
-            <li>Delivered features with MVVM and mentored a junior developer</li>
+            <li>Built three apps: Zapłać Mi (tracking debts among friends), MrBuggy for the TestingCup 2020 championship and the Software Testing App</li>
+            <li>Used MVVM throughout and mentored a junior developer</li>
           </ul>
         </div>
         <span class="li-trail">Jan 2020 – Feb 2021</span>
@@ -606,8 +672,8 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
           <h3 class="title-m">Ebicom</h3>
           <p class="body-m muted">Junior Android Developer</p>
           <ul class="body-m">
-            <li>Projects for European clients, including CRM-AutoPartner, an app for field sales reps</li>
-            <li>Worked closely with UX designers in a fast-moving startup environment</li>
+            <li>Started my career on projects for European clients, including CRM-AutoPartner, an app for field sales reps</li>
+            <li>Worked closely with UX designers in a fast-moving startup</li>
           </ul>
         </div>
         <span class="li-trail">Feb 2018 – Jan 2020</span>
@@ -616,7 +682,7 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
         <span class="li-lead"><span class="icon s18">code</span></span>
         <div class="li-body">
           <h3 class="title-m">CINiBA, Katowice</h3>
-          <p class="body-m muted">Web Applications Developer</p>
+          <p class="body-m muted">Internship, web applications</p>
           <ul class="body-m">
             <li>Worked on a system for managing the academic library network</li>
           </ul>
@@ -667,7 +733,7 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
       <div class="card card-filled">
         <span class="icon">workspace_premium</span>
         <h3 class="title-m">Certificates</h3>
-        <p class="body-m muted">AI in Business Development<br>Design Patterns in C#</p>
+        <p class="body-m muted">AI in Business Development</p>
       </div>
       <div class="card card-filled">
         <span class="icon">translate</span>
@@ -744,7 +810,7 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
 
 
   // Language: English by default; Polish via the switch or ?lang=pl. Choice remembered per browser.
-  var PL = {"About": "O mnie", "Work": "Projekty", "Experience": "Doświadczenie", "Skills": "Umiejętności", "Education": "Edukacja", "Open to Senior Android roles": "Otwarty na role Senior Android", "Senior Android Developer. Kotlin and Jetpack Compose, apps for millions of shoppers, and apps that talk to hardware over Bluetooth.": "Senior Android Developer. Kotlin i Jetpack Compose, aplikacje dla milionów klientów i aplikacje, które łączą się ze sprzętem przez Bluetooth.", "Katowice area, Poland · remote": "Okolice Katowic · zdalnie", "Polish · English": "Polski · angielski", "Copy email": "Kopiuj e-mail", "I build Android apps in Kotlin and have been doing it commercially since 2018. I've worked on e-commerce apps used by millions (Reserved, Sinsay, Big Star) and now on ErgData, Concept2's companion app that connects to their full range of fitness machines over Bluetooth Low Energy.": "Tworzę aplikacje na Androida w Kotlinie, komercyjnie od 2018 roku. Pracowałem przy aplikacjach e-commerce, z których korzystają miliony osób (Reserved, Sinsay, Big Star), a obecnie rozwijam ErgData, aplikację Concept2, która łączy się z całą gamą ich urządzeń treningowych przez Bluetooth Low Energy.", "I care about performance, crash-free rates and code a team can keep changing for years. I'm comfortable being the person the client talks to: on several projects I represented the Android team, ran technical decisions and mentored junior developers. Lately I'm spending a lot of time with Kotlin Multiplatform and AI-assisted development workflows.": "Zależy mi na wydajności, wysokim crash-free rate i kodzie, który zespół może rozwijać latami. Dobrze odnajduję się w kontakcie z klientem: w kilku projektach reprezentowałem zespół Androida, podejmowałem decyzje techniczne i mentorowałem młodszych programistów. Ostatnio dużo czasu poświęcam Kotlin Multiplatform i pracy z narzędziami AI.", "building Android apps commercially": "tworzę komercyjnie aplikacje na Androida", "apps shipped to Google Play": "aplikacji opublikowanych w Google Play", "Millions": "Miliony", "of users on the e-commerce apps I worked on": "użytkowników aplikacji e-commerce, przy których pracowałem", "Selected work": "Wybrane projekty", "Concept2 · via Angry Nerds · 2025–now": "Concept2 · przez Angry Nerds · od 2025", "The official companion app for the full range of Concept2 machines, from RowErg and SkiErg to BikeErg. It pairs with the PM5 performance monitor and records every workout.": "Oficjalna aplikacja do całej gamy urządzeń Concept2, od RowErg i SkiErg po BikeErg. Łączy się z monitorem PM5 i zapisuje każdy trening.", "Bluetooth LE communication with PM5 monitors, including connection recovery mid-workout": "Komunikacja Bluetooth LE z monitorami PM5, w tym odzyskiwanie połączenia w trakcie treningu", "Multiplayer race mode: a LibGDX game view embedded in a Jetpack Compose screen": "Tryb wyścigu dla wielu graczy: widok gry w LibGDX osadzony w ekranie Jetpack Compose", "Health Connect integration; migration from LiveData to StateFlow": "Integracja z Health Connect; migracja z LiveData na StateFlow", "ViewModel test coverage with MockK and Turbine; GitHub Actions automation for the PR workflow": "Testy ViewModeli z MockK i Turbine; automatyzacja procesu PR w GitHub Actions", "LPP · via Future Mind": "LPP · przez Future Mind", "E-commerce app for the Polish fashion brand. Feature work, maintenance and support for a multi-million user base.": "Aplikacja e-commerce polskiej marki modowej. Rozwój funkcji, utrzymanie i wsparcie dla milionów użytkowników.", "E-commerce app for LPP's Sinsay brand. Feature development, maintenance and support.": "Aplikacja e-commerce marki Sinsay z grupy LPP. Rozwój funkcji, utrzymanie i wsparcie.", "Big Star · via Future Mind": "Big Star · przez Future Mind", "Shopping app for the denim brand. I acted as the de facto Android lead, owning technical decisions and client communication.": "Aplikacja zakupowa marki denimowej. Byłem de facto liderem zespołu Androida, odpowiadałem za decyzje techniczne i komunikację z klientem.", "via Future Mind": "przez Future Mind", "An Android library that checks the condition of a phone's display, used to verify screens for phone insurance.": "Biblioteka na Androida, która sprawdza stan wyświetlacza telefonu. Służy do weryfikacji ekranów przy ubezpieczeniach telefonów.", "TestingCup · via 21CN": "TestingCup · przez 21CN", "A deliberately buggy app full of tasks for manual testers, built for the TestingCup 2020 championship, plus a public demo version.": "Celowo pełna błędów aplikacja z zadaniami dla testerów manualnych, przygotowana na mistrzostwa TestingCup 2020, wraz z publiczną wersją demo.", "via 21CN": "przez 21CN", "A training app for manual testers, built alongside MrBuggy.": "Aplikacja szkoleniowa dla testerów manualnych, powstała równolegle z MrBuggy.", "Side project": "Projekt poboczny", "A platform for tabletop RPG groups that I'm building right now. Join the waitlist and help shape it.": "Platforma dla drużyn grających w stołowe gry RPG, którą właśnie tworzę. Zapisz się na listę oczekujących i pomóż ją kształtować.", "See Plotbond": "Zobacz Plotbond", "Now": "Obecnie", "Working with international clients on requirements and solutions": "Współpraca z międzynarodowymi klientami przy wymaganiach i rozwiązaniach", "Building apps that connect directly to hardware (Concept2 ErgData, BLE)": "Tworzenie aplikacji łączących się bezpośrednio ze sprzętem (Concept2 ErgData, BLE)", "Focus on performance optimization and a high crash-free rate": "Nacisk na optymalizację wydajności i wysoki crash-free rate", "May 2025 – now": "maj 2025 – obecnie", "Development, maintenance and support of multi-million user apps (Reserved, Sinsay, Big Star)": "Rozwój, utrzymanie i wsparcie aplikacji z milionami użytkowników (Reserved, Sinsay, Big Star)", "Acted as the de facto Android lead on Big Star": "De facto lider zespołu Androida w projekcie Big Star", "Built the MirrorCheck screen-inspection SDK used inside the Play and Plus apps": "Stworzenie SDK MirrorCheck do badania ekranu, używanego w aplikacjach Play i Plus", "Represented the Android team to clients as the main point of contact and made key technical decisions": "Reprezentowanie zespołu Androida przed klientem jako główna osoba kontaktowa i podejmowanie kluczowych decyzji technicznych", "Took part in product design, analysis and planning in Scrum teams": "Udział w projektowaniu produktu, analizie i planowaniu w zespołach scrumowych", "Feb 2021 – May 2025": "luty 2021 – maj 2025", "Built Zapłać Mi (debt tracking among friends), MrBuggy and the Software Testing App": "Stworzenie aplikacji Zapłać Mi (śledzenie długów wśród znajomych), MrBuggy i Software Testing App", "Delivered features with MVVM and mentored a junior developer": "Dostarczanie funkcji w architekturze MVVM i mentoring młodszego programisty", "Jan 2020 – Feb 2021": "styczeń 2020 – luty 2021", "Projects for European clients, including CRM-AutoPartner, an app for field sales reps": "Projekty dla klientów z Europy, m.in. CRM-AutoPartner, aplikacja dla przedstawicieli handlowych", "Worked closely with UX designers in a fast-moving startup environment": "Ścisła współpraca z projektantami UX w dynamicznym środowisku startupowym", "Feb 2018 – Jan 2020": "luty 2018 – styczeń 2020", "Worked on a system for managing the academic library network": "Praca nad systemem zarządzania siecią bibliotek akademickich", "Jul 2016": "lipiec 2016", "Android & UI": "Android i UI", "Navigation": "Navigation", "Architecture & async": "Architektura i asynchroniczność", "Modularization": "Modularyzacja", "DI, data & network": "DI, dane i sieć", "Platform & hardware": "Platforma i sprzęt", "Testing & delivery": "Testy i wdrażanie", "Exploring & ways of work": "Rozwój i sposób pracy", "On-device AI": "AI na urządzeniu", "Client communication": "Komunikacja z klientem", "University of Silesia in Katowice": "Uniwersytet Śląski w Katowicach", "Engineer's degree (BEng) in Computer Science, 2014–2019. Thesis project: an": "Inżynier, informatyka, 2014–2019. Projekt dyplomowy:", "Android app for the animal shelter in Sosnowiec": "aplikacja na Androida dla schroniska dla zwierząt w Sosnowcu", "Certificates": "Certyfikaty", "Design Patterns in C#": "Wzorce projektowe w C#", "Languages": "Języki", "Polish, native": "Polski, ojczysty", "English, professional working proficiency": "Angielski, biegły w pracy zawodowej", "Off the keyboard": "Poza klawiaturą", "Sailing": "Żeglarstwo", "Most of my holidays happen on a boat. Greece, Croatia, Sweden so far.": "Większość urlopów spędzam na łódce. Do tej pory Grecja, Chorwacja i Szwecja.", "Music": "Muzyka", "I sing in a vocal ensemble, play guitar and own headphones that cost too much.": "Śpiewam w zespole wokalnym, gram na gitarze i mam zdecydowanie za drogie słuchawki.", "My dog and full-time rubber duck. He has solved more bugs than he gets credit for.": "Mój pies i etatowa gumowa kaczuszka. Rozwiązał więcej bugów, niż mu się przypisuje.", "Email me": "Napisz do mnie", "NAV:Experience": "Kariera", "NAV:Skills": "Stack", "ARIA:Sections": "Sekcje", "ARIA:Email Radosław": "Napisz do Radosława", "ARIA:Switch theme": "Zmień motyw", "ARIA:Switch language": "Zmień język", "SNACK:Email address copied": "Skopiowano adres e-mail"};
+  var PL = {"About": "O mnie", "Work": "Projekty", "Experience": "Doświadczenie", "Skills": "Umiejętności", "Education": "Edukacja", "Open to Senior Android roles": "Otwarty na role Senior Android", "Senior Android Developer. Kotlin and Jetpack Compose, apps for millions of shoppers, and apps that talk to hardware over Bluetooth.": "Senior Android Developer. Kotlin i Jetpack Compose, aplikacje dla milionów klientów i aplikacje, które łączą się ze sprzętem przez Bluetooth.", "Katowice area, Poland · remote": "Okolice Katowic · zdalnie", "Polish · English": "Polski · angielski", "Copy email": "Kopiuj e-mail", "I build Android apps in Kotlin and have been doing it commercially since 2018. I've worked on e-commerce apps used by millions (Reserved, Sinsay, Big Star) and now on ErgData, Concept2's companion app that connects to their full range of fitness machines over Bluetooth Low Energy.": "Tworzę aplikacje na Androida w Kotlinie, komercyjnie od 2018 roku. Pracowałem przy aplikacjach e-commerce, z których korzystają miliony osób (Reserved, Sinsay, Big Star), a obecnie rozwijam ErgData, aplikację Concept2, która łączy się z całą gamą ich urządzeń treningowych przez Bluetooth Low Energy.", "building Android apps commercially": "tworzę komercyjnie aplikacje na Androida", "apps shipped to Google Play": "aplikacji opublikowanych w Google Play", "Selected work": "Wybrane projekty", "Concept2 · via Angry Nerds · 2025–now": "Concept2 · przez Angry Nerds · od 2025", "The official companion app for the full range of Concept2 machines, from RowErg and SkiErg to BikeErg. It pairs with the PM5 performance monitor and records every workout.": "Oficjalna aplikacja do całej gamy urządzeń Concept2, od RowErg i SkiErg po BikeErg. Łączy się z monitorem PM5 i zapisuje każdy trening.", "Bluetooth LE communication with PM5 monitors, including connection recovery mid-workout": "Komunikacja Bluetooth LE z monitorami PM5, w tym odzyskiwanie połączenia w trakcie treningu", "Multiplayer race mode: a LibGDX game view embedded in a Jetpack Compose screen": "Tryb wyścigu dla wielu graczy: widok gry w LibGDX osadzony w ekranie Jetpack Compose", "Health Connect integration; migration from LiveData to StateFlow": "Integracja z Health Connect; migracja z LiveData na StateFlow", "ViewModel test coverage with MockK and Turbine; GitHub Actions automation for the PR workflow": "Testy ViewModeli z MockK i Turbine; automatyzacja procesu PR w GitHub Actions", "LPP · via Future Mind": "LPP · przez Future Mind", "E-commerce app for the Polish fashion brand. Feature work, maintenance and support for a multi-million user base.": "Aplikacja e-commerce polskiej marki modowej. Rozwój funkcji, utrzymanie i wsparcie dla milionów użytkowników.", "E-commerce app for LPP's Sinsay brand. Feature development, maintenance and support.": "Aplikacja e-commerce marki Sinsay z grupy LPP. Rozwój funkcji, utrzymanie i wsparcie.", "Big Star · via Future Mind": "Big Star · przez Future Mind", "Shopping app for the denim brand. I acted as the de facto Android lead, owning technical decisions and client communication.": "Aplikacja zakupowa marki denimowej. Byłem de facto liderem zespołu Androida, odpowiadałem za decyzje techniczne i komunikację z klientem.", "via Future Mind": "przez Future Mind", "An Android library that checks the condition of a phone's display, used to verify screens for phone insurance.": "Biblioteka na Androida, która sprawdza stan wyświetlacza telefonu. Służy do weryfikacji ekranów przy ubezpieczeniach telefonów.", "TestingCup · via 21CN": "TestingCup · przez 21CN", "A deliberately buggy app full of tasks for manual testers, built for the TestingCup 2020 championship, plus a public demo version.": "Celowo pełna błędów aplikacja z zadaniami dla testerów manualnych, przygotowana na mistrzostwa TestingCup 2020, wraz z publiczną wersją demo.", "via 21CN": "przez 21CN", "A training app for manual testers, built alongside MrBuggy.": "Aplikacja szkoleniowa dla testerów manualnych, powstała równolegle z MrBuggy.", "See Plotbond": "Zobacz Plotbond", "May 2025 – now": "maj 2025 – obecnie", "Feb 2021 – May 2025": "luty 2021 – maj 2025", "Jan 2020 – Feb 2021": "styczeń 2020 – luty 2021", "Feb 2018 – Jan 2020": "luty 2018 – styczeń 2020", "Worked on a system for managing the academic library network": "Praca nad systemem zarządzania siecią bibliotek akademickich", "Jul 2016": "lipiec 2016", "Android & UI": "Android i UI", "Navigation": "Navigation", "Architecture & async": "Architektura i asynchroniczność", "Modularization": "Modularyzacja", "DI, data & network": "DI, dane i sieć", "Platform & hardware": "Platforma i sprzęt", "Testing & delivery": "Testy i wdrażanie", "Exploring & ways of work": "Rozwój i sposób pracy", "On-device AI": "AI na urządzeniu", "Client communication": "Komunikacja z klientem", "University of Silesia in Katowice": "Uniwersytet Śląski w Katowicach", "Engineer's degree (BEng) in Computer Science, 2014–2019. Thesis project: an": "Inżynier, informatyka, 2014–2019. Projekt dyplomowy:", "Android app for the animal shelter in Sosnowiec": "aplikacja na Androida dla schroniska dla zwierząt w Sosnowcu", "Certificates": "Certyfikaty", "Languages": "Języki", "Polish, native": "Polski, ojczysty", "English, professional working proficiency": "Angielski, biegły w pracy zawodowej", "Off the keyboard": "Poza klawiaturą", "Sailing": "Żeglarstwo", "Most of my holidays happen on a boat. Greece, Croatia, Sweden so far.": "Większość urlopów spędzam na łódce. Do tej pory Grecja, Chorwacja i Szwecja.", "Music": "Muzyka", "I sing in a vocal ensemble, play guitar and own headphones that cost too much.": "Śpiewam w zespole wokalnym, gram na gitarze i mam zdecydowanie za drogie słuchawki.", "My dog and full-time rubber duck. He has solved more bugs than he gets credit for.": "Mój pies i etatowa gumowa kaczuszka. Rozwiązał więcej bugów, niż mu się przypisuje.", "Email me": "Napisz do mnie", "NAV:Experience": "Kariera", "NAV:Skills": "Stack", "ARIA:Sections": "Sekcje", "ARIA:Email Radosław": "Napisz do Radosława", "ARIA:Switch theme": "Zmień motyw", "ARIA:Switch language": "Zmień język", "SNACK:Email address copied": "Skopiowano adres e-mail", "I care about performance, crash-free rates and code a team can keep changing for years. I'm comfortable being the person the client talks to: on several projects I represented the Android team, ran technical decisions and mentored junior developers. Lately I've been going deep on Kotlin Multiplatform, including internal KMP talks for my Android team, and I use AI-assisted development every day.": "Zależy mi na wydajności, wysokim crash-free rate i kodzie, który zespół może rozwijać latami. Dobrze odnajduję się w kontakcie z klientem: w kilku projektach reprezentowałem zespół Androida, podejmowałem decyzje techniczne i mentorowałem młodszych programistów. Ostatnio mocno wchodzę w Kotlin Multiplatform, m.in. prowadząc wewnętrzne prezentacje o KMP dla mojego zespołu Androida, a z narzędzi AI do programowania korzystam na co dzień.", "Download CV": "Pobierz CV (EN)", "ARIA:Download CV (PDF)": "Pobierz CV (PDF, po angielsku)", "15M+": "15 mln+", "Google Play installs of Reserved and Sinsay, two apps I worked on": "instalacji Reserved i Sinsay w Google Play, dwóch aplikacji, przy których pracowałem", "My own product · solo founder": "Mój własny produkt · tworzę go sam", "A platform for tabletop RPG groups that I started and run on my own: user research, business model, brand, landing page and a waitlist backend on Cloudflare Workers. Join the waitlist and help shape it.": "Platforma dla drużyn grających w stołowe gry RPG, którą sam założyłem i prowadzę: badania użytkowników, model biznesowy, marka, landing i backend listy oczekujących na Cloudflare Workers. Zapisz się na listę oczekujących i pomóż ją kształtować.", "Android developer on Concept2 ErgData, working directly with the client's team on requirements and solutions": "Android developer w projekcie Concept2 ErgData, w bezpośredniej współpracy z zespołem klienta przy wymaganiach i rozwiązaniach", "Tracked down hard production bugs, such as an ANR from LibGDX resources outliving their screen and workouts stuck saving after a BLE drop": "Wyłapywanie trudnych błędów produkcyjnych, np. ANR przez zasoby LibGDX żyjące dłużej niż ich ekran czy treningi zawieszone na zapisie po zerwaniu BLE", "Keep the crash-free rate high and the code testable: LiveData to StateFlow migration, ViewModel tests with MockK and Turbine": "Dbanie o wysoki crash-free rate i testowalny kod: migracja z LiveData na StateFlow, testy ViewModeli z MockK i Turbine", "Automated the PR workflow in GitHub Actions; use AI-assisted development (GitHub Copilot, Claude Code) day to day": "Automatyzacja procesu PR w GitHub Actions; codzienna praca z narzędziami AI (GitHub Copilot, Claude Code)", "Four years on large e-commerce apps, from new features to maintenance and production support: Reserved and Sinsay for LPP (15M+ Google Play installs combined) and Big Star": "Cztery lata przy dużych aplikacjach e-commerce, od nowych funkcji po utrzymanie i wsparcie produkcji: Reserved i Sinsay dla LPP (łącznie ponad 15 mln instalacji w Google Play) oraz Big Star", "De facto Android lead on Big Star, owning technical decisions and client communication": "De facto lider zespołu Androida w projekcie Big Star, odpowiedzialny za decyzje techniczne i komunikację z klientem", "Main point of contact for the Android team on client projects": "Główna osoba kontaktowa zespołu Androida w projektach klienckich", "Built MirrorCheck, an SDK that checks a phone's screen for insurance, embedded in the Play and Plus apps": "Stworzenie MirrorCheck, SDK sprawdzającego ekran telefonu na potrzeby ubezpieczeń, osadzonego w aplikacjach Play i Plus", "Worked with product and design on analysis and planning in Scrum teams": "Współpraca z produktem i projektantami przy analizie i planowaniu w zespołach scrumowych", "Built three apps: Zapłać Mi (tracking debts among friends), MrBuggy for the TestingCup 2020 championship and the Software Testing App": "Stworzenie trzech aplikacji: Zapłać Mi (śledzenie długów wśród znajomych), MrBuggy na mistrzostwa TestingCup 2020 i Software Testing App", "Used MVVM throughout and mentored a junior developer": "Architektura MVVM we wszystkich projektach i mentoring młodszego programisty", "Started my career on projects for European clients, including CRM-AutoPartner, an app for field sales reps": "Początek kariery: projekty dla klientów z Europy, m.in. CRM-AutoPartner, aplikacja dla przedstawicieli handlowych", "Worked closely with UX designers in a fast-moving startup": "Ścisła współpraca z projektantami UX w dynamicznym startupie", "Internship, web applications": "Praktyki, aplikacje webowe"};
   var lang = "en";
   function t(en) { return lang === "pl" && PL["SNACK:" + en] ? PL["SNACK:" + en] : en; }
   var textNodes = [];
