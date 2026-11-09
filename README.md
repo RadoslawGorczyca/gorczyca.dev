@@ -3,7 +3,7 @@
 Personal site of Radosław Gorczyca, Senior Android Developer. Static HTML, deployed on Cloudflare.
 
 - `/` – CV and portfolio (`public/index.html`)
-- `/cv/Radoslaw-Gorczyca-CV.pdf` – downloadable CV (phone number removed from the public copy)
+- `/cv/Radoslaw-Gorczyca-CV.pdf` – downloadable CV (no phone number on the public copy)
 - `/og-image.png`, `/favicon.svg`, `/apple-touch-icon.png`, `/robots.txt`, `/sitemap.xml` – sharing and SEO assets
 - `/plotbond/` – Plotbond waitlist landing and survey (`public/plotbond/index.html`); old `/tablescribe/` links redirect here
 
