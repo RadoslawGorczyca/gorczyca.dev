@@ -12,21 +12,32 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Caveat:wght@600&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
-input[type="text"] { width: 100%; font: inherit; color: var(--card-ink); background: #fff; border: 1px solid #c9cbc2; border-radius: 6px; padding: 12px 14px; color-scheme: light; }
+input[type="text"] { width: 100%; font: inherit; color: var(--card-ink); background: var(--field); border: 1px solid var(--field-edge); border-radius: 6px; padding: 12px 14px; color-scheme: light; }
 /* Layout: the page is a game table. Dark felt underneath, index cards on top; one investigation board in the hero ties players' notes to an open thread with red string. Single deliberate look in both themes. */
 :root {
-  --felt: #1d352e;
+  /* Plotbond brand palette: the only colours used anywhere in the brand (logo files, favicon, this page) */
+  --felt: #1d352e;        /* table felt: page background, dark logo background, light-logo ink */
   --felt-deep: #152822;
-  --felt-line: #2d4a41;
-  --chalk: #eef0ea;
+  --felt-glow: #24443a;   /* lamp light at the top of the page */
+  --felt-line: #2d4a41;   /* rules and outlines on felt */
+  --chalk: #eef0ea;       /* text and the chalk ring on felt */
   --chalk-dim: #a9bab2;
-  --card: #f7f6f1;
-  --card-ink: #1f2523;
-  --card-muted: #5d6662;
-  --card-line: #dcdcd3;
-  --string: #c7372d;
-  --marker: #f3d36b;
-  --string-soft: #e8574b;
+  --paper: #f7f6f1;       /* index cards, light logo background */
+  --paper-rule: #e6e6dd;  /* ruled lines on cards */
+  --paper-edge: #dcdcd3;
+  --field: #ffffff;       /* inputs on cards */
+  --field-edge: #c9cbc2;
+  --ink: #1f2523;         /* text on paper */
+  --ink-muted: #5d6662;
+  --red: #cc3b31;         /* the one red: red ring, "bond", string, accents (4.6:1 on paper) */
+  --red-tint: #e9aaa4;    /* red at low strength on paper */
+  --marker: #f3d36b;      /* highlighter */
+  --marker-ink: #2a2206;
+  --marker-edge: #b89a3a;
+  --shadow-card: 0 1px 0 rgba(0,0,0,.25), 0 10px 24px rgba(0,0,0,.35);
+  --shadow-pop: 0 12px 28px rgba(0,0,0,.25);
+  --shadow-mark: drop-shadow(0 2px 2px rgba(0,0,0,.28));
+  --card: var(--paper); --card-ink: var(--ink); --card-muted: var(--ink-muted); --card-line: var(--paper-edge);
   --font-display: "Young Serif", "Iowan Old Style", Georgia, serif;
   --font-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
   --font-hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
@@ -37,7 +48,7 @@ input[type="text"] { width: 100%; font: inherit; color: var(--card-ink); backgro
 [hidden] { display: none !important; }
 body {
   background: var(--felt);
-  background-image: radial-gradient(ellipse 120% 900px at 50% 0, #24443a 0%, var(--felt) 70%);
+  background-image: radial-gradient(ellipse 120% 900px at 50% 0, var(--felt-glow) 0%, var(--felt) 70%);
   color: var(--chalk);
   font-family: var(--font-body);
   font-size: 1.0625rem;
@@ -60,7 +71,7 @@ a { color: inherit; }
 .btn {
   display: inline-flex; align-items: center; gap: 8px; font: 700 1rem/1 var(--font-body);
   padding: 15px 22px; border-radius: 8px; border: 0; cursor: pointer; text-decoration: none;
-  background: var(--marker); color: #2a2206; box-shadow: 0 2px 0 #b89a3a;
+  background: var(--marker); color: var(--marker-ink); box-shadow: 0 2px 0 var(--marker-edge);
 }
 .btn:hover { transform: translateY(-1px); }
 .btn:active { transform: translateY(1px); box-shadow: none; }
@@ -70,7 +81,7 @@ a { color: inherit; }
 .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 22px; }
 .mark { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 1.35rem; text-decoration: none; }
 .mark svg { width: 38px; height: 26px; flex: none; }
-.mark .bond { color: #db4b3f; }
+.mark .bond { color: var(--red); }
 
 .top-right { display: flex; align-items: center; gap: 14px; }
 .lang { display: inline-flex; border-radius: 8px; box-shadow: inset 0 0 0 1px var(--felt-line); overflow: hidden; }
@@ -89,27 +100,27 @@ a { color: inherit; }
 
 .board { position: relative; aspect-ratio: 600 / 470; max-width: 100%; }
 .board svg.strings { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; overflow: visible; }
-.strings path { fill: none; stroke: var(--string); stroke-width: 2; vector-effect: non-scaling-stroke; stroke-linecap: round; }
-.strings circle { fill: var(--string); }
+.strings path { fill: none; stroke: var(--red); stroke-width: 2; vector-effect: non-scaling-stroke; stroke-linecap: round; }
+.strings circle { fill: var(--red); }
 .ic {
   position: absolute; background: var(--card); color: var(--card-ink); border-radius: 4px;
-  box-shadow: 0 1px 0 rgba(0,0,0,.25), 0 10px 24px rgba(0,0,0,.35);
+  box-shadow: var(--shadow-card);
   padding: 12px 14px 14px; font-size: 0.86rem; line-height: 1.5;
-  background-image: repeating-linear-gradient(transparent 0 23px, #e6e6dd 23px 24px);
+  background-image: repeating-linear-gradient(transparent 0 23px, var(--paper-rule) 23px 24px);
   background-position: 0 34px;
 }
-.ic .label { color: var(--card-muted); font-size: 0.66rem; display: flex; justify-content: space-between; gap: 8px; border-bottom: 2px solid #e8b4ae; padding-bottom: 6px; margin-bottom: 6px; }
+.ic .label { color: var(--card-muted); font-size: 0.66rem; display: flex; justify-content: space-between; gap: 8px; border-bottom: 2px solid var(--red-tint); padding-bottom: 6px; margin-bottom: 6px; }
 .ic.a { left: 0; top: 0; width: 47%; transform: rotate(-1.6deg); }
 .ic.b { left: 3%; top: 54%; width: 46%; transform: rotate(1.2deg); }
 /* the thread card and the handwritten note stack in one column, so a taller card pushes the note down instead of covering it */
 .tcol { position: absolute; right: 0; top: 20%; width: 44%; z-index: 3; display: flex; flex-direction: column; gap: 22px; }
-.ic.t { position: relative; transform: rotate(0.8deg); background-image: none; border-top: 5px solid var(--string); padding-top: 12px; }
+.ic.t { position: relative; transform: rotate(0.8deg); background-image: none; border-top: 5px solid var(--red); padding-top: 12px; }
 .ic.t h3 { font-size: 1.15rem; margin: 4px 0 8px; }
 .ic.t ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
 .ic.t li { padding-left: 14px; position: relative; color: var(--card-muted); }
-.ic.t li::before { content: ""; position: absolute; left: 0; top: .55em; width: 7px; height: 7px; border-radius: 50%; background: var(--string); }
+.ic.t li::before { content: ""; position: absolute; left: 0; top: .55em; width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
 .ic.t li b { color: var(--card-ink); font-weight: 700; }
-.ic.t .who { margin-top: 10px; color: var(--string); font-size: 1.15rem; line-height: 1.1; }
+.ic.t .who { margin-top: 10px; color: var(--red); font-size: 1.15rem; line-height: 1.1; }
 .board .note-hand { padding-left: 4%; color: var(--marker); font-size: 1.3rem; line-height: 1.15; transform: rotate(-2deg); }
 
 /* Sections */
@@ -122,17 +133,17 @@ a { color: inherit; }
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
 .split > * { min-width: 0; }
 
-.paper { background: var(--card); color: var(--card-ink); border-radius: 4px; padding: 22px 24px; box-shadow: 0 10px 24px rgba(0,0,0,.3); }
+.paper { background: var(--card); color: var(--card-ink); border-radius: 4px; padding: 22px 24px; box-shadow: var(--shadow-card); }
 .paper .label { color: var(--card-muted); }
 
 .threads { display: grid; gap: 12px; margin-top: 12px; }
 .thread { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: baseline; padding-block: 10px; border-bottom: 1px solid var(--card-line); }
 .thread:last-child { border-bottom: 0; }
-.thread .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--string); align-self: center; }
+.thread .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--red); align-self: center; }
 .thread b { font-weight: 700; }
 .thread span.meta { color: var(--card-muted); font-size: 0.88rem; display: block; }
 .thread .chasing { font-family: var(--font-mono); font-size: 0.72rem; color: var(--card-muted); white-space: nowrap; }
-.thread.hot .chasing { color: var(--string); }
+.thread.hot .chasing { color: var(--red); }
 
 .points { display: grid; gap: 18px; margin-top: 26px; }
 .points div { border-left: 3px solid var(--marker); padding-left: 14px; }
@@ -147,7 +158,7 @@ table.vis { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
 .vis .no { color: var(--card-muted); }
 
 .scribe-card { position: relative; }
-.scribe-card .hand { position: absolute; top: -18px; right: 18px; background: var(--marker); color: #2a2206; padding: 2px 12px; transform: rotate(3deg); font-size: 1.25rem; border-radius: 2px; }
+.scribe-card .hand { position: absolute; top: -18px; right: 18px; background: var(--marker); color: var(--marker-ink); padding: 2px 12px; transform: rotate(3deg); font-size: 1.25rem; border-radius: 2px; }
 .scribe-card p + p { margin-top: 10px; }
 .scribe-card .muted { color: var(--card-muted); font-size: 0.95rem; }
 
@@ -165,19 +176,19 @@ fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 10px; }
 legend, .lbl { font-weight: 700; padding: 0; margin-bottom: 4px; }
 .hint { font-weight: 400; color: var(--card-muted); font-size: 0.9rem; }
 input[type="email"], select, textarea {
-  width: 100%; font: inherit; color: var(--card-ink); background: #fff; border: 1px solid #c9cbc2; border-radius: 6px; padding: 12px 14px;
+  width: 100%; font: inherit; color: var(--card-ink); background: var(--field); border: 1px solid var(--field-edge); border-radius: 6px; padding: 12px 14px;
   color-scheme: light;
 }
 textarea { min-height: 5.5rem; resize: vertical; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chips label { position: relative; }
 .chips input { position: absolute; inset: 0; opacity: 0; cursor: pointer; margin: 0; }
-.chips span { display: inline-block; padding: 8px 14px; border-radius: 999px; border: 1px solid #c9cbc2; background: #fff; cursor: pointer; font-size: 0.96rem; }
+.chips span { display: inline-block; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--field-edge); background: var(--field); cursor: pointer; font-size: 0.96rem; }
 .chips input:checked + span { background: var(--card-ink); border-color: var(--card-ink); color: var(--card); }
-.chips input:focus-visible + span { outline: 3px solid var(--string); outline-offset: 2px; }
+.chips input:focus-visible + span { outline: 3px solid var(--red); outline-offset: 2px; }
 .form-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
 .form-foot small { color: var(--card-muted); }
-.err { color: var(--string); font-weight: 700; }
+.err { color: var(--red); font-weight: 700; }
 .thanks h3 { font-size: 1.5rem; }
 .thanks p { margin-top: 8px; color: var(--card-muted); }
 
@@ -187,6 +198,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
   .hero, .split, .join { grid-template-columns: 1fr; gap: 36px; }
   .feat3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero { padding-block: 16px 64px; }
+  .intro { margin: 0 auto 22px; } .intro svg { margin-inline: auto; }   /* one column: the logo centres over the text, like the notes below */
   .board { width: 100%; max-width: 560px; margin-inline: auto; }   /* keep the desktop proportions so the strings still meet the cards */
 }
 @media (max-width: 640px) {
@@ -197,13 +209,19 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
   .board .ic { position: relative; inset: auto; width: auto; transform: none; }
   .tcol { display: contents; }
   .steps { grid-template-columns: 1fr; }
-  .top .btn.line { display: none; }
+  .top .btn.line { padding: 9px 12px; font-size: .9rem; }
+  .top-right { gap: 10px; }
+  .top .btn.line { white-space: nowrap; }
+}
+@media (max-width: 420px) {
+  .mark > span { display: none; }   /* on phones the sticky bar shows the ring mark only */
+  .lang button { padding: 9px 9px; }
   .thread { grid-template-columns: auto 1fr; }
   .thread .chasing { grid-column: 2; }
 }
 .digest { display: grid; gap: 12px; margin-top: 12px; }
-.remind { border-left: 3px solid var(--string); padding: 4px 0 4px 14px; }
-.remind .label { color: var(--string); }
+.remind { border-left: 3px solid var(--red); padding: 4px 0 4px 14px; }
+.remind .label { color: var(--red); }
 .remind p { margin-top: 2px; }
 .remind p.q { color: var(--card-muted); font-style: italic; }
 .feat3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 34px; }
@@ -216,19 +234,19 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
 .plan-ex .row:last-child { border-bottom: 0; }
 .plan-ex .row > * { min-width: 0; }
 .plan-ex .k { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--card-muted); padding-top: 3px; }
-.plan-ex .row.sug .k { color: var(--string); }
+.plan-ex .row.sug .k { color: var(--red); }
 .ai-note { max-width: 44rem; }
 .ai-note p { color: var(--chalk-dim); margin-top: 12px; }
 .ai-note ul { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
 .ai-note li { padding-left: 22px; position: relative; }
-.ai-note li::before { content: "✕"; position: absolute; left: 0; color: var(--string); font-weight: 700; }
+.ai-note li::before { content: "✕"; position: absolute; left: 0; color: var(--red); font-weight: 700; }
 .ai-note li.yes::before { content: "✓"; color: var(--marker); }
 .combo { display: grid; gap: 8px; }
 .combo-field { position: relative; }
-.combo-btn { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; font: inherit; text-align: left; color: var(--card-ink); background: #fff; border: 1px solid #c9cbc2; border-radius: 6px; padding: 12px 14px; cursor: pointer; }
+.combo-btn { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; font: inherit; text-align: left; color: var(--card-ink); background: var(--field); border: 1px solid var(--field-edge); border-radius: 6px; padding: 12px 14px; cursor: pointer; }
 .combo-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
 .combo-btn span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.combo-pop { position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 20; background: #fff; border: 1px solid #c9cbc2; border-radius: 8px; box-shadow: 0 12px 28px rgba(0,0,0,.25); padding: 8px; }
+.combo-pop { position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 20; background: var(--field); border: 1px solid var(--field-edge); border-radius: 8px; box-shadow: var(--shadow-pop); padding: 8px; }
 .combo-pop .sys-filter { margin-bottom: 6px; }
 .combo-list { max-height: 16rem; overflow-y: auto; display: grid; }
 .opt { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 6px; cursor: pointer; }
@@ -257,12 +275,17 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
 
 /* Logo intro: a hand-drawn sketch of the logo that lights up on impact and resolves into the clean mark */
 .intro { margin: 0 0 22px -3%; }
-/* the big logo opens the hero, so the small header mark would only repeat it */
-.top { justify-content: flex-end; }
-.top .mark { display: none; }
+/* Sticky bar: language and "Join the beta" stay on screen; the small mark only appears once the big logo has scrolled away */
+html { overflow-x: clip; scroll-padding-top: 84px; }
+.top { position: sticky; top: 0; z-index: 40; transition: padding .25s ease; }
+.top::before { content: ""; position: absolute; inset: 0 calc(50% - 50vw); z-index: -1; background: color-mix(in srgb, var(--felt) 90%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid var(--felt-line); opacity: 0; transition: opacity .25s ease; }
+.top.stuck { padding-block: 12px; }
+.top.stuck::before { opacity: 1; }
+.mark { transition: opacity .3s ease, transform .3s ease, visibility .3s; }
+.top:not(.show-mark) .mark { opacity: 0; visibility: hidden; transform: translateY(-4px); }
 .intro svg { width: min(100%, 25rem); height: auto; display: block; overflow: visible; }
 .pb-ltr, .pb-hl { opacity: 0; }
-.pb-w0 { fill: var(--chalk); } .pb-w1 { fill: #db4b3f; }   /* one red for ring, thread and word (3.2:1 on the felt) */
+.pb-w0 { fill: var(--chalk); } .pb-w1 { fill: var(--red); }
 </style>
 </head>
 <body>
@@ -270,7 +293,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
 <div class="wrap">
   <header class="top">
     <a class="mark" href="#top" aria-label="Plotbond home">
-      <svg viewBox="56 20 88 60" width="38" height="26" aria-hidden="true"><g transform="translate(0,0) scale(1)" fill="none" stroke-linecap="round"><defs><clipPath id="hm1ct"><circle cx="100" cy="33.03" r="11"/></clipPath><clipPath id="hm1cb"><circle cx="100" cy="66.97" r="11"/></clipPath><mask id="hm1ma" maskUnits="userSpaceOnUse" x="-10" y="-10" width="220" height="120"><rect x="-10" y="-10" width="220" height="120" fill="white"/><circle cx="114" cy="50" r="22" fill="none" stroke="black" stroke-width="16" clip-path="url(#hm1ct)"/></mask><mask id="hm1mb" maskUnits="userSpaceOnUse" x="-10" y="-10" width="220" height="120"><rect x="-10" y="-10" width="220" height="120" fill="white"/><circle cx="86" cy="50" r="22" fill="none" stroke="black" stroke-width="16" clip-path="url(#hm1cb)"/></mask></defs><g mask="url(#hm1ma)"><circle cx="86" cy="50" r="22" stroke="#eef0ea" stroke-width="10"/></g><g mask="url(#hm1mb)"><circle cx="114" cy="50" r="22" stroke="#db4b3f" stroke-width="10"/></g></g></svg>
+      <svg viewBox="56 20 88 60" width="38" height="26" aria-hidden="true"><g transform="translate(0,0) scale(1)" fill="none" stroke-linecap="round"><defs><clipPath id="hm1ct"><circle cx="100" cy="33.03" r="11"/></clipPath><clipPath id="hm1cb"><circle cx="100" cy="66.97" r="11"/></clipPath><mask id="hm1ma" maskUnits="userSpaceOnUse" x="-10" y="-10" width="220" height="120"><rect x="-10" y="-10" width="220" height="120" fill="white"/><circle cx="114" cy="50" r="22" fill="none" stroke="black" stroke-width="16" clip-path="url(#hm1ct)"/></mask><mask id="hm1mb" maskUnits="userSpaceOnUse" x="-10" y="-10" width="220" height="120"><rect x="-10" y="-10" width="220" height="120" fill="white"/><circle cx="86" cy="50" r="22" fill="none" stroke="black" stroke-width="16" clip-path="url(#hm1cb)"/></mask></defs><g mask="url(#hm1ma)"><circle cx="86" cy="50" r="22" stroke="#eef0ea" stroke-width="10"/></g><g mask="url(#hm1mb)"><circle cx="114" cy="50" r="22" stroke="#cc3b31" stroke-width="10"/></g></g></svg>
       <span>Plot<span class="bond">bond</span></span>
     </a>
     <div class="top-right">
@@ -324,7 +347,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
         </g>
         <g id="pb-halfB">
           <g transform="translate(45.55 -459.00) scale(2.93)" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="9">
-            <path id="pb-strandB" d="M125.00 69.05 A22 22 0 1 0 103.00 30.95 A22 22 0 1 0 125.00 69.05 C 140.6 60.0, 166 56, 192 60" stroke="#db4b3f" mask="url(#pb-mb)"/>
+            <path id="pb-strandB" d="M125.00 69.05 A22 22 0 1 0 103.00 30.95 A22 22 0 1 0 125.00 69.05 C 140.6 60.0, 166 56, 192 60" stroke="#cc3b31" mask="url(#pb-mb)"/>
           </g>
           <g clip-path="url(#pb-penHB)">
           <path class="pb-hl pb-w1" data-cx="357.6" data-rot="2" data-x1="396.9" d="M341.237868852459 -0.2393442622950821Q337.1067213114754 -0.6524590163934427 334.7313114754098 -2.4081967213114757Q332.3559016393442 -4.163934426229509 331.11655737704916 -6.849180327868853Q329.46409836065567 -8.708196721311475 329.15426229508194 -9.740983606557378Q328.84442622950814 -10.77377049180328 329.05098360655734 -11.600000000000001Q330.08377049180325 -11.600000000000001 330.90999999999997 -11.703278688524591Q331.7362295081967 -11.806557377049181 331.9427868852459 -12.426229508196721Q331.9427868852459 -13.045901639344264 332.665737704918 -13.252459016393445Q333.3886885245901 -13.459016393442624 334.21491803278684 -13.252459016393443Q338.1395081967213 -13.045901639344264 343.8198360655737 -15.93770491803279Q349.50016393442615 -18.829508196721314 356.3165573770491 -24.096721311475413Q363.1329508196721 -29.36393442622951 369.949344262295 -35.56065573770492Q375.3198360655737 -42.58360655737705 377.4886885245901 -45.88852459016394Q379.6575409836065 -49.193442622950826 379.7608196721311 -50.94918032786886Q379.8640983606557 -52.704918032786885 378.8313114754098 -54.56393442622951Q378.0050819672131 -56.21639344262295 374.9067213114754 -56.21639344262295Q371.80836065573766 -56.21639344262295 365.40508196721305 -52.08524590163935Q356.5231147540983 -46.50819672131148 351.1526229508196 -41.757377049180334Q345.78213114754095 -37.006557377049184 341.237868852459 -31.016393442622956Q339.58540983606554 -28.95081967213115 337.6231147540983 -26.575409836065575Q335.6608196721311 -24.200000000000003 334.42147540983603 -22.54754098360656L332.97557377049174 -20.895081967213116Q332.97557377049174 -20.068852459016394 330.6001639344262 -18.829508196721314Q328.2247540983606 -17.59016393442623 326.5722950819672 -17.59016393442623Q325.74606557377047 -18.003278688524592 324.4034426229508 -19.139344262295083Q323.0608196721311 -20.275409836065574 322.64770491803273 -22.134426229508197Q320.7886885245901 -23.58032786885246 319.549344262295 -24.71639344262295Q318.30999999999995 -25.852459016393443 318.30999999999995 -28.537704918032787Q318.30999999999995 -30.19016393442623 318.82639344262293 -32.66885245901639Q319.34278688524586 -35.14754098360656 320.37557377049177 -39.072131147540986Q321.6149180327868 -44.442622950819676 323.06081967213106 -50.329508196721314Q324.50672131147536 -56.21639344262295 325.84934426229506 -60.450819672131146Q327.1919672131147 -64.68524590163935 327.81163934426223 -65.09836065573771L328.63786885245895 -66.95737704918034Q329.46409836065567 -68.81639344262295 329.46409836065567 -71.29508196721312Q329.87721311475406 -73.77377049180329 330.80672131147537 -75.6327868852459Q331.7362295081967 -77.49180327868854 331.7362295081967 -78.31803278688525Q332.5624590163934 -78.9377049180328 334.21491803278684 -83.27540983606558Q335.8673770491803 -87.61311475409836 338.34606557377043 -94.6360655737705Q338.34606557377043 -95.25573770491803 339.79196721311473 -98.6639344262295Q341.237868852459 -102.07213114754099 343.3034426229508 -106.71967213114755Q345.36901639344256 -111.36721311475411 347.5378688524589 -116.42786885245903Q349.70672131147535 -121.48852459016395 351.15262295081965 -125.41311475409837Q353.6313114754098 -128.92459016393443 355.38704918032784 -132.5393442622951Q357.14278688524587 -136.15409836065575 358.5886885245901 -136.77377049180328Q359.621475409836 -136.98032786885247 362.2034426229508 -135.9475409836066Q364.7854098360655 -134.91475409836067 367.4706557377049 -133.26229508196724Q370.1559016393442 -131.60983606557377 371.18868852459013 -129.95737704918034Q371.80836065573766 -128.92459016393443 371.91163934426226 -127.89180327868853Q372.01491803278685 -126.85901639344263 370.98213114754094 -124.48360655737706Q369.949344262295 -122.10819672131149 367.4706557377049 -116.84098360655739Q364.9919672131147 -111.57377049180329 360.44770491803274 -102.07213114754099Q354.6640983606557 -89.67868852459017 351.4624590163934 -81.41639344262296Q348.2608196721311 -73.15409836065574 346.2985245901639 -67.1639344262295Q344.33622950819665 -61.17377049180328 342.2706557377049 -55.80327868852459L341.237868852459 -51.25901639344263L346.60836065573767 -57.24918032786886Q348.6739344262295 -59.31475409836066 350.94606557377045 -61.17377049180328Q353.2181967213114 -63.03278688524591 355.90344262295076 -64.89180327868853Q357.5559016393442 -66.1311475409836 360.34442622950814 -67.47377049180328Q363.1329508196721 -68.81639344262295 365.81819672131144 -69.84918032786885Q368.5034426229508 -70.88196721311476 369.7427868852459 -71.08852459016394Q370.3624590163934 -71.29508196721312 373.977213114754 -72.01803278688524Q377.5919672131147 -72.74098360655738 381.10344262295075 -72.74098360655738Q385.64770491803273 -72.74098360655738 389.05590163934426 -69.53934426229509Q392.4640983606557 -66.33770491803278 395.149344262295 -61.79344262295082Q397.42147540983603 -57.455737704918036 396.80180327868845 -50.74262295081968Q396.18213114754093 -44.029508196721316 393.2903278688524 -39.278688524590166Q392.25754098360653 -38.45245901639345 391.2247540983606 -37.109836065573774Q390.1919672131147 -35.7672131147541 390.1919672131147 -34.94098360655738Q389.9854098360655 -33.49508196721312 386.47393442622945 -29.05409836065574Q382.9624590163934 -24.613114754098362 379.4509836065573 -20.688524590163937Q375.73295081967206 -16.763934426229508 370.36245901639336 -12.942622950819672Q364.9919672131147 -9.121311475409836 359.7247540983606 -6.1262295081967215Q354.4575409836065 -3.1311475409836067 350.73950819672126 -1.8918032786885246Q349.0870491803278 -1.6852459016393446 345.9886885245901 -1.1688524590163936Q342.8903278688524 -0.6524590163934427 341.237868852459 -0.2393442622950821Z"/>
@@ -1023,7 +1046,14 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
 })();
 </script>
 <script>
-
+(function () {
+  var top = document.querySelector(".top"), intro = document.querySelector(".intro");
+  function onScroll() { top.classList.toggle("stuck", window.scrollY > 4); }
+  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(function (e) { top.classList.toggle("show-mark", !e[0].isIntersecting); }, { rootMargin: "-70px 0px 0px 0px" }).observe(intro);
+  } else top.classList.add("show-mark");
+})();
 (function () {
   var K = 2.93, GAP = 52;   // how far each half sits from its final place
   function $(id) { return document.getElementById(id); }
@@ -1099,7 +1129,7 @@ footer { padding-block: 30px 44px; border-top: 1px dashed var(--felt-line); colo
     if (sketch || g > 0.002) $("pb-fxG").setAttribute("filter", "url(#fx)"); else $("pb-fxG").removeAttribute("filter");
     $("pb-shadowG").removeAttribute("filter");
     // the final shadow is a CSS filter on the whole <svg>: no SVG filter region is left on the finished logo, so nothing can clip into visible edges
-    $("pb-svg").style.filter = sketch ? "none" : "drop-shadow(0 2px 2px rgba(0,0,0,.28))";
+    $("pb-svg").style.filter = sketch ? "none" : "var(--shadow-mark)";
     hPlot.concat(hBond).forEach(function (el) { if (!sketch) el.style.opacity = 0; });
     plot.concat(bond).forEach(function (el) { el.style.opacity = sketch ? 0 : 1; el.removeAttribute("transform"); });
     return sketch;
