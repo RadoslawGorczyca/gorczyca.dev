@@ -415,6 +415,14 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
     background: var(--md-surface); transition: background-color .2s var(--md-ease);
   }
   .topbar.scrolled { background: var(--md-surface-container); }
+  /* Firefox for iOS (and overscroll) shows page content in the inset areas above/below the viewport;
+     extend the bars' backgrounds into them so nothing scrolls visibly behind the status bar or the URL bar */
+  .topbar::before, .navbar::after {
+    content: ""; position: absolute; left: 0; right: 0; height: 120px;
+    background: inherit; pointer-events: none;
+  }
+  .topbar::before { bottom: 100%; }
+  .navbar::after { top: 100%; }
   .topbar .title-l { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .navbar {
     display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
