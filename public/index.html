@@ -404,7 +404,7 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
 }
 .efab:hover { border-radius: 22px; }
 .snackbar {
-  position: fixed; z-index: 40; left: 50%; bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  position: fixed; z-index: 40; left: 50%; bottom: calc(108px + env(safe-area-inset-bottom, 0px));
   transform: translate(-50%, 16px); opacity: 0; pointer-events: none;
   min-height: 48px; display: flex; align-items: center; padding: 0 16px; max-width: calc(100vw - 32px);
   border-radius: var(--md-shape-xs); background: var(--md-inverse-surface); color: var(--md-inverse-on-surface);
@@ -438,19 +438,17 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
     background: color-mix(in srgb, var(--md-surface-container-high, var(--md-surface-container)) 94%, transparent);
     box-shadow: 0 1px 3px var(--md-shadow), 0 4px 12px 2px color-mix(in srgb, var(--md-shadow) 30%, transparent);
   }
-  /* Firefox for iOS (and overscroll) shows page content in the inset areas above/below the viewport;
-     extend the bars' backgrounds into them so nothing scrolls visibly behind the status bar or the URL bar */
-  .navbar::after {
-    content: ""; position: absolute; left: 0; right: 0; height: 120px;
-    background: inherit; pointer-events: none;
-  }
-  .navbar::after { top: 100%; }
   .topbar .title-l { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 1.25rem; }
+  /* Floating bottom navigation bar, matching the floating top bar */
   .navbar {
     display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
-    position: fixed; inset: auto 0 0 0; z-index: 20;
-    padding: 12px max(0px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(0px, env(safe-area-inset-left, 0px));
-    background: var(--md-surface-container);
+    position: fixed; z-index: 20;
+    left: max(12px, env(safe-area-inset-left, 0px)); right: max(12px, env(safe-area-inset-right, 0px));
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    padding: 10px 4px; border-radius: 28px;
+    background: color-mix(in srgb, var(--md-surface-container-high, var(--md-surface-container)) 94%, transparent);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4);
+    box-shadow: 0 1px 3px var(--md-shadow), 0 4px 12px 2px color-mix(in srgb, var(--md-shadow) 30%, transparent);
   }
   .navbar .dest { width: auto; }
   .navbar .dest .pill { width: 56px; height: 32px; }
