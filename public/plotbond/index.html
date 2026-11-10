@@ -313,12 +313,23 @@ html { overflow-x: clip; scroll-padding-top: 84px; }
       <defs>
         <filter id="pb-soft" filterUnits="userSpaceOnUse" x="-400" y="-700" width="1500" height="1000"><feDropShadow dx="0" dy="2.5" stdDeviation="2.2" flood-color="#000" flood-opacity="0.28"/></filter>
         <!-- sketch: wobbly, "boiling" hand-drawn lines; the same filter carries the light-up glow at the impact -->
-        <filter id="pb-fx" filterUnits="userSpaceOnUse" x="-400" y="-700" width="1500" height="1000" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-          <feTurbulence id="pb-turb" type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="1" result="n"/>
+        <filter id="pb-fx" filterUnits="userSpaceOnUse" x="-110" y="-440" width="900" height="510" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feImage id="pb-noise" preserveAspectRatio="none" x="-110" y="-440" width="900" height="510" result="n"/>
           <feDisplacementMap id="pb-disp" in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G" result="d"/>
           <feComponentTransfer in="d" result="lit"><feFuncR id="pb-fr" type="linear" slope="1" intercept="0"/><feFuncG id="pb-fg" type="linear" slope="1" intercept="0"/><feFuncB id="pb-fb" type="linear" slope="1" intercept="0"/></feComponentTransfer>
           <feGaussianBlur id="pb-bl" in="lit" stdDeviation="0.01" result="b"/>
           <feComponentTransfer in="b" result="halo"><feFuncA id="pb-ha" type="linear" slope="0"/></feComponentTransfer>
+          <feMerge><feMergeNode in="halo"/><feMergeNode in="lit"/></feMerge>
+        </filter>
+        <!-- cheaper filters for the phases that need less: the sketch only wobbles, the glow after impact no longer wobbles -->
+        <filter id="pb-sk" filterUnits="userSpaceOnUse" x="-110" y="-440" width="900" height="510" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feImage id="pb-noise2" preserveAspectRatio="none" x="-110" y="-440" width="900" height="510" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <filter id="pb-glow" filterUnits="userSpaceOnUse" x="-110" y="-440" width="900" height="510" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feComponentTransfer in="SourceGraphic" result="lit"><feFuncR id="pb-gr" type="linear" slope="1" intercept="0"/><feFuncG id="pb-gg" type="linear" slope="1" intercept="0"/><feFuncB id="pb-gb" type="linear" slope="1" intercept="0"/></feComponentTransfer>
+          <feGaussianBlur id="pb-gbl" in="lit" stdDeviation="0.01" result="b"/>
+          <feComponentTransfer in="b" result="halo"><feFuncA id="pb-gha" type="linear" slope="0"/></feComponentTransfer>
           <feMerge><feMergeNode in="halo"/><feMergeNode in="lit"/></feMerge>
         </filter>
         <clipPath id="pb-penHA"><rect id="pb-phA" x="-100" y="-200" width="0" height="300"/></clipPath>
@@ -1117,16 +1128,50 @@ html { overflow-x: clip; scroll-padding-top: 84px; }
     list.forEach(function (el) { el.style.opacity = p > 0 ? 1 : 0; el.setAttribute("transform", "rotate(" + el.dataset.rot + " " + el.dataset.cx + " -50)"); });
   }
   // light-up: brightens and blooms just before contact, the sketch swaps for the clean logo at the peak, then the glow fades
+  // SVG filters run on the CPU in WebKit and are redrawn every frame. Animated feTurbulence dropped iPhone Safari to a few fps, so:
+  // the noise is rendered once into an image, each phase uses the cheapest filter that draws it, and attributes are written only when they change.
+  var attrCache = new Map();
+  function attr(id, name, v) { var k = id + " " + name; if (attrCache.get(k) === v) return; attrCache.set(k, v); $(id).setAttribute(name, v); }
+  // Two octaves of smooth value noise in R and G, tuned to the mean and spread of fractalNoise at baseFrequency 0.03.
+  // One wide strip holds every "boil" frame side by side; the filter shows a different window of it every 120 ms.
+  var NX = -110, NW = 900, NH = 510, BOILS = 5, PX = 5;   // filter region in logo units, boil frames, logo units per noise pixel
+  var noiseUrl = (function () {
+    var w = Math.ceil(NW * BOILS / PX), h = Math.ceil(NH / PX), c = document.createElement("canvas"); c.width = w; c.height = h;
+    var x = c.getContext("2d"), img = x.createImageData(w, h), d = img.data, s = 7;
+    function rnd() { s = (s * 16807) % 2147483647; return s / 2147483647; }
+    function layer(cell) {
+      var gw = Math.ceil(w / cell) + 2, gh = Math.ceil(h / cell) + 2, g = new Float32Array(gw * gh);
+      for (var i = 0; i < g.length; i++) g[i] = rnd() * 2 - 1;
+      return function (px, py) {
+        var fx = px / cell, fy = py / cell, ix = Math.floor(fx), iy = Math.floor(fy), tx = fx - ix, ty = fy - iy;
+        tx = tx * tx * (3 - 2 * tx); ty = ty * ty * (3 - 2 * ty);
+        var a = g[iy * gw + ix], b = g[iy * gw + ix + 1], c2 = g[(iy + 1) * gw + ix], e = g[(iy + 1) * gw + ix + 1];
+        return (a + (b - a) * tx) * (1 - ty) + (c2 + (e - c2) * tx) * ty;
+      };
+    }
+    var cell = 1 / 0.03 / PX, r1 = layer(cell), r2 = layer(cell / 2), g1 = layer(cell), g2 = layer(cell / 2), K = 0.115 / 0.31;
+    for (var py = 0; py < h; py++) for (var px = 0; px < w; px++) {
+      var o = (py * w + px) * 4;
+      d[o] = 255 * clamp(0.5 + K * (r1(px, py) + 0.5 * r2(px, py)));
+      d[o + 1] = 255 * clamp(0.5 + K * (g1(px, py) + 0.5 * g2(px, py)));
+      d[o + 2] = 128; d[o + 3] = 255;
+    }
+    x.putImageData(img, 0, 0);
+    return c.toDataURL("image/png");
+  })();
+  ["pb-noise", "pb-noise2"].forEach(function (id) { var n = $(id); n.setAttribute("href", noiseUrl); n.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href", noiseUrl); n.setAttribute("width", NW * BOILS); });
+  function boil(id, t) { attr(id, "x", String(NX - NW * (Math.floor(t / 120) % BOILS))); }   // the sketch "boils" like hand-drawn animation
   function lightUp(t) {
     var e = t - TC, sketch = e < 0;
     var g = e < -90 ? 0 : e < 0 ? (e + 90) / 90 : Math.max(0, 1 - e / GLOW);
     g = g * g * (3 - 2 * g);
-    var slope = 1 + 0.9 * g, ic = 0.35 * g;
-    ["pb-fr", "pb-fg", "pb-fb"].forEach(function (id) { $(id).setAttribute("slope", slope.toFixed(3)); $(id).setAttribute("intercept", ic.toFixed(3)); });
-    $("pb-bl").setAttribute("stdDeviation", Math.max(0.01, 14 * g).toFixed(2)); $("pb-ha").setAttribute("slope", (1.1 * g).toFixed(3));
-    $("pb-disp").setAttribute("scale", sketch ? 7 : 0);
-    $("pb-turb").setAttribute("seed", 1 + Math.floor(t / 120) % 5);   // the sketch "boils" like hand-drawn animation
-    if (sketch || g > 0.002) $("pb-fxG").setAttribute("filter", "url(#pb-fx)"); else $("pb-fxG").removeAttribute("filter");
+    var slope = (1 + 0.9 * g).toFixed(3), ic = (0.35 * g).toFixed(3), sd = Math.max(0.01, 14 * g).toFixed(2), ha = (1.1 * g).toFixed(3);
+    // sk: wobble only; fx: wobble and glow in the 90 ms before contact; glow: glow only, the clean logo no longer wobbles
+    var mode = sketch ? (g > 0 ? "fx" : "sk") : g > 0.002 ? "glow" : "";
+    if (mode === "sk") boil("pb-noise2", t);
+    if (mode === "fx") { boil("pb-noise", t); ["pb-fr", "pb-fg", "pb-fb"].forEach(function (id) { attr(id, "slope", slope); attr(id, "intercept", ic); }); attr("pb-bl", "stdDeviation", sd); attr("pb-ha", "slope", ha); }
+    if (mode === "glow") { ["pb-gr", "pb-gg", "pb-gb"].forEach(function (id) { attr(id, "slope", slope); attr(id, "intercept", ic); }); attr("pb-gbl", "stdDeviation", sd); attr("pb-gha", "slope", ha); }
+    if (mode) attr("pb-fxG", "filter", "url(#pb-" + mode + ")"); else if (attrCache.get("pb-fxG filter") !== "") { attrCache.set("pb-fxG filter", ""); $("pb-fxG").removeAttribute("filter"); }
     $("pb-shadowG").removeAttribute("filter");
     // the final shadow is a CSS filter on the whole <svg>: no SVG filter region is left on the finished logo, so nothing can clip into visible edges
     $("pb-svg").style.filter = sketch ? "none" : "var(--shadow-mark)";
