@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>if (/FxiOS/.test(navigator.userAgent)) document.documentElement.classList.add("fxios");</script>
 <title>Radosław Gorczyca · Senior Android Developer</title>
 <meta name="description" content="Radosław Gorczyca, Senior Android Developer from Poland. Kotlin, Jetpack Compose and apps that talk to hardware. ErgData, Reserved, Sinsay, Big Star.">
 <meta name="author" content="Radosław Gorczyca">
@@ -141,6 +142,10 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+/* Firefox for iOS draws document content under its translucent status bar and URL bar.
+   There the page scrolls inside <body> instead, so nothing can scroll out into those areas. */
+html.fxios { height: 100%; overflow: hidden; }
+html.fxios body { height: 100%; overflow-y: auto; scroll-behavior: smooth; }
 body {
   margin: 0;
   background: var(--md-surface);
@@ -257,6 +262,22 @@ a { color: var(--md-primary); }
 .dest[aria-current="true"] .icon { font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24; }
 .rail-tools { margin-top: auto; display: grid; gap: 8px; justify-items: center; }
 .lang-btn { font: 500 .875rem/1 var(--md-font-brand); letter-spacing: .05em; color: var(--md-on-surface-variant); box-shadow: inset 0 0 0 1px var(--md-outline-variant); }
+
+/* Short screens (e.g. a phone in landscape): drop the rail FAB (the Email me FAB stays),
+   tighten spacing, and below 500px go icon-only so language and theme buttons stay on screen */
+@media (min-width: 840px) and (max-height: 600px) {
+  .rail {
+    gap: 12px; overflow-y: auto; scrollbar-width: none;
+    padding-top: calc(12px + env(safe-area-inset-top, 0px)); padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+  .rail .fab { display: none; }
+  .rail-items { gap: 8px; }
+  .rail-tools { gap: 4px; }
+}
+@media (min-width: 840px) and (max-height: 500px) {
+  .rail-items { gap: 8px; }
+  .dest { font-size: 0; line-height: 0; gap: 0; }
+}
 
 /* ---------- Top app bar + bottom nav bar (compact) ---------- */
 .topbar, .navbar { display: none; }
@@ -886,8 +907,9 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
 
   // Top app bar elevation on scroll
   var topbar = document.getElementById("topbar");
-  function onScroll() { topbar.classList.toggle("scrolled", window.scrollY > 4); }
-  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+  var bodyScroller = document.documentElement.classList.contains("fxios");
+  function onScroll() { topbar.classList.toggle("scrolled", (bodyScroller ? document.body.scrollTop : window.scrollY) > 4); }
+  (bodyScroller ? document.body : window).addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
   // Active destination follows the section in view
   var ids = ["about", "work", "experience", "skills", "education"];
