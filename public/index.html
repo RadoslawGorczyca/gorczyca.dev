@@ -424,22 +424,28 @@ footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12
 }
 @media (max-width: 839px) {
   .rail, .efab { display: none; }
+  /* Floating top app bar: a rounded bar with a gap around it, content scrolls past behind it */
   .topbar {
-    display: flex; align-items: center; gap: 8px; position: sticky; top: 0; z-index: 20;
-    height: calc(64px + env(safe-area-inset-top, 0px));
-    padding: env(safe-area-inset-top, 0px) max(8px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px));
-    background: var(--md-surface); transition: background-color .2s var(--md-ease);
+    display: flex; align-items: center; gap: 4px; position: sticky; z-index: 20;
+    top: calc(8px + env(safe-area-inset-top, 0px));
+    margin: calc(8px + env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) 0 max(12px, env(safe-area-inset-left, 0px));
+    height: 56px; padding: 0 8px 0 20px; border-radius: var(--md-shape-full);
+    background: color-mix(in srgb, var(--md-surface-container) 94%, transparent);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4);
+    transition: background-color .2s var(--md-ease), box-shadow .2s var(--md-ease);
   }
-  .topbar.scrolled { background: var(--md-surface-container); }
+  .topbar.scrolled {
+    background: color-mix(in srgb, var(--md-surface-container-high, var(--md-surface-container)) 94%, transparent);
+    box-shadow: 0 1px 3px var(--md-shadow), 0 4px 12px 2px color-mix(in srgb, var(--md-shadow) 30%, transparent);
+  }
   /* Firefox for iOS (and overscroll) shows page content in the inset areas above/below the viewport;
      extend the bars' backgrounds into them so nothing scrolls visibly behind the status bar or the URL bar */
-  .topbar::before, .navbar::after {
+  .navbar::after {
     content: ""; position: absolute; left: 0; right: 0; height: 120px;
     background: inherit; pointer-events: none;
   }
-  .topbar::before { bottom: 100%; }
   .navbar::after { top: 100%; }
-  .topbar .title-l { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .topbar .title-l { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 1.25rem; }
   .navbar {
     display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
     position: fixed; inset: auto 0 0 0; z-index: 20;
